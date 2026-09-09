@@ -25,14 +25,17 @@
     .card { background: white; margin-top: 15px; padding: 18px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
     .hidden { display: none; }
 
+    /* Menu Section Headers */
+    .menu-cat-title { font-size: 13px; font-weight: 700; color: #b45309; text-transform: uppercase; margin: 15px 0 6px 0; letter-spacing: 0.5px; border-bottom: 1px dashed #fcd34d; padding-bottom: 4px; }
+
     /* Food Menu Items */
-    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
     .menu-item:last-child { border-bottom: none; }
-    .item-title { font-weight: 600; font-size: 15px; }
-    .item-price { color: #d97706; font-size: 14px; font-weight: 700; margin-top: 2px; }
-    .qty-controls { display: flex; align-items: center; gap: 10px; }
-    .qty-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; font-weight: bold; cursor: pointer; }
-    .qty-text { font-weight: 600; min-width: 16px; text-align: center; }
+    .item-title { font-weight: 600; font-size: 14px; }
+    .item-price { color: #d97706; font-size: 13px; font-weight: 700; margin-top: 2px; }
+    .qty-controls { display: flex; align-items: center; gap: 8px; }
+    .qty-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+    .qty-text { font-weight: 600; min-width: 18px; text-align: center; }
 
     /* Form Fields */
     .form-group { margin-top: 14px; }
@@ -61,8 +64,34 @@
 
     <!-- FOOD SECTION -->
     <div id="foodSection" class="card">
-      <h3 style="margin-bottom: 12px; font-size: 16px;">मेनू चुनें</h3>
+      <h3 style="margin-bottom: 8px; font-size: 16px;">मेनू से आइटम चुनें</h3>
+
+      <div class="menu-cat-title">स्पेशल डिशेस & थाली</div>
       
+      <div class="menu-item">
+        <div>
+          <div class="item-title">छोले भटूरे (2 पीस)</div>
+          <div class="item-price">₹100</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('chholeBhature', -1)">-</button>
+          <span id="qty-chholeBhature" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('chholeBhature', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">मलाई चाप (फुल प्लेट)</div>
+          <div class="item-price">₹160</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('malaiChaap', -1)">-</button>
+          <span id="qty-malaiChaap" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('malaiChaap', 1)">+</button>
+        </div>
+      </div>
+
       <div class="menu-item">
         <div>
           <div class="item-title">शुद्ध सात्विक थाली</div>
@@ -96,6 +125,44 @@
           <button class="qty-btn" onclick="changeQty('pack', -1)">-</button>
           <span id="qty-pack" class="qty-text">0</span>
           <button class="qty-btn" onclick="changeQty('pack', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-cat-title">रोटी स्पेशल</div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">रूमाली रोटी</div>
+          <div class="item-price">₹15</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('rumaliRoti', -1)">-</button>
+          <span id="qty-rumaliRoti" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('rumaliRoti', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">तवा रोटी (देसी घी)</div>
+          <div class="item-price">₹10</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('tawaRoti', -1)">-</button>
+          <span id="qty-tawaRoti" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('tawaRoti', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">तंदूरी रोटी (मक्खन)</div>
+          <div class="item-price">₹12</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('tandoorRoti', -1)">-</button>
+          <span id="qty-tandoorRoti" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('tandoorRoti', 1)">+</button>
         </div>
       </div>
 
@@ -149,14 +216,29 @@
   </div>
 
   <script>
-    // आपका WhatsApp नंबर यहाँ डालें (91 कंट्री कोड के साथ)
+    // आपका WhatsApp नंबर
     const MY_WHATSAPP_NUMBER = "917037647464";
 
-    let quantities = { thali: 0, falahar: 0, pack: 0 };
+    let quantities = {
+      chholeBhature: 0,
+      malaiChaap: 0,
+      thali: 0,
+      falahar: 0,
+      pack: 0,
+      rumaliRoti: 0,
+      tawaRoti: 0,
+      tandoorRoti: 0
+    };
+
     const items = {
-      thali: { name: "शुद्ध सात्विक थाली (₹140)", price: 140 },
-      falahar: { name: "स्पेशल फलाहार थाली (₹180)", price: 180 },
-      pack: { name: "यात्रा पैक (₹100)", price: 100 }
+      chholeBhature: { name: "छोले भटूरे", price: 100 },
+      malaiChaap: { name: "मलाई चाप", price: 160 },
+      thali: { name: "शुद्ध सात्विक थाली", price: 140 },
+      falahar: { name: "स्पेशल फलाहार थाली", price: 180 },
+      pack: { name: "यात्रा पैक", price: 100 },
+      rumaliRoti: { name: "रूमाली रोटी", price: 15 },
+      tawaRoti: { name: "तवा रोटी", price: 10 },
+      tandoorRoti: { name: "तंदूरी रोटी", price: 12 }
     };
 
     function switchTab(type) {
@@ -190,7 +272,7 @@
       let total = 0;
       for (let k in quantities) {
         if (quantities[k] > 0) {
-          orderList.push(`${items[k].name} x ${quantities[k]}`);
+          orderList.push(`• ${items[k].name} (₹${items[k].price}) x ${quantities[k]} = ₹${items[k].price * quantities[k]}`);
           total += items[k].price * quantities[k];
         }
       }
@@ -204,8 +286,8 @@
         return;
       }
 
-      let msg = `*नया फ़ूड ऑर्डर (खाटू धाम)*\n\n` +
-                `*ऑर्डर आइटम:*\n${orderList.join('\n')}\n\n` +
+      let msg = `*🍲 नया फ़ूड ऑर्डर (खाटू धाम)*\n\n` +
+                `*ऑर्डर विवरण:*\n${orderList.join('\n')}\n\n` +
                 `*कुल बिल:* ₹${total}\n` +
                 `*डिलीवरी पता:* ${address}\n` +
                 `*कस्टमर नंबर:* ${phone}`;
@@ -224,7 +306,7 @@
         return;
       }
 
-      let msg = `*नई बाइक राइड बुकिंग*\n\n` +
+      let msg = `*🛵 नई बाइक राइड बुकिंग*\n\n` +
                 `*पिकअप पॉइंट:* ${pickup}\n` +
                 `*रूट:* ${route}\n` +
                 `*सवारी:* ${pass}\n` +
@@ -234,5 +316,5 @@
     }
   </script>
 </body>
-  </html>
-  
+      </html>
+      
