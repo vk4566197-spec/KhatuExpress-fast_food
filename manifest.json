@@ -1,0 +1,15 @@
+{
+  "name": "Khatu Express - Food & Bike",
+  "short_name": "KhatuExpress",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
