@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#d97706">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>खाटू सेवा - फ़ूड & बाइक राइड</title>
@@ -315,6 +319,12 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
   </script>
+    <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+    </script>
+  
 </body>
       </html>
       
