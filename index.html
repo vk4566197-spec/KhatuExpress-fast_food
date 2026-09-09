@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>खाटू सेवा - फ़ूड & बाइक राइड</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f8fafc; color: #1e293b; padding-bottom: 30px; }
+    
+    /* Header */
+    .header { background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; }
+    .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .header p { font-size: 13px; opacity: 0.9; }
+
+    /* Container */
+    .container { max-width: 480px; margin: -15px auto 0; padding: 0 15px; }
+
+    /* Tabs */
+    .tabs { display: flex; background: white; border-radius: 12px; padding: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 8px; }
+    .tab-btn { flex: 1; border: none; padding: 12px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
+    .tab-btn.active { background: #f59e0b; color: white; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+
+    /* Section Cards */
+    .card { background: white; margin-top: 15px; padding: 18px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+    .hidden { display: none; }
+
+    /* Food Menu Items */
+    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+    .menu-item:last-child { border-bottom: none; }
+    .item-title { font-weight: 600; font-size: 15px; }
+    .item-price { color: #d97706; font-size: 14px; font-weight: 700; margin-top: 2px; }
+    .qty-controls { display: flex; align-items: center; gap: 10px; }
+    .qty-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; font-weight: bold; cursor: pointer; }
+    .qty-text { font-weight: 600; min-width: 16px; text-align: center; }
+
+    /* Form Fields */
+    .form-group { margin-top: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; }
+    input:focus, select:focus { border-color: #f59e0b; }
+
+    /* Action Button */
+    .submit-btn { width: 100%; margin-top: 20px; background: #16a34a; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .submit-btn:hover { background: #15803d; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🚩 खाटू श्याम सेवा केंद्र</h1>
+    <p>शुद्ध सात्विक भोजन & तेज बाइक राइड सेवा</p>
+  </div>
+
+  <div class="container">
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('food')">🍲 खाना मंगवाएं</button>
+      <button class="tab-btn" onclick="switchTab('ride')">🛵 बाइक बुक करें</button>
+    </div>
+
+    <!-- FOOD SECTION -->
+    <div id="foodSection" class="card">
+      <h3 style="margin-bottom: 12px; font-size: 16px;">मेनू चुनें</h3>
+      
+      <div class="menu-item">
+        <div>
+          <div class="item-title">शुद्ध सात्विक थाली</div>
+          <div class="item-price">₹140</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('thali', -1)">-</button>
+          <span id="qty-thali" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('thali', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">स्पेशल फलाहार / व्रत थाली</div>
+          <div class="item-price">₹180</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('falahar', -1)">-</button>
+          <span id="qty-falahar" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('falahar', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div>
+          <div class="item-title">यात्रा पैक (पूरी-सब्जी-अचार)</div>
+          <div class="item-price">₹100</div>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty('pack', -1)">-</button>
+          <span id="qty-pack" class="qty-text">0</span>
+          <button class="qty-btn" onclick="changeQty('pack', 1)">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>होटल/धर्मशाला का नाम और रूम नंबर</label>
+        <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, रूम 204">
+      </div>
+
+      <div class="form-group">
+        <label>मोबाइल नंबर</label>
+        <input type="tel" id="foodPhone" placeholder="10 डिजिट का मोबाइल नंबर">
+      </div>
+
+      <button class="submit-btn" onclick="sendFoodOrder()">WhatsApp पर ऑर्डर भेजें</button>
+    </div>
+
+    <!-- BIKE RIDE SECTION -->
+    <div id="rideSection" class="card hidden">
+      <h3 style="margin-bottom: 12px; font-size: 16px;">राइड विवरण</h3>
+
+      <div class="form-group" style="margin-top: 0;">
+        <label>कहाँ से (Pickup Point)</label>
+        <input type="text" id="pickupLoc" placeholder="उदा. तोरण द्वार / होटल का नाम">
+      </div>
+
+      <div class="form-group">
+        <label>कहाँ तक (Drop Route)</label>
+        <select id="dropRoute">
+          <option value="पार्किंग ↔ मंदिर (₹40)">कार पार्किंग ↔ मंदिर बैरिकेड्स (₹40)</option>
+          <option value="होटल ↔ मंदिर (₹50)">होटल/धर्मशाला ↔ मंदिर (₹50)</option>
+          <option value="रींगस स्टेशन ↔ खाटू (₹180)">रींगस स्टेशन ↔ खाटू धाम (₹180)</option>
+          <option value="अन्य लोकल रूट (₹50)">अन्य लोकल लोकेशन (₹50)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>सवारी की संख्या</label>
+        <select id="passengerCount">
+          <option value="1 व्यक्ति (1 बाइक)">1 व्यक्ति (1 बाइक)</option>
+          <option value="2 व्यक्ति (2 बाइक)">2 व्यक्ति (2 बाइक)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>मोबाइल नंबर</label>
+        <input type="tel" id="ridePhone" placeholder="10 डिजिट का मोबाइल नंबर">
+      </div>
+
+      <button class="submit-btn" onclick="sendRideBooking()">बाइक राइड कन्फर्म करें</button>
+    </div>
+  </div>
+
+  <script>
+    // आपका WhatsApp नंबर यहाँ डालें (91 कंट्री कोड के साथ)
+    const MY_WHATSAPP_NUMBER = "917037647464";
+
+    let quantities = { thali: 0, falahar: 0, pack: 0 };
+    const items = {
+      thali: { name: "शुद्ध सात्विक थाली (₹140)", price: 140 },
+      falahar: { name: "स्पेशल फलाहार थाली (₹180)", price: 180 },
+      pack: { name: "यात्रा पैक (₹100)", price: 100 }
+    };
+
+    function switchTab(type) {
+      const foodSec = document.getElementById('foodSection');
+      const rideSec = document.getElementById('rideSection');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      if(type === 'food') {
+        foodSec.classList.remove('hidden');
+        rideSec.classList.add('hidden');
+        buttons[0].classList.add('active');
+        buttons[1].classList.remove('active');
+      } else {
+        foodSec.classList.add('hidden');
+        rideSec.classList.remove('hidden');
+        buttons[1].classList.add('active');
+        buttons[0].classList.remove('active');
+      }
+    }
+
+    function changeQty(key, change) {
+      quantities[key] = Math.max(0, quantities[key] + change);
+      document.getElementById(`qty-${key}`).innerText = quantities[key];
+    }
+
+    function sendFoodOrder() {
+      const address = document.getElementById('foodAddress').value.trim();
+      const phone = document.getElementById('foodPhone').value.trim();
+
+      let orderList = [];
+      let total = 0;
+      for (let k in quantities) {
+        if (quantities[k] > 0) {
+          orderList.push(`${items[k].name} x ${quantities[k]}`);
+          total += items[k].price * quantities[k];
+        }
+      }
+
+      if (orderList.length === 0) {
+        alert("कृपया कम से कम 1 आइटम चुनें।");
+        return;
+      }
+      if (!address || !phone) {
+        alert("कृपया होटल का पता और मोबाइल नंबर दर्ज करें।");
+        return;
+      }
+
+      let msg = `*नया फ़ूड ऑर्डर (खाटू धाम)*\n\n` +
+                `*ऑर्डर आइटम:*\n${orderList.join('\n')}\n\n` +
+                `*कुल बिल:* ₹${total}\n` +
+                `*डिलीवरी पता:* ${address}\n` +
+                `*कस्टमर नंबर:* ${phone}`;
+
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function sendRideBooking() {
+      const pickup = document.getElementById('pickupLoc').value.trim();
+      const route = document.getElementById('dropRoute').value;
+      const pass = document.getElementById('passengerCount').value;
+      const phone = document.getElementById('ridePhone').value.trim();
+
+      if (!pickup || !phone) {
+        alert("कृपया पिकअप पॉइंट और मोबाइल नंबर भरें।");
+        return;
+      }
+
+      let msg = `*नई बाइक राइड बुकिंग*\n\n` +
+                `*पिकअप पॉइंट:* ${pickup}\n` +
+                `*रूट:* ${route}\n` +
+                `*सवारी:* ${pass}\n` +
+                `*कस्टमर नंबर:* ${phone}`;
+
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  </script>
+</body>
+  </html>
+  
