@@ -6,7 +6,7 @@
   <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>खाटू सेवा - फ़ूड & बाइक राइड</title>
+  <title>खाटू सेवा - फ़ूड, राइड & होटल बुकिंग</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #f8fafc; color: #1e293b; padding-bottom: 40px; overflow-x: hidden; }
@@ -22,6 +22,12 @@
     
     .header h1 { font-size: 20px; font-weight: 700; }
     .header p { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+
+    /* Open/Close Status Pill */
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 8px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-open { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+    .dot-closed { background: #f87171; }
 
     /* Sliding Drawer / Sidebar */
     .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s ease; }
@@ -43,9 +49,15 @@
     /* Main Container */
     .container { max-width: 480px; margin: -15px auto 0; padding: 0 15px; }
 
-    /* Tabs */
-    .tabs { display: flex; background: white; border-radius: 12px; padding: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 8px; }
-    .tab-btn { flex: 1; border: none; padding: 12px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
+    /* Special Offer / Discount Banner */
+    .offer-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1.5px dashed #f59e0b; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15); }
+    .offer-icon { font-size: 26px; }
+    .offer-content h4 { font-size: 13px; font-weight: 700; color: #b45309; }
+    .offer-content p { font-size: 11px; color: #78350f; margin-top: 2px; }
+
+    /* 3-Tab Bar */
+    .tabs { display: flex; background: white; border-radius: 12px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; }
+    .tab-btn { flex: 1; border: none; padding: 10px 4px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; text-align: center; }
     .tab-btn.active { background: #f59e0b; color: white; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
 
     /* Section Cards */
@@ -79,6 +91,10 @@
     .qr-container img { width: 180px; height: 180px; border-radius: 8px; background: white; padding: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .upi-pay-btn { display: inline-block; margin-top: 10px; background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; }
 
+    /* Hotel Feature Badges */
+    .badge-grid { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
+    .feature-tag { background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 6px; }
+
     /* Form Fields */
     .form-group { margin-top: 14px; }
     label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
@@ -86,7 +102,7 @@
     input:focus, select:focus { border-color: #f59e0b; }
 
     /* Action Button */
-    .submit-btn { width: 100%; margin-top: 18px; background: #16a34a; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .submit-btn { width: 100%; margin-top: 18px; background: #16a34a; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
     .submit-btn:hover { background: #15803d; }
   </style>
 </head>
@@ -100,6 +116,7 @@
     <div class="sidebar-header">
       <div class="sb-brand">🚩 खाटू एक्सप्रेस</div>
       <div class="sb-sub">
+        <strong>सेवा समय:</strong> 6:00 AM से 11:30 PM<br>
         <strong>सर्विस केंद्र:</strong> खाटू धाम मेन मार्केट<br>
         <strong>हेल्पलाइन:</strong> +91 70376 47464
       </div>
@@ -107,17 +124,18 @@
     <ul class="sidebar-menu">
       <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span>खाना मंगवाएं</span></a></li>
       <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span>बाइक राइड बुक करें</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('hotel');">🏨 <span>होटल / धर्मशाला रूम</span></a></li>
       <li><a href="https://wa.me/917037647464?text=Hello,%20mujhe%20rider/delivery%20partner%20banna%20hai" target="_blank">🤝 <span>राइडर/पार्टनर बनें</span> <span class="badge">Join</span></a></li>
       <li><a href="tel:7037647464">📞 <span>सीधे कॉल करें</span></a></li>
       <li><a href="https://wa.me/917037647464?text=Mujhe%20hotel/dharamshala%20tie-up%20karna%20hai" target="_blank">🏨 <span>होटल / धर्मशाला टाई-अप</span></a></li>
-      <li><a href="#" onclick="alert('खाटू श्याम धाम के यात्रियों के लिए शुद्ध सात्विक भोजन और त्वरित बाइक टैक्सी सेवा।'); toggleSidebar();">ℹ️ <span>हमारे बारे में (About Us)</span></a></li>
+      <li><a href="#" onclick="alert('खाटू धाम में कमरे तक शुद्ध सात्विक भोजन, त्वरित बाइक टैक्सी और भरोसेमंद होटल बुकिंग सेवा।'); toggleSidebar();">ℹ️ <span>हमारे बारे में (About Us)</span></a></li>
     </ul>
     <div class="sidebar-footer">
       खाटू श्याम सेवा v1.0.0
     </div>
   </div>
 
-  <!-- Header with Center Logo -->
+  <!-- Header with Center Logo & Live Status -->
   <div class="header">
     <div class="top-nav">
       <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Menu">☰</button>
@@ -127,17 +145,34 @@
     <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
     
     <h1>🚩 खाटू श्याम सेवा केंद्र</h1>
-    <p>शुद्ध सात्विक भोजन & तेज बाइक राइड सेवा</p>
+    <p>सात्विक भोजन, बाइक टैक्सी & होटल सेवा</p>
+
+    <!-- Auto Open/Close Timing Pill -->
+    <div class="status-pill">
+      <span id="statusDot" class="status-dot dot-open"></span>
+      <span id="statusText">समय: सुबह 6:00 - रात 11:30 (खुला है)</span>
+    </div>
   </div>
 
   <div class="container">
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('food')">🍲 खाना मंगवाएं</button>
-      <button class="tab-btn" onclick="switchTab('ride')">🛵 बाइक बुक करें</button>
+    
+    <!-- Special Offer / Discount Banner -->
+    <div class="offer-banner">
+      <div class="offer-icon">🎉</div>
+      <div class="offer-content">
+        <h4>श्याम बाबा स्पेशल महा-ऑफर!</h4>
+        <p>होटल/धर्मशाला में मंगवाएं <strong>फ्री डिलीवरी</strong> के साथ। शुद्ध और ताजा भोजन की गारंटी!</p>
+      </div>
     </div>
 
-    <!-- FOOD SECTION -->
+    <!-- 3 Tabs Navigation -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('food')">🍲 खाना</button>
+      <button class="tab-btn" onclick="switchTab('ride')">🛵 बाइक राइड</button>
+      <button class="tab-btn" onclick="switchTab('hotel')">🏨 होटल/रूम</button>
+    </div>
+
+    <!-- 1. FOOD SECTION -->
     <div id="foodSection" class="card">
       <h3 style="margin-bottom: 8px; font-size: 16px;">मेनू से आइटम चुनें</h3>
 
@@ -252,10 +287,10 @@
         <label>पेमेंट का तरीका चुनें:</label>
         <div class="pay-methods">
           <div id="method-upi" class="pay-method-card selected" onclick="selectPaymentMethod('upi')">
-            📱 ऑनलाइन UPI (GPay/PhonePe)
+            📱 ऑनलाइन UPI
           </div>
           <div id="method-cod" class="pay-method-card" onclick="selectPaymentMethod('cod')">
-            💵 कैश ऑन डिलीवरी (COD)
+            💵 कैश ऑन डिलीवरी
           </div>
         </div>
       </div>
@@ -267,7 +302,7 @@
         </p>
         <img id="upiQrImg" src="" alt="UPI QR Code">
         <div style="margin-top: 8px;">
-          <a id="upiDeepLink" href="#" class="upi-pay-btn">📲 GPay / PhonePe / Paytm से पे करें</a>
+          <a id="upiDeepLink" href="#" class="upi-pay-btn">📲 GPay / PhonePe से पे करें</a>
         </div>
         <p style="font-size: 11px; color: #64748b; margin-top: 6px;">पेमेंट करने के बाद नीचे व्हाट्सएप बटन दबाएं</p>
       </div>
@@ -285,7 +320,7 @@
       <button class="submit-btn" onclick="sendFoodOrder()">WhatsApp पर ऑर्डर भेजें</button>
     </div>
 
-    <!-- BIKE RIDE SECTION -->
+    <!-- 2. BIKE RIDE SECTION -->
     <div id="rideSection" class="card hidden">
       <h3 style="margin-bottom: 12px; font-size: 16px;">राइड विवरण</h3>
 
@@ -319,163 +354,63 @@
 
       <button class="submit-btn" onclick="sendRideBooking()">बाइक राइड कन्फर्म करें</button>
     </div>
+
+    <!-- 3. HOTEL / DHARAMSHALA BOOKING SECTION -->
+    <div id="hotelSection" class="card hidden">
+      <h3 style="margin-bottom: 8px; font-size: 16px;">होटल / धर्मशाला रूम बुकिंग</h3>
+      <p style="font-size: 12px; color: #64748b;">मंदिर के नजदीक साफ-सुथरे और बजट रूम बुक करें।</p>
+
+      <div class="badge-grid">
+        <span class="feature-tag">✨ मंदिर के पास</span>
+        <span class="feature-tag">❄️ AC / Non-AC</span>
+        <span class="feature-tag">🚿 24/7 गर्म पानी</span>
+        <span class="feature-tag">📶 फ़्री WiFi</span>
+      </div>
+
+      <div class="form-group">
+        <label>कमरे का प्रकार चुनें</label>
+        <select id="hotelRoomType">
+          <option value="बजट नॉन-एसी रूम (₹600 - ₹900/दिन)">बजट नॉन-एसी रूम (₹600 - ₹900)</option>
+          <option value="डीलक्स एसी रूम (₹1200 - ₹1600/दिन)">डीलक्स एसी रूम (₹1200 - ₹1600)</option>
+          <option value="सुपर डीलक्स फैमिली रूम 4 बेड (₹1800 - ₹2400/दिन)">फैमिली रूम 4-बेड (₹1800 - ₹2400)</option>
+          <option value="धर्मशाला हॉल / ग्रुप स्टे">धर्मशाला ग्रुप स्टे</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>चेक-इन तारीख (Check-in Date)</label>
+        <input type="date" id="hotelCheckIn">
+      </div>
+
+      <div class="form-group">
+        <label>यात्रियों की कुल संख्या</label>
+        <input type="number" id="hotelGuests" placeholder="उदा. 2 व्यक्ति, 1 बच्चा">
+      </div>
+
+      <div class="form-group">
+        <label>आपका नाम</label>
+        <input type="text" id="hotelName" placeholder="पूरा नाम दर्ज करें">
+      </div>
+
+      <div class="form-group">
+        <label>मोबाइल नंबर</label>
+        <input type="tel" id="hotelPhone" placeholder="10 डिजिट का मोबाइल नंबर">
+      </div>
+
+      <button class="submit-btn" onclick="sendHotelBooking()">होटल रूम बुकिंग के लिए पूछताछ करें</button>
+    </div>
+
   </div>
 
   <script>
     // आपका WhatsApp और UPI विवरण
     const MY_WHATSAPP_NUMBER = "917037647464";
-    const MY_UPI_ID = "7037647464-3@axl"; // <-- अपनी असली UPI ID यहाँ चेक/अपडेट करें
+    const MY_UPI_ID = "7037647464@ybl"; // <-- अपनी असली UPI ID यहाँ लिखें
     const MY_PAYEE_NAME = "Khatu Express";
 
     let selectedPayment = "upi";
 
+    // Drawer / Sidebar
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
-    }
-
-    let quantities = {
-      chholeBhature: 0,
-      malaiChaap: 0,
-      thali: 0,
-      falahar: 0,
-      pack: 0,
-      rumaliRoti: 0,
-      tawaRoti: 0,
-      tandoorRoti: 0
-    };
-
-    const items = {
-      chholeBhature: { name: "छोले भटूरे", price: 100 },
-      malaiChaap: { name: "मलाई चाप", price: 160 },
-      thali: { name: "शुद्ध सात्विक थाली", price: 140 },
-      falahar: { name: "स्पेशल फलाहार थाली", price: 180 },
-      pack: { name: "यात्रा पैक", price: 100 },
-      rumaliRoti: { name: "रूमाली रोटी", price: 15 },
-      tawaRoti: { name: "तवा रोटी", price: 10 },
-      tandoorRoti: { name: "तंदूरी रोटी", price: 12 }
-    };
-
-    function switchTab(type) {
-      const foodSec = document.getElementById('foodSection');
-      const rideSec = document.getElementById('rideSection');
-      const buttons = document.querySelectorAll('.tab-btn');
-
-      if(type === 'food') {
-        foodSec.classList.remove('hidden');
-        rideSec.classList.add('hidden');
-        buttons[0].classList.add('active');
-        buttons[1].classList.remove('active');
-      } else {
-        foodSec.classList.add('hidden');
-        rideSec.classList.remove('hidden');
-        buttons[1].classList.add('active');
-        buttons[0].classList.remove('active');
-      }
-    }
-
-    function calculateTotal() {
-      let total = 0;
-      for (let k in quantities) {
-        total += items[k].price * quantities[k];
-      }
-      return total;
-    }
-
-    function updatePaymentUI() {
-      const total = calculateTotal();
-      document.getElementById('totalBill').innerText = total;
-      document.getElementById('qrAmountText').innerText = total;
-
-      const qrSection = document.getElementById('qrSection');
-
-      if (selectedPayment === 'upi' && total > 0) {
-        qrSection.style.display = "block";
-        // UPI Intent URL with Exact Amount
-        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${total}&cu=INR&tn=KhatuExpressOrder`;
-        // Dynamic QR code generated via free public API
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
-        
-        document.getElementById('upiQrImg').src = qrUrl;
-        document.getElementById('upiDeepLink').href = upiString;
-      } else {
-        qrSection.style.display = "none";
-      }
-    }
-
-    function changeQty(key, change) {
-      quantities[key] = Math.max(0, quantities[key] + change);
-      document.getElementById(`qty-${key}`).innerText = quantities[key];
-      updatePaymentUI();
-    }
-
-    function selectPaymentMethod(method) {
-      selectedPayment = method;
-      document.getElementById('method-upi').classList.toggle('selected', method === 'upi');
-      document.getElementById('method-cod').classList.toggle('selected', method === 'cod');
-      updatePaymentUI();
-    }
-
-    function sendFoodOrder() {
-      const address = document.getElementById('foodAddress').value.trim();
-      const phone = document.getElementById('foodPhone').value.trim();
-      const total = calculateTotal();
-
-      let orderList = [];
-      for (let k in quantities) {
-        if (quantities[k] > 0) {
-          orderList.push(`• ${items[k].name} (₹${items[k].price}) x ${quantities[k]} = ₹${items[k].price * quantities[k]}`);
-        }
-      }
-
-      if (orderList.length === 0) {
-        alert("कृपया कम से कम 1 आइटम चुनें।");
-        return;
-      }
-      if (!address || !phone) {
-        alert("कृपया होटल का पता और मोबाइल नंबर दर्ज करें।");
-        return;
-      }
-
-      const payModeText = selectedPayment === 'upi' ? 'ऑनलाइन UPI (QR / Apps)' : 'कैश ऑन डिलीवरी (COD)';
-
-      let msg = `*🍲 नया फ़ूड ऑर्डर (खाटू एक्सप्रेस)*\n\n` +
-                `*ऑर्डर विवरण:*\n${orderList.join('\n')}\n\n` +
-                `*कुल बिल:* ₹${total}\n` +
-                `*पेमेंट माध्यम:* ${payModeText}\n` +
-                `*डिलीवरी पता:* ${address}\n` +
-                `*कस्टमर नंबर:* ${phone}`;
-
-      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function sendRideBooking() {
-      const pickup = document.getElementById('pickupLoc').value.trim();
-      const route = document.getElementById('dropRoute').value;
-      const pass = document.getElementById('passengerCount').value;
-      const phone = document.getElementById('ridePhone').value.trim();
-
-      if (!pickup || !phone) {
-        alert("कृपया पिकअप पॉइंट और मोबाइल नंबर भरें।");
-        return;
-      }
-
-      let msg = `*🛵 नई बाइक राइड बुकिंग*\n\n` +
-                `*पिकअप पॉइंट:* ${pickup}\n` +
-                `*रूट:* ${route}\n` +
-                `*सवारी:* ${pass}\n` +
-                `*कस्टमर नंबर:* ${phone}`;
-
-      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    // Initial check
-    updatePaymentUI();
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
-  </script>
-</body>
-</html>
+      document.getElementById('overlay').
