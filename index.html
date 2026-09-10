@@ -95,6 +95,9 @@
     .badge-grid { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
     .feature-tag { background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 6px; }
 
+    /* Location Notice Box */
+    .location-info { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-size: 12px; color: #1e40af; line-height: 1.4; }
+
     /* Form Fields */
     .form-group { margin-top: 14px; }
     label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
@@ -117,7 +120,7 @@
       <div class="sb-brand">🚩 खाटू एक्सप्रेस</div>
       <div class="sb-sub">
         <strong>सेवा समय:</strong> 6:00 AM से 11:30 PM<br>
-        <strong>सर्विस केंद्र:</strong> खाटू धाम मेन मार्केट<br>
+        <strong>सर्विस केंद्र:</strong> तोरण द्वार मेन मार्केट, खाटू श्याम जी<br>
         <strong>हेल्पलाइन:</strong> +91 70376 47464
       </div>
     </div>
@@ -169,7 +172,7 @@
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('food')">🍲 खाना</button>
       <button class="tab-btn" onclick="switchTab('ride')">🛵 बाइक राइड</button>
-      <button class="tab-btn" onclick="switchTab('hotel')">🏨 होटल/रूम</button>
+      <button class="tab-btn" onclick="switchTab('hotel')">🏨 होटल/धर्मशाला</button>
     </div>
 
     <!-- 1. FOOD SECTION -->
@@ -357,11 +360,15 @@
 
     <!-- 3. HOTEL / DHARAMSHALA BOOKING SECTION -->
     <div id="hotelSection" class="card hidden">
-      <h3 style="margin-bottom: 8px; font-size: 16px;">होटल / धर्मशाला रूम बुकिंग</h3>
-      <p style="font-size: 12px; color: #64748b;">मंदिर के नजदीक साफ-सुथरे और बजट रूम बुक करें।</p>
+      <h3 style="margin-bottom: 6px; font-size: 16px;">🏨 होटल / धर्मशाला रूम बुकिंग</h3>
+      <p style="font-size: 12px; color: #64748b;">खाटू श्याम मंदिर परिक्रमा व मुख्य तोरण द्वार के निकट शुद्ध वातावरण।</p>
+
+      <div class="location-info">
+        📍 <strong>लोकेशन एड्रेस:</strong> मुख्य मंदिर मार्ग, तोरण द्वार रोड व मेला ग्राउंड के समीप, खाटू धाम (सीकर)
+      </div>
 
       <div class="badge-grid">
-        <span class="feature-tag">✨ मंदिर के पास</span>
+        <span class="feature-tag">✨ मंदिर से 2-5 मिनट दूरी</span>
         <span class="feature-tag">❄️ AC / Non-AC</span>
         <span class="feature-tag">🚿 24/7 गर्म पानी</span>
         <span class="feature-tag">📶 फ़्री WiFi</span>
@@ -373,8 +380,13 @@
           <option value="बजट नॉन-एसी रूम (₹600 - ₹900/दिन)">बजट नॉन-एसी रूम (₹600 - ₹900)</option>
           <option value="डीलक्स एसी रूम (₹1200 - ₹1600/दिन)">डीलक्स एसी रूम (₹1200 - ₹1600)</option>
           <option value="सुपर डीलक्स फैमिली रूम 4 बेड (₹1800 - ₹2400/दिन)">फैमिली रूम 4-बेड (₹1800 - ₹2400)</option>
-          <option value="धर्मशाला हॉल / ग्रुप स्टे">धर्मशाला ग्रुप स्टे</option>
+          <option value="धर्मशाला हॉल / ग्रुप स्टे (बजट स्टे)">धर्मशाला हॉल / ग्रुप स्टे</option>
         </select>
+      </div>
+
+      <div class="form-group">
+        <label>पसंदीदा धर्मशाला/होटल या एरिया (Address / Landmark)</label>
+        <input type="text" id="hotelAddressPref" placeholder="उदा. तोरण द्वार के पास / चरणामृत कुंड रोड / कोई पसंदीदा धर्मशाला">
       </div>
 
       <div class="form-group">
@@ -405,7 +417,7 @@
   <script>
     // आपका WhatsApp और UPI विवरण
     const MY_WHATSAPP_NUMBER = "917037647464";
-    const MY_UPI_ID = "7037647464@ybl"; // <-- अपनी असली UPI ID यहाँ लिखें
+    const MY_UPI_ID = "7037647464@ybl"; // <-- अपनी असली UPI ID यहाँ चेक करें
     const MY_PAYEE_NAME = "Khatu Express";
 
     let selectedPayment = "upi";
@@ -413,4 +425,203 @@
     // Drawer / Sidebar
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    // Live Store Timing Check (6:00 AM - 11:30 PM)
+    function checkStoreTiming() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const currentTimeInMins = hours * 60 + minutes;
+
+      const openTime = 6 * 60; // 6:00 AM
+      const closeTime = 23 * 60 + 30; // 11:30 PM
+
+      const dot = document.getElementById('statusDot');
+      const text = document.getElementById('statusText');
+
+      if (currentTimeInMins >= openTime && currentTimeInMins <= closeTime) {
+        dot.className = "status-dot dot-open";
+        text.innerText = "समय: 6:00 AM - 11:30 PM (खुला है)";
+      } else {
+        dot.className = "status-dot dot-closed";
+        text.innerText = "अभी बंद है (सुबह 6:00 बजे खुलेगा)";
+      }
+    }
+    checkStoreTiming();
+
+    let quantities = {
+      chholeBhature: 0,
+      malaiChaap: 0,
+      thali: 0,
+      falahar: 0,
+      pack: 0,
+      rumaliRoti: 0,
+      tawaRoti: 0,
+      tandoorRoti: 0
+    };
+
+    const items = {
+      chholeBhature: { name: "छोले भटूरे", price: 100 },
+      malaiChaap: { name: "मलाई चाप", price: 160 },
+      thali: { name: "शुद्ध सात्विक थाली", price: 140 },
+      falahar: { name: "स्पेशल फलाहार थाली", price: 180 },
+      pack: { name: "यात्रा पैक", price: 100 },
+      rumaliRoti: { name: "रूमाली रोटी", price: 15 },
+      tawaRoti: { name: "तवा रोटी", price: 10 },
+      tandoorRoti: { name: "तंदूरी रोटी", price: 12 }
+    };
+
+    // 3-Way Tab Switcher
+    function switchTab(type) {
+      const foodSec = document.getElementById('foodSection');
+      const rideSec = document.getElementById('rideSection');
+      const hotelSec = document.getElementById('hotelSection');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      foodSec.classList.add('hidden');
+      rideSec.classList.add('hidden');
+      hotelSec.classList.add('hidden');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      if(type === 'food') {
+        foodSec.classList.remove('hidden');
+        buttons[0].classList.add('active');
+      } else if(type === 'ride') {
+        rideSec.classList.remove('hidden');
+        buttons[1].classList.add('active');
+      } else if(type === 'hotel') {
+        hotelSec.classList.remove('hidden');
+        buttons[2].classList.add('active');
+      }
+    }
+
+    function calculateTotal() {
+      let total = 0;
+      for (let k in quantities) {
+        total += items[k].price * quantities[k];
+      }
+      return total;
+    }
+
+    function updatePaymentUI() {
+      const total = calculateTotal();
+      document.getElementById('totalBill').innerText = total;
+      document.getElementById('qrAmountText').innerText = total;
+
+      const qrSection = document.getElementById('qrSection');
+
+      if (selectedPayment === 'upi' && total > 0) {
+        qrSection.style.display = "block";
+        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${total}&cu=INR&tn=KhatuExpressOrder`;
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
+        
+        document.getElementById('upiQrImg').src = qrUrl;
+        document.getElementById('upiDeepLink').href = upiString;
+      } else {
+        qrSection.style.display = "none";
+      }
+    }
+
+    function changeQty(key, change) {
+      quantities[key] = Math.max(0, quantities[key] + change);
+      document.getElementById(`qty-${key}`).innerText = quantities[key];
+      updatePaymentUI();
+    }
+
+    function selectPaymentMethod(method) {
+      selectedPayment = method;
+      document.getElementById('method-upi').classList.toggle('selected', method === 'upi');
+      document.getElementById('method-cod').classList.toggle('selected', method === 'cod');
+      updatePaymentUI();
+    }
+
+    function sendFoodOrder() {
+      const address = document.getElementById('foodAddress').value.trim();
+      const phone = document.getElementById('foodPhone').value.trim();
+      const total = calculateTotal();
+
+      let orderList = [];
+      for (let k in quantities) {
+        if (quantities[k] > 0) {
+          orderList.push(`• ${items[k].name} (₹${items[k].price}) x ${quantities[k]} = ₹${items[k].price * quantities[k]}`);
+        }
+      }
+
+      if (orderList.length === 0) {
+        alert("कृपया कम से कम 1 आइटम चुनें।");
+        return;
+      }
+      if (!address || !phone) {
+        alert("कृपया होटल का पता और मोबाइल नंबर दर्ज करें।");
+        return;
+      }
+
+      const payModeText = selectedPayment === 'upi' ? 'ऑनलाइन UPI (QR / Apps)' : 'कैश ऑन डिलीवरी (COD)';
+
+      let msg = `*🍲 नया फ़ूड ऑर्डर (खाटू एक्सप्रेस)*\n\n` +
+                `*ऑर्डर विवरण:*\n${orderList.join('\n')}\n\n` +
+                `*कुल बिल:* ₹${total}\n` +
+                `*पेमेंट माध्यम:* ${payModeText}\n` +
+                `*डिलीवरी पता:* ${address}\n` +
+                `*कस्टमर नंबर:* ${phone}`;
+
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function sendRideBooking() {
+      const pickup = document.getElementById('pickupLoc').value.trim();
+      const route = document.getElementById('dropRoute').value;
+      const pass = document.getElementById('passengerCount').value;
+      const phone = document.getElementById('ridePhone').value.trim();
+
+      if (!pickup || !phone) {
+        alert("कृपया पिकअप पॉइंट और मोबाइल नंबर भरें।");
+        return;
+      }
+
+      let msg = `*🛵 नई बाइक राइड बुकिंग*\n\n` +
+                `*पिकअप पॉइंट:* ${pickup}\n` +
+                `*रूट:* ${route}\n` +
+                `*सवारी:* ${pass}\n` +
+                `*कस्टमर नंबर:* ${phone}`;
+
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function sendHotelBooking() {
+      const roomType = document.getElementById('hotelRoomType').value;
+      const addressPref = document.getElementById('hotelAddressPref').value.trim();
+      const checkIn = document.getElementById('hotelCheckIn').value;
+      const guests = document.getElementById('hotelGuests').value.trim();
+      const name = document.getElementById('hotelName').value.trim();
+      const phone = document.getElementById('hotelPhone').value.trim();
+
+      if (!checkIn || !name || !phone) {
+        alert("कृपया चेक-इन तारीख, अपना नाम और मोबाइल नंबर भरें।");
+        return;
+      }
+
+      let msg = `*🏨 नई होटल / धर्मशाला बुकिंग पूछताछ*\n\n` +
+                `*नाम:* ${name}\n` +
+                `*मोबाइल नंबर:* ${phone}\n` +
+                `*कमरे का प्रकार:* ${roomType}\n` +
+                `*पसंदीदा लोकेशन / धर्मशाला:* ${addressPref || 'मंदिर के नजदीक'}\n` +
+                `*चेक-इन तारीख:* ${checkIn}\n` +
+                `*यात्रियों की संख्या:* ${guests || 'उल्लेखित नहीं'}`;
+
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Default load
+    updatePaymentUI();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>
