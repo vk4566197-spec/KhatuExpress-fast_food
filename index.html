@@ -6,7 +6,7 @@
   <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>खाटू एक्सप्रेस - Khatu Express</title>
+  <title>खाटू फ़ूड एक्सप्रेस - Khatoo Food Express</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: #fdfbf7; color: #1e293b; padding-bottom: 50px; overflow-x: hidden; }
@@ -28,7 +28,7 @@
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(234, 88, 12, 0.8) 100%);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(234, 88, 12, 0.82) 100%);
       z-index: 1;
     }
     .header-content { position: relative; z-index: 2; }
@@ -39,28 +39,29 @@
     .lang-btn { background: rgba(255, 255, 255, 0.25); color: white; border: 1.5px solid white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); }
     .sos-badge { background: #ef4444; color: white; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; text-decoration: none; }
 
-    /* Stylish & Enlarged 3D Logo */
+    /* 4x4 Square Stylish 3D Logo */
     .brand-logo-container {
       position: relative;
       display: inline-block;
       margin-bottom: 6px;
     }
     .brand-logo { 
-      width: 92px; 
-      height: 92px; 
-      border-radius: 50%; 
+      width: 110px; 
+      height: 110px; 
+      border-radius: 20px; 
       border: 4px solid #ffffff; 
-      object-fit: cover; 
+      object-fit: contain; 
       display: block; 
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35), 0 0 15px rgba(251, 191, 36, 0.6); 
+      box-shadow: 0 8px 22px rgba(0,0,0,0.35), 0 0 16px rgba(251, 191, 36, 0.6); 
       background: white; 
+      padding: 4px;
       transition: transform 0.3s ease;
     }
     .brand-logo:hover {
-      transform: scale(1.05) rotate(2deg);
+      transform: scale(1.05) rotate(1deg);
     }
 
-    .header h1 { font-size: 21px; font-weight: 900; text-shadow: 0 2px 5px rgba(0,0,0,0.4); }
+    .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.5); }
     .header p { font-size: 12px; opacity: 0.95; margin-top: 2px; }
 
     /* Open/Close Pill */
@@ -72,12 +73,12 @@
     /* Container */
     .container { max-width: 480px; margin: -16px auto 0; padding: 0 14px; position: relative; z-index: 3; }
     
-    /* Banner */
-    .offer-banner { background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6); color: white; border-radius: 16px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3); }
-    .offer-icon { font-size: 28px; animation: pulse 1.8s infinite; }
+    /* Dynamic Offer Banner for ₹208 Free Delivery */
+    .offer-banner { background: linear-gradient(135deg, #10b981, #059669, #0284c7); color: white; border-radius: 16px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3); border: 1.5px dashed rgba(255,255,255,0.6); }
+    .offer-icon { font-size: 30px; animation: pulse 1.6s infinite; }
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-    .offer-content h4 { font-size: 13.5px; font-weight: 800; }
-    .offer-content p { font-size: 11px; opacity: 0.95; margin-top: 2px; }
+    .offer-content h4 { font-size: 13.5px; font-weight: 900; }
+    .offer-content p { font-size: 11.5px; opacity: 0.95; margin-top: 2px; line-height: 1.3; }
 
     /* Tabs */
     .tabs { display: flex; background: white; border-radius: 14px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; border: 1px solid #e2e8f0; }
@@ -103,10 +104,12 @@
     .custom-item-box p { font-size: 11px; color: #7c2d12; margin-bottom: 8px; }
     .custom-item-box textarea { width: 100%; border: 1px solid #fdba74; border-radius: 8px; padding: 8px; font-size: 13px; outline: none; resize: vertical; min-height: 55px; }
 
-    /* Total Bill Box */
-    .bill-box { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; padding: 12px 14px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f59e0b; }
-    .bill-box span { font-weight: 700; font-size: 14px; color: #92400e; }
-    .bill-amount { font-size: 20px; font-weight: 900; color: #b45309; }
+    /* Detailed Bill Breakdown Box */
+    .bill-box-detailed { background: #fffbeb; border-radius: 12px; padding: 14px; margin-top: 16px; border: 1.5px solid #fde68a; }
+    .bill-row { display: flex; justify-content: space-between; font-size: 12.5px; color: #475569; margin-bottom: 6px; }
+    .bill-row.total-row { border-top: 1.5px dashed #f59e0b; padding-top: 8px; margin-top: 8px; font-weight: 900; font-size: 16px; color: #b45309; }
+    .free-badge { color: #16a34a; font-weight: 800; background: #dcfce7; padding: 1px 6px; border-radius: 6px; }
+    .threshold-tip { font-size: 11px; color: #d97706; margin-top: 6px; font-weight: 700; text-align: right; }
 
     /* Payment Select */
     .pay-methods { display: flex; gap: 10px; margin-top: 10px; }
@@ -149,8 +152,8 @@
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <h3 id="txt-sb-title">🚩 खाटू एक्सप्रेस</h3>
-      <p style="font-size: 11px; margin-top: 6px;" id="txt-sb-sub">श्री श्याम धाम सेवा केंद्र</p>
+      <h3 id="txt-sb-title">🚩 खाटू फ़ूड एक्सप्रेस</h3>
+      <p style="font-size: 11px; margin-top: 6px;" id="txt-sb-sub">सेवा ही धर्म है - बाबा की कृपा</p>
     </div>
     <ul class="sidebar-menu">
       <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span id="txt-sb-food">खाना & राशन मंगवाएं</span></a></li>
@@ -161,7 +164,7 @@
     </ul>
   </div>
 
-  <!-- Header with Enhanced Stylish 3D Logo -->
+  <!-- Header with 4x4 Logo and Exact Name From Logo -->
   <div class="header" id="heroHeader">
     <div class="header-content">
       <div class="top-nav">
@@ -173,11 +176,11 @@
       </div>
       
       <div class="brand-logo-container">
-        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+        <img src="logo.png" alt="Khatoo Food Express Logo" class="brand-logo" onerror="this.style.display='none'">
       </div>
 
-      <h1 id="txt-hero-title">🚩 खाटू श्याम सेवा केंद्र</h1>
-      <p id="txt-hero-sub">सात्विक भोजन, किराना, त्वरित बाइक & होटल सेवा</p>
+      <h1 id="txt-hero-title">🚩 खाटू फ़ूड एक्सप्रेस</h1>
+      <p id="txt-hero-sub">सेवा ही धर्म है • शुद्ध सात्विक भोजन & फ़ास्ट डिलीवरी</p>
 
       <div class="status-pill">
         <span id="statusDot" class="status-dot dot-open"></span>
@@ -188,12 +191,12 @@
 
   <div class="container">
     
-    <!-- Banner -->
+    <!-- Free Delivery Threshold Banner -->
     <div class="offer-banner">
-      <div class="offer-icon">🎁</div>
+      <div class="offer-icon">🚚</div>
       <div class="offer-content">
-        <h4 id="txt-ban-title">श्याम कृपा महा-ऑफर! (SHYAM10)</h4>
-        <p id="txt-ban-desc">कमरे तक फ्री डिलीवरी + हर राइड में सुपरफास्ट सेवा।</p>
+        <h4 id="txt-ban-title">🎉 फ्री डिलीवरी महा-ऑफर!</h4>
+        <p id="txt-ban-desc">₹208 से अधिक के किसी भी ऑर्डर पर <strong>डिलीवरी बिल्कुल FREE</strong>! (कम ऑर्डर पर डिलीवरी ₹20 व प्लेटफ़ॉर्म शुल्क ₹9)।</p>
       </div>
     </div>
 
@@ -209,7 +212,7 @@
     <div id="foodSection" class="card">
       <h3 style="font-size: 15px;" id="txt-food-menu">मेनू से आइटम चुनें</h3>
 
-      <!-- Section 1: Thali & Cooked Food -->
+      <!-- Section 1: Thali & Food -->
       <div class="menu-cat-title" id="txt-cat-special">स्पेशल डिशेस & थाली</div>
       
       <div class="menu-item">
@@ -311,7 +314,7 @@
         </div>
       </div>
 
-      <!-- Section 3: Fresh Vegetables -->
+      <!-- Section 3: Fresh Veggies -->
       <div class="menu-cat-title" id="txt-cat-veggies">ताज़ा हरी सब्जियां</div>
 
       <div class="menu-item">
@@ -362,16 +365,32 @@
         </div>
       </div>
 
-      <!-- Additional Required Items Box -->
+      <!-- Custom Required Item Box -->
       <div class="custom-item-box">
         <h5 id="txt-custom-head">📝 अन्य आवश्यक सामान (Required Item)</h5>
         <p id="txt-custom-sub">अगर आपको कोई ऐसा सामान चाहिए जो मेनू में नहीं है, तो यहाँ लिखें। यदि संभव होगा तो डिलीवरी बॉय जरूर लाकर देगा!</p>
         <textarea id="customItemNote" placeholder="उदा. दूध का पैकेट, माचिस, बिस्कुट, पूजा सामग्री या अन्य कोई जरूरी सामान..."></textarea>
       </div>
 
-      <div class="bill-box">
-        <span id="txt-total-lbl">कुल बिल (Total):</span>
-        <span class="bill-amount">₹<span id="totalBill">0</span></span>
+      <!-- Detailed Bill Breakdown Box -->
+      <div class="bill-box-detailed">
+        <div class="bill-row">
+          <span id="txt-item-total-lbl">सामान का कुल मूल्य (Item Total):</span>
+          <span>₹<span id="itemTotalVal">0</span></span>
+        </div>
+        <div class="bill-row">
+          <span id="txt-delivery-lbl">डिलीवरी चार्ज (Delivery Fee):</span>
+          <span id="deliveryChargeText">₹20</span>
+        </div>
+        <div class="bill-row">
+          <span id="txt-platform-lbl">प्लेटफ़ॉर्म फ़ीस (Platform Fee):</span>
+          <span>₹9</span>
+        </div>
+        <div class="bill-row total-row">
+          <span id="txt-final-total-lbl">कुल देय राशि (Final Amount):</span>
+          <span>₹<span id="finalBillAmount">0</span></span>
+        </div>
+        <div id="thresholdHint" class="threshold-tip"></div>
       </div>
 
       <div class="form-group">
@@ -493,7 +512,7 @@
 
     <!-- 4. PARTNER TIE-UP TAB -->
     <div id="tieupSection" class="card hidden">
-      <h3 style="font-size: 15px;" id="txt-tieup-title">🤝 खाटू एक्सप्रेस पार्टनर टाई-अप</h3>
+      <h3 style="font-size: 15px;" id="txt-tieup-title">🤝 खाटू फ़ूड एक्सप्रेस पार्टनर टाई-अप</h3>
       <p style="font-size: 11px; color: #64748b; margin-top: 4px;" id="txt-tieup-desc">राइडर बनें या अपनी होटल/धर्मशाला हमारे साथ रजिस्टर करें।</p>
 
       <div class="form-group">
@@ -535,13 +554,13 @@
   <script>
     const MY_WHATSAPP_NUMBER = "917037647464";
     const MY_UPI_ID = "7037647464@ybl";
-    const MY_PAYEE_NAME = "Khatu Express";
+    const MY_PAYEE_NAME = "Khatoo Food Express";
 
     let currentLang = "hi";
     let selectedPayment = "upi";
     let gpsLinks = { food: "", ride: "", hotel: "", tieup: "" };
 
-    // Dynamic Header Backgrounds Array
+    // Header Backgrounds
     const headerBgList = [
       "linear-gradient(135deg, #ea580c, #f59e0b, #ec4899)",
       "url('https://images.unsplash.com/photo-1545232979-fbf67597148a?auto=format&fit=crop&w=800&q=80')",
@@ -561,21 +580,21 @@
     setInterval(rotateHeaderBackground, 6000);
     rotateHeaderBackground();
 
-    // Comprehensive Dictionary including All New Grocery & Veggie Items
+    // Comprehensive Bilingual Translation
     const langData = {
       hi: {
         switch: "🌐 English",
-        heroTitle: "🚩 खाटू श्याम सेवा केंद्र",
-        heroSub: "सात्विक भोजन, किराना, त्वरित बाइक & होटल सेवा",
-        sbTitle: "🚩 खाटू एक्सप्रेस",
-        sbSub: "श्री श्याम धाम सेवा केंद्र",
+        heroTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
+        heroSub: "सेवा ही धर्म है • शुद्ध सात्विक भोजन & फ़ास्ट डिलीवरी",
+        sbTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
+        sbSub: "सेवा ही धर्म है - बाबा की कृपा",
         sbFood: "खाना & राशन मंगवाएं",
         sbRide: "बाइक राइड बुक करें",
         sbHotel: "होटल / धर्मशाला",
         sbTieup: "पार्टनर टाई-अप (Join)",
         sbCall: "हेल्पलाइन कॉल करें",
-        banTitle: "श्याम कृपा महा-ऑफर! (SHYAM10)",
-        banDesc: "कमरे तक फ्री डिलीवरी + हर राइड में सुपरफास्ट सेवा।",
+        banTitle: "🎉 फ्री डिलीवरी महा-ऑफर!",
+        banDesc: "₹208 से अधिक के किसी भी ऑर्डर पर डिलीवरी बिल्कुल FREE! (कम ऑर्डर पर डिलीवरी ₹20 व प्लेटफ़ॉर्म शुल्क ₹9)।",
         tabFood: "🍲 फ़ूड & किराना",
         tabRide: "🛵 बाइक",
         tabHotel: "🏨 होटल",
@@ -598,7 +617,10 @@
         itemLahson: "लहसुन / Garlic (250 ग्राम)",
         customHead: "📝 अन्य आवश्यक सामान (Required Item)",
         customSub: "अगर आपको कोई ऐसा सामान चाहिए जो मेनू में नहीं है, तो यहाँ लिखें। यदि संभव होगा तो डिलीवरी बॉय जरूर लाकर देगा!",
-        totalLbl: "कुल बिल (Total):",
+        itemTotalLbl: "सामान का कुल मूल्य (Item Total):",
+        deliveryLbl: "डिलीवरी चार्ज (Delivery Fee):",
+        platformLbl: "प्लेटफ़ॉर्म फ़ीस (Platform Fee):",
+        finalTotalLbl: "कुल देय राशि (Final Amount):",
         payLbl: "पेमेंट का तरीका चुनें:",
         payUpi: "ऑनलाइन UPI",
         payCod: "कैश ऑन डिलीवरी",
@@ -622,7 +644,7 @@
         hotelNameLbl: "आपका नाम",
         hotelPhnLbl: "मोबाइल नंबर",
         hotelBtn: "होटल रूम के लिए संपर्क करें",
-        tieupTitle: "🤝 खाटू एक्सप्रेस पार्टनर टाई-अप",
+        tieupTitle: "🤝 खाटू फ़ूड एक्सप्रेस पार्टनर टाई-अप",
         tieupDesc: "राइडर बनें या अपनी होटल/धर्मशाला हमारे साथ रजिस्टर करें।",
         tieupRoleLbl: "टाई-अप प्रकार चुनें",
         tieupNameLbl: "आपका या प्रतिष्ठान का नाम",
@@ -633,17 +655,17 @@
       },
       en: {
         switch: "🌐 हिंदी",
-        heroTitle: "🚩 Khatu Shyam Seva Center",
-        heroSub: "Satvik Food, Grocery, Fast Bike & Stay",
-        sbTitle: "🚩 Khatu Express",
-        sbSub: "Shree Shyam Dham Seva Center",
+        heroTitle: "🚩 Khatoo Food Express",
+        heroSub: "Seva Hi Dharm Hai • Pure Satvik Food & Fast Delivery",
+        sbTitle: "🚩 Khatoo Food Express",
+        sbSub: "Seva Hi Dharm Hai - Baba Ki Kripa",
         sbFood: "Order Food & Grocery",
         sbRide: "Book Bike Ride",
         sbHotel: "Hotel / Dharamshala",
         sbTieup: "Partner Tie-Up (Join)",
         sbCall: "Call Helpline",
-        banTitle: "Shyam Kripa Mega Offer! (SHYAM10)",
-        banDesc: "Free room delivery + Superfast service in every ride.",
+        banTitle: "🎉 Free Delivery Mega Offer!",
+        banDesc: "Orders above ₹208 get 100% FREE DELIVERY! (Delivery ₹20 & Platform fee ₹9 on small orders).",
         tabFood: "🍲 Food & Grocery",
         tabRide: "🛵 Bike",
         tabHotel: "🏨 Hotel",
@@ -665,8 +687,11 @@
         itemPyaj: "Onion / Pyaj (1 Kg)",
         itemLahson: "Garlic / Lahsun (250g)",
         customHead: "📝 Any Other Required Items?",
-        customSub: "If you need something not in the menu, write here. If possible, our delivery boy will surely bring it!",
-        totalLbl: "Total Bill:",
+        customSub: "Need something not listed? Write here, our delivery boy will gladly get it if available!",
+        itemTotalLbl: "Items Total:",
+        deliveryLbl: "Delivery Fee:",
+        platformLbl: "Platform Fee:",
+        finalTotalLbl: "Final Amount Payable:",
         payLbl: "Choose Payment Method:",
         payUpi: "Online UPI",
         payCod: "Cash on Delivery",
@@ -690,7 +715,7 @@
         hotelNameLbl: "Your Name",
         hotelPhnLbl: "Mobile Number",
         hotelBtn: "Contact for Hotel Stay",
-        tieupTitle: "🤝 Khatu Express Partner Tie-Up",
+        tieupTitle: "🤝 Khatoo Food Express Partner Tie-Up",
         tieupDesc: "Join as a rider or register your hotel/dharamshala with us.",
         tieupRoleLbl: "Select Tie-up Type",
         tieupNameLbl: "Your Name or Property Name",
@@ -738,7 +763,10 @@
       document.getElementById('txt-item-lahson').innerText = d.itemLahson;
       document.getElementById('txt-custom-head').innerText = d.customHead;
       document.getElementById('txt-custom-sub').innerText = d.customSub;
-      document.getElementById('txt-total-lbl').innerText = d.totalLbl;
+      document.getElementById('txt-item-total-lbl').innerText = d.itemTotalLbl;
+      document.getElementById('txt-delivery-lbl').innerText = d.deliveryLbl;
+      document.getElementById('txt-platform-lbl').innerText = d.platformLbl;
+      document.getElementById('txt-final-total-lbl').innerText = d.finalTotalLbl;
       document.getElementById('txt-pay-lbl').innerText = d.payLbl;
       document.getElementById('txt-pay-upi').innerText = d.payUpi;
       document.getElementById('txt-pay-cod').innerText = d.payCod;
@@ -770,6 +798,8 @@
       document.getElementById('txt-gps-tieup-btn').innerText = d.gpsTieupBtn;
       document.getElementById('txt-tieup-phn-lbl').innerText = d.tieupPhnLbl;
       document.getElementById('txt-tieup-btn').innerText = d.tieupBtn;
+
+      updatePaymentUI();
     }
 
     function toggleSidebar() {
@@ -777,7 +807,6 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // All Items & Prices
     let quantities = {
       chholeBhature: 0,
       thali: 0,
@@ -818,21 +847,47 @@
       document.getElementById('tab-btn-' + type).classList.add('active');
     }
 
-    function calculateTotal() {
+    function calculateItemsTotal() {
       let total = 0;
       for (let k in quantities) total += items[k].price * quantities[k];
       return total;
     }
 
+    // Smart Bill Calculation with ₹208 Threshold
     function updatePaymentUI() {
-      const total = calculateTotal();
-      document.getElementById('totalBill').innerText = total;
-      document.getElementById('qrAmountText').innerText = total;
+      const itemTotal = calculateItemsTotal();
+      const platformFee = itemTotal > 0 ? 9 : 0;
+      let deliveryFee = 0;
+
+      const deliveryElem = document.getElementById('deliveryChargeText');
+      const hintElem = document.getElementById('thresholdHint');
+
+      if (itemTotal === 0) {
+        deliveryFee = 0;
+        deliveryElem.innerText = "₹0";
+        hintElem.innerText = "";
+      } else if (itemTotal >= 208) {
+        deliveryFee = 0;
+        deliveryElem.innerHTML = `<span class="free-badge">FREE (₹0)</span> <strike style="color:#94a3b8; font-size:11px;">₹20</strike>`;
+        hintElem.innerHTML = `<span style="color:#16a34a;">🎉 बधाई हो! ₹208 से ऊपर फ़्री डिलीवरी लागू हो गई है!</span>`;
+      } else {
+        deliveryFee = 20;
+        deliveryElem.innerText = "₹20";
+        const diff = 208 - itemTotal;
+        hintElem.innerHTML = `💡 केवल <strong>₹${diff}</strong> का सामान और जोड़ें और पाएं <strong>फ़्री डिलीवरी</strong>!`;
+      }
+
+      const finalPayable = itemTotal + deliveryFee + platformFee;
+
+      document.getElementById('itemTotalVal').innerText = itemTotal;
+      document.getElementById('finalBillAmount').innerText = finalPayable;
+      document.getElementById('qrAmountText').innerText = finalPayable;
+
       const qrSection = document.getElementById('qrSection');
 
-      if (selectedPayment === 'upi' && total > 0) {
+      if (selectedPayment === 'upi' && finalPayable > 0) {
         qrSection.style.display = "block";
-        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${total}&cu=INR&tn=KhatuOrder`;
+        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${finalPayable}&cu=INR&tn=KhatooFoodOrder`;
         document.getElementById('upiQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
         document.getElementById('upiDeepLink').href = upiString;
       } else {
@@ -879,13 +934,13 @@
     }
 
     function sendFoodOrder() {
-      const total = calculateTotal();
+      const itemTotal = calculateItemsTotal();
       const addr = document.getElementById('foodAddress').value.trim();
       const phn = document.getElementById('foodPhone').value.trim();
       const utr = document.getElementById('foodUtr').value.trim();
       const customNote = document.getElementById('customItemNote').value.trim();
 
-      if (total === 0 && !customNote) {
+      if (itemTotal === 0 && !customNote) {
         alert(currentLang === 'hi' ? "कृपया मेनू से कोई आइटम चुनें या अतिरिक्त सामान लिखें।" : "Please select an item or write custom item.");
         return;
       }
@@ -897,7 +952,12 @@
         alert(currentLang === 'hi' ? "कृपया पता और मोबाइल नंबर भरें।" : "Please fill address and phone.");
         return;
       }
-      if (selectedPayment === 'upi' && total > 0 && utr.length < 8) {
+
+      const deliveryFee = (itemTotal >= 208 || itemTotal === 0) ? 0 : 20;
+      const platformFee = itemTotal > 0 ? 9 : 0;
+      const finalPayable = itemTotal + deliveryFee + platformFee;
+
+      if (selectedPayment === 'upi' && finalPayable > 0 && utr.length < 8) {
         alert(currentLang === 'hi' ? "कृपया पेमेंट के बाद 12 अंकों का UPI Ref / UTR नंबर डालें!" : "Please enter valid 12-digit UPI Ref/UTR No.");
         return;
       }
@@ -909,12 +969,16 @@
 
       const payStatus = selectedPayment === 'upi' ? `ऑनलाइन UPI (Paid, UTR: ${utr})` : 'कैश ऑन डिलीवरी (COD)';
       const customText = customNote ? `\n\n*📝 अतिरिक्त आवश्यक सामान:*\n${customNote}` : '';
+      const deliveryText = deliveryFee === 0 ? '₹0 (FREE 🚚)' : '₹20';
 
-      let msg = `*🍲 नया फ़ूड & किराना ऑर्डर (खाटू एक्सप्रेस)*\n\n` +
-                `*ऑर्डर विवरण:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामान लिस्ट'}` +
+      let msg = `*🍲 नया फ़ूड & किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+                `*ऑर्डर लिस्ट:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामान लिस्ट'}` +
                 `${customText}\n\n` +
-                `*कुल बिल:* ₹${total}\n` +
-                `*पेमेंट:* ${payStatus}\n` +
+                `*सामान मूल्य:* ₹${itemTotal}\n` +
+                `*डिलीवरी शुल्क:* ${deliveryText}\n` +
+                `*प्लेटफ़ॉर्म शुल्क:* ₹${platformFee}\n` +
+                `*कुल देय राशि:* ₹${finalPayable}\n` +
+                `*पेमेंट माध्यम:* ${payStatus}\n` +
                 `*होटल/कमरा:* ${addr}\n` +
                 `*कस्टमर नंबर:* ${phn}\n` +
                 `*📍 लाइव GPS मैप:* ${gpsLinks.food}`;
@@ -936,7 +1000,7 @@
         return;
       }
 
-      let msg = `*🛵 नई बाइक राइड बुकिंग*\n\n` +
+      let msg = `*🛵 नई बाइक राइड बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*पिकअप पॉइंट:* ${pickup || 'GPS लोकेशन'}\n` +
                 `*रूट:* ${route}\n` +
                 `*मोबाइल:* ${phn}\n` +
@@ -985,7 +1049,7 @@
         return;
       }
 
-      let msg = `*🤝 नया पार्टनर टाई-अप आवेदन (खाटू एक्सप्रेस)*\n\n` +
+      let msg = `*🤝 नया पार्टनर टाई-अप आवेदन (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*प्रकार:* ${role}\n` +
                 `*नाम/प्रतिष्ठान:* ${name}\n` +
                 `*विवरण/वाहन/पता:* ${detail || 'N/A'}\n` +
