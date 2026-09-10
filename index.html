@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#d97706">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
-
+  <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>खाटू सेवा - फ़ूड & बाइक राइड</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #f8fafc; color: #1e293b; padding-bottom: 30px; }
+    body { background: #f8fafc; color: #1e293b; padding-bottom: 30px; overflow-x: hidden; }
     
-    /* Header */
-    .header { background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; }
-    .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-    .header p { font-size: 13px; opacity: 0.9; }
+    /* Top Bar & Header */
+    .header { background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 16px 20px 24px; border-radius: 0 0 20px 20px; position: relative; text-align: center; }
+    .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .menu-trigger { font-size: 24px; cursor: pointer; color: white; background: none; border: none; display: flex; align-items: center; }
+    .sos-badge { background: #dc2626; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+    
+    /* Logo Styling */
+    .brand-logo { width: 68px; height: 68px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); object-fit: cover; margin: 0 auto 6px auto; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: white; }
+    
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header p { font-size: 12px; opacity: 0.9; margin-top: 2px; }
 
-    /* Container */
+    /* Sliding Drawer / Sidebar */
+    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+    .overlay.active { opacity: 1; visibility: visible; }
+
+    .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100vh; background: #ffffff; z-index: 999; transition: left 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+    .sidebar.open { left: 0; }
+
+    .sidebar-header { background: #2563eb; color: white; padding: 25px 18px 20px; }
+    .sb-brand { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .sb-sub { font-size: 11px; opacity: 0.85; margin-top: 10px; line-height: 1.4; }
+
+    .sidebar-menu { list-style: none; padding: 12px 0; overflow-y: auto; flex: 1; }
+    .sidebar-menu li a { display: flex; align-items: center; gap: 14px; padding: 13px 20px; color: #334155; text-decoration: none; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9; transition: 0.2s; }
+    .sidebar-menu li a:hover { background: #f8fafc; color: #2563eb; }
+    .sidebar-menu .badge { margin-left: auto; background: #22c55e; color: white; font-size: 10px; padding: 2px 7px; border-radius: 10px; }
+
+    .sidebar-footer { padding: 12px 20px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center; }
+
+    /* Main Container */
     .container { max-width: 480px; margin: -15px auto 0; padding: 0 15px; }
 
     /* Tabs */
     .tabs { display: flex; background: white; border-radius: 12px; padding: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 8px; }
-    .tab-btn { flex: 1; border: none; padding: 12px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
+    .tab-btn { flex: 1; border: none; padding: 12px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
     .tab-btn.active { background: #f59e0b; color: white; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
 
     /* Section Cards */
@@ -54,7 +78,41 @@
 </head>
 <body>
 
+  <!-- Background Overlay for Drawer -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Sidebar (Drawer) -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sb-brand">🚩 खाटू एक्सप्रेस</div>
+      <div class="sb-sub">
+        <strong>सर्विस केंद्र:</strong> खाटू धाम मेन मार्केट<br>
+        <strong>हेल्पलाइन:</strong> +91 70376 47464
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span>खाना मंगवाएं</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span>बाइक राइड बुक करें</span></a></li>
+      <li><a href="https://wa.me/917037647464?text=Hello,%20mujhe%20rider/delivery%20partner%20banna%20hai" target="_blank">🤝 <span>राइडर/पार्टनर बनें</span> <span class="badge">Join</span></a></li>
+      <li><a href="tel:7037647464">📞 <span>सीधे कॉल करें</span></a></li>
+      <li><a href="https://wa.me/917037647464?text=Mujhe%20hotel/dharamshala%20tie-up%20karna%20hai" target="_blank">🏨 <span>होटल / धर्मशाला टाई-अप</span></a></li>
+      <li><a href="#" onclick="alert('खाटू श्याम धाम के यात्रियों के लिए शुद्ध सात्विक भोजन और त्वरित बाइक टैक्सी सेवा।'); toggleSidebar();">ℹ️ <span>हमारे बारे में (About Us)</span></a></li>
+    </ul>
+    <div class="sidebar-footer">
+      खाटू श्याम सेवा v1.0.0
+    </div>
+  </div>
+
+  <!-- Header with Hamburger Icon & Center Logo -->
   <div class="header">
+    <div class="top-nav">
+      <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+      <a href="tel:7037647464" class="sos-badge">🚨 Helpline</a>
+    </div>
+    
+    <!-- Site Logo -->
+    <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+    
     <h1>🚩 खाटू श्याम सेवा केंद्र</h1>
     <p>शुद्ध सात्विक भोजन & तेज बाइक राइड सेवा</p>
   </div>
@@ -220,8 +278,15 @@
   </div>
 
   <script>
-    // आपका WhatsApp नंबर
     const MY_WHATSAPP_NUMBER = "917037647464";
+
+    // Drawer / Sidebar Toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
 
     let quantities = {
       chholeBhature: 0,
@@ -319,12 +384,10 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
   </script>
-    <script>
+  <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');
     }
-    </script>
-  
+  </script>
 </body>
-      </html>
-      
+</html>
