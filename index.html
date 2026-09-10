@@ -2,188 +2,162 @@
 <html lang="hi">
 <head>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#d97706">
+  <meta name="theme-color" content="#f59e0b">
   <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>खाटू सेवा - फ़ूड, राइड & होटल बुकिंग</title>
+  <title>खाटू एक्सप्रेस - Food, Ride & Stay</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #f8fafc; color: #1e293b; padding-bottom: 40px; overflow-x: hidden; }
+    body { background: #f0fdf4; color: #0f172a; padding-bottom: 50px; overflow-x: hidden; }
     
-    /* Top Bar & Header */
-    .header { background: linear-gradient(135deg, #d97706, #b45309); color: white; padding: 16px 20px 24px; border-radius: 0 0 20px 20px; position: relative; text-align: center; }
-    .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-    .menu-trigger { font-size: 24px; cursor: pointer; color: white; background: none; border: none; display: flex; align-items: center; }
-    .sos-badge { background: #dc2626; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+    /* Vibrant Header */
+    .header { background: linear-gradient(135deg, #ea580c, #f59e0b, #ec4899); color: white; padding: 16px 18px 24px; border-radius: 0 0 24px 24px; position: relative; text-align: center; box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25); }
+    .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .menu-trigger { font-size: 24px; cursor: pointer; color: white; background: none; border: none; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .lang-btn { background: rgba(255, 255, 255, 0.25); color: white; border: 1px solid white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; backdrop-filter: blur(4px); }
+    .sos-badge { background: #ef4444; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-decoration: none; }
     
-    /* Logo */
-    .brand-logo { width: 68px; height: 68px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); object-fit: cover; margin: 0 auto 6px auto; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: white; }
-    
-    .header h1 { font-size: 20px; font-weight: 700; }
-    .header p { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+    .brand-logo { width: 72px; height: 72px; border-radius: 50%; border: 3px solid #ffffff; object-fit: cover; margin: 0 auto 6px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.2); background: white; }
+    .header h1 { font-size: 21px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .header p { font-size: 12px; opacity: 0.95; margin-top: 2px; }
 
-    /* Open/Close Status Pill */
-    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 8px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); }
+    /* Open/Close Pill */
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 10px; background: rgba(0, 0, 0, 0.25); }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-    .dot-open { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
-    .dot-closed { background: #f87171; }
+    .dot-open { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+    .dot-closed { background: #ef4444; }
 
-    /* Sliding Drawer / Sidebar */
-    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s ease; }
-    .overlay.active { opacity: 1; visibility: visible; }
-
-    .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100vh; background: #ffffff; z-index: 999; transition: left 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
-    .sidebar.open { left: 0; }
-
-    .sidebar-header { background: #2563eb; color: white; padding: 25px 18px 20px; }
-    .sb-brand { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-    .sb-sub { font-size: 11px; opacity: 0.85; margin-top: 10px; line-height: 1.4; }
-
-    .sidebar-menu { list-style: none; padding: 12px 0; overflow-y: auto; flex: 1; }
-    .sidebar-menu li a { display: flex; align-items: center; gap: 14px; padding: 13px 20px; color: #334155; text-decoration: none; font-size: 14px; font-weight: 600; border-bottom: 1px solid #f1f5f9; transition: 0.2s; }
-    .sidebar-menu li a:hover { background: #f8fafc; color: #2563eb; }
-    .sidebar-menu .badge { margin-left: auto; background: #22c55e; color: white; font-size: 10px; padding: 2px 7px; border-radius: 10px; }
-    .sidebar-footer { padding: 12px 20px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center; }
-
-    /* Main Container */
-    .container { max-width: 480px; margin: -15px auto 0; padding: 0 15px; }
-
-    /* Special Offer / Discount Banner */
-    .offer-banner { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1.5px dashed #f59e0b; border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15); }
-    .offer-icon { font-size: 26px; }
-    .offer-content h4 { font-size: 13px; font-weight: 700; color: #b45309; }
-    .offer-content p { font-size: 11px; color: #78350f; margin-top: 2px; }
+    /* Colorful Animated Offer Banner */
+    .container { max-width: 480px; margin: -15px auto 0; padding: 0 14px; }
+    .offer-banner { background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6); color: white; border-radius: 16px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); }
+    .offer-icon { font-size: 30px; animation: bounce 1.5s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    .offer-content h4 { font-size: 14px; font-weight: 800; letter-spacing: 0.3px; }
+    .offer-content p { font-size: 11px; opacity: 0.95; margin-top: 2px; }
 
     /* 3-Tab Bar */
-    .tabs { display: flex; background: white; border-radius: 12px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; }
-    .tab-btn { flex: 1; border: none; padding: 10px 4px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; text-align: center; }
-    .tab-btn.active { background: #f59e0b; color: white; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+    .tabs { display: flex; background: white; border-radius: 14px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; border: 1px solid #e2e8f0; }
+    .tab-btn { flex: 1; border: none; padding: 11px 4px; font-size: 12px; font-weight: 800; border-radius: 10px; cursor: pointer; background: transparent; color: #64748b; transition: 0.25s; text-align: center; }
+    .tab-btn.active { background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35); }
 
-    /* Section Cards */
-    .card { background: white; margin-top: 15px; padding: 18px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+    /* Card */
+    .card { background: white; margin-top: 15px; padding: 18px; border-radius: 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
     .hidden { display: none; }
 
-    /* Menu Section Headers */
-    .menu-cat-title { font-size: 13px; font-weight: 700; color: #b45309; text-transform: uppercase; margin: 15px 0 6px 0; letter-spacing: 0.5px; border-bottom: 1px dashed #fcd34d; padding-bottom: 4px; }
-
-    /* Food Menu Items */
-    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
-    .menu-item:last-child { border-bottom: none; }
-    .item-title { font-weight: 600; font-size: 14px; }
-    .item-price { color: #d97706; font-size: 13px; font-weight: 700; margin-top: 2px; }
+    /* Categories */
+    .menu-cat-title { font-size: 13px; font-weight: 800; color: #ea580c; text-transform: uppercase; margin: 16px 0 8px 0; border-bottom: 2px solid #fed7aa; padding-bottom: 4px; }
+    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #e2e8f0; }
+    .item-title { font-weight: 700; font-size: 14px; }
+    .item-price { color: #ea580c; font-size: 13px; font-weight: 800; }
     .qty-controls { display: flex; align-items: center; gap: 8px; }
-    .qty-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #cbd5e1; background: white; font-weight: bold; cursor: pointer; font-size: 16px; }
-    .qty-text { font-weight: 600; min-width: 18px; text-align: center; }
+    .qty-btn { width: 28px; height: 28px; border-radius: 8px; border: none; background: #fed7aa; color: #c2410c; font-weight: bold; cursor: pointer; font-size: 16px; }
+    .qty-text { font-weight: 700; min-width: 18px; text-align: center; }
 
-    /* Bill Summary Box */
-    .bill-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 12px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; }
-    .bill-box span { font-weight: 600; font-size: 15px; color: #92400e; }
-    .bill-amount { font-size: 20px; font-weight: 800; color: #b45309; }
+    /* Total Box */
+    .bill-box { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; padding: 12px 14px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f59e0b; }
+    .bill-box span { font-weight: 700; font-size: 14px; color: #92400e; }
+    .bill-amount { font-size: 20px; font-weight: 900; color: #b45309; }
 
-    /* Payment Option Select */
+    /* Payment Select */
     .pay-methods { display: flex; gap: 10px; margin-top: 10px; }
-    .pay-method-card { flex: 1; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 10px 6px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.2s; }
-    .pay-method-card.selected { border-color: #d97706; background: #fffbeb; color: #b45309; }
+    .pay-method-card { flex: 1; border: 2px solid #e2e8f0; border-radius: 10px; padding: 10px 6px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 700; }
+    .pay-method-card.selected { border-color: #ea580c; background: #fff7ed; color: #ea580c; }
 
-    /* Dynamic QR Box */
-    .qr-container { background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; margin-top: 14px; }
-    .qr-container img { width: 180px; height: 180px; border-radius: 8px; background: white; padding: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .upi-pay-btn { display: inline-block; margin-top: 10px; background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+    /* Dynamic QR & UTR Input */
+    .qr-container { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 14px; text-align: center; margin-top: 14px; }
+    .qr-container img { width: 170px; height: 170px; border-radius: 10px; background: white; padding: 6px; border: 1px solid #e2e8f0; }
+    .upi-pay-btn { display: inline-block; margin-top: 8px; background: #2563eb; color: white; text-decoration: none; padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; }
 
-    /* Hotel Feature Badges */
-    .badge-grid { display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
-    .feature-tag { background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 6px; }
+    /* Mandatory GPS Box */
+    .gps-lock-box { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 10px; margin-top: 12px; text-align: center; }
+    .gps-action-btn { background: #16a34a; color: white; border: none; padding: 9px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .gps-status { font-size: 11px; margin-top: 6px; font-weight: 700; }
 
-    /* Location Notice Box */
-    .location-info { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-size: 12px; color: #1e40af; line-height: 1.4; }
+    /* Forms */
+    .form-group { margin-top: 12px; }
+    label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 5px; }
+    input, select { width: 100%; padding: 11px; border: 1.5px solid #cbd5e1; border-radius: 9px; font-size: 13px; outline: none; }
+    input:focus, select:focus { border-color: #ea580c; }
 
-    /* Form Fields */
-    .form-group { margin-top: 14px; }
-    label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
-    input, select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; outline: none; }
-    input:focus, select:focus { border-color: #f59e0b; }
+    .submit-btn { width: 100%; margin-top: 16px; background: linear-gradient(135deg, #16a34a, #15803d); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
 
-    /* Action Button */
-    .submit-btn { width: 100%; margin-top: 18px; background: #16a34a; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
-    .submit-btn:hover { background: #15803d; }
+    /* Sidebar Drawer */
+    .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s; }
+    .overlay.active { opacity: 1; visibility: visible; }
+    .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100vh; background: white; z-index: 999; transition: left 0.3s; display: flex; flex-direction: column; }
+    .sidebar.open { left: 0; }
+    .sidebar-header { background: linear-gradient(135deg, #ea580c, #f59e0b); color: white; padding: 25px 18px 20px; }
+    .sidebar-menu { list-style: none; padding: 12px 0; overflow-y: auto; flex: 1; }
+    .sidebar-menu li a { display: flex; align-items: center; gap: 14px; padding: 12px 20px; color: #334155; text-decoration: none; font-size: 13px; font-weight: 700; border-bottom: 1px solid #f1f5f9; }
   </style>
 </head>
 <body>
 
-  <!-- Background Overlay for Drawer -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Sidebar (Drawer) -->
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <div class="sb-brand">🚩 खाटू एक्सप्रेस</div>
-      <div class="sb-sub">
-        <strong>सेवा समय:</strong> 6:00 AM से 11:30 PM<br>
-        <strong>सर्विस केंद्र:</strong> तोरण द्वार मेन मार्केट, खाटू श्याम जी<br>
-        <strong>हेल्पलाइन:</strong> +91 70376 47464
-      </div>
+      <h3 id="txt-sb-title">🚩 खाटू एक्सप्रेस</h3>
+      <p style="font-size: 11px; margin-top: 6px;">Shree Shyam Dham Seva Center</p>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span>खाना मंगवाएं</span></a></li>
-      <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span>बाइक राइड बुक करें</span></a></li>
-      <li><a href="#" onclick="toggleSidebar(); switchTab('hotel');">🏨 <span>होटल / धर्मशाला रूम</span></a></li>
-      <li><a href="https://wa.me/917037647464?text=Hello,%20mujhe%20rider/delivery%20partner%20banna%20hai" target="_blank">🤝 <span>राइडर/पार्टनर बनें</span> <span class="badge">Join</span></a></li>
-      <li><a href="tel:7037647464">📞 <span>सीधे कॉल करें</span></a></li>
-      <li><a href="https://wa.me/917037647464?text=Mujhe%20hotel/dharamshala%20tie-up%20karna%20hai" target="_blank">🏨 <span>होटल / धर्मशाला टाई-अप</span></a></li>
-      <li><a href="#" onclick="alert('खाटू धाम में कमरे तक शुद्ध सात्विक भोजन, त्वरित बाइक टैक्सी और भरोसेमंद होटल बुकिंग सेवा।'); toggleSidebar();">ℹ️ <span>हमारे बारे में (About Us)</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span id="txt-sb-food">खाना मंगवाएं</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span id="txt-sb-ride">बाइक राइड बुक करें</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('hotel');">🏨 <span id="txt-sb-hotel">होटल / धर्मशाला</span></a></li>
+      <li><a href="tel:7037647464">📞 <span id="txt-sb-call">हेल्पलाइन कॉल करें</span></a></li>
     </ul>
-    <div class="sidebar-footer">
-      खाटू श्याम सेवा v1.0.0
-    </div>
   </div>
 
-  <!-- Header with Center Logo & Live Status -->
+  <!-- Header -->
   <div class="header">
     <div class="top-nav">
-      <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Menu">☰</button>
-      <a href="tel:7037647464" class="sos-badge">🚨 Helpline</a>
+      <button class="menu-trigger" onclick="toggleSidebar()">☰</button>
+      <div class="nav-actions">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langSwitchBtn">🌐 English</button>
+        <a href="tel:7037647464" class="sos-badge">🚨 Helpline</a>
+      </div>
     </div>
     
     <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
-    
-    <h1>🚩 खाटू श्याम सेवा केंद्र</h1>
-    <p>सात्विक भोजन, बाइक टैक्सी & होटल सेवा</p>
+    <h1 id="txt-hero-title">🚩 खाटू श्याम सेवा केंद्र</h1>
+    <p id="txt-hero-sub">सात्विक भोजन, त्वरित बाइक & होटल बुकिंग</p>
 
-    <!-- Auto Open/Close Timing Pill -->
     <div class="status-pill">
       <span id="statusDot" class="status-dot dot-open"></span>
-      <span id="statusText">समय: सुबह 6:00 - रात 11:30 (खुला है)</span>
+      <span id="statusText">समय: 6:00 AM - 11:30 PM (खुला है)</span>
     </div>
   </div>
 
   <div class="container">
     
-    <!-- Special Offer / Discount Banner -->
+    <!-- Colorful Offer Banner -->
     <div class="offer-banner">
-      <div class="offer-icon">🎉</div>
+      <div class="offer-icon">🎁</div>
       <div class="offer-content">
-        <h4>श्याम बाबा स्पेशल महा-ऑफर!</h4>
-        <p>होटल/धर्मशाला में मंगवाएं <strong>फ्री डिलीवरी</strong> के साथ। शुद्ध और ताजा भोजन की गारंटी!</p>
+        <h4 id="txt-ban-title">श्याम कृपा महा-ऑफर! (SHYAM10)</h4>
+        <p id="txt-ban-desc">कमरे तक फ्री डिलीवरी + हर राइड में सुपरफास्ट सेवा।</p>
       </div>
     </div>
 
-    <!-- 3 Tabs Navigation -->
+    <!-- 3 Tabs -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('food')">🍲 खाना</button>
-      <button class="tab-btn" onclick="switchTab('ride')">🛵 बाइक राइड</button>
-      <button class="tab-btn" onclick="switchTab('hotel')">🏨 होटल/धर्मशाला</button>
+      <button class="tab-btn active" onclick="switchTab('food')" id="tab-btn-food">🍲 खाना</button>
+      <button class="tab-btn" onclick="switchTab('ride')" id="tab-btn-ride">🛵 बाइक राइड</button>
+      <button class="tab-btn" onclick="switchTab('hotel')" id="tab-btn-hotel">🏨 होटल/स्टे</button>
     </div>
 
-    <!-- 1. FOOD SECTION -->
+    <!-- 1. FOOD TAB -->
     <div id="foodSection" class="card">
-      <h3 style="margin-bottom: 8px; font-size: 16px;">मेनू से आइटम चुनें</h3>
+      <h3 style="font-size: 15px;" id="txt-food-menu">मेनू से आइटम चुनें</h3>
 
-      <div class="menu-cat-title">स्पेशल डिशेस & थाली</div>
+      <div class="menu-cat-title" id="txt-cat-special">स्पेशल डिशेस & थाली</div>
       
       <div class="menu-item">
         <div>
-          <div class="item-title">छोले भटूरे (2 पीस)</div>
+          <div class="item-title" id="txt-item-cb">छोले भटूरे (2 पीस)</div>
           <div class="item-price">₹100</div>
         </div>
         <div class="qty-controls">
@@ -195,19 +169,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title">मलाई चाप (फुल प्लेट)</div>
-          <div class="item-price">₹160</div>
-        </div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('malaiChaap', -1)">-</button>
-          <span id="qty-malaiChaap" class="qty-text">0</span>
-          <button class="qty-btn" onclick="changeQty('malaiChaap', 1)">+</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div>
-          <div class="item-title">शुद्ध सात्विक थाली</div>
+          <div class="item-title" id="txt-item-thali">शुद्ध सात्विक थाली</div>
           <div class="item-price">₹140</div>
         </div>
         <div class="qty-controls">
@@ -219,7 +181,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title">स्पेशल फलाहार / व्रत थाली</div>
+          <div class="item-title" id="txt-item-fal">स्पेशल फलाहार थाली</div>
           <div class="item-price">₹180</div>
         </div>
         <div class="qty-controls">
@@ -229,65 +191,13 @@
         </div>
       </div>
 
-      <div class="menu-item">
-        <div>
-          <div class="item-title">यात्रा पैक (पूरी-सब्जी-अचार)</div>
-          <div class="item-price">₹100</div>
-        </div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('pack', -1)">-</button>
-          <span id="qty-pack" class="qty-text">0</span>
-          <button class="qty-btn" onclick="changeQty('pack', 1)">+</button>
-        </div>
-      </div>
-
-      <div class="menu-cat-title">रोटी स्पेशल</div>
-
-      <div class="menu-item">
-        <div>
-          <div class="item-title">रूमाली रोटी</div>
-          <div class="item-price">₹15</div>
-        </div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('rumaliRoti', -1)">-</button>
-          <span id="qty-rumaliRoti" class="qty-text">0</span>
-          <button class="qty-btn" onclick="changeQty('rumaliRoti', 1)">+</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div>
-          <div class="item-title">तवा रोटी (देसी घी)</div>
-          <div class="item-price">₹10</div>
-        </div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('tawaRoti', -1)">-</button>
-          <span id="qty-tawaRoti" class="qty-text">0</span>
-          <button class="qty-btn" onclick="changeQty('tawaRoti', 1)">+</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <div>
-          <div class="item-title">तंदूरी रोटी (मक्खन)</div>
-          <div class="item-price">₹12</div>
-        </div>
-        <div class="qty-controls">
-          <button class="qty-btn" onclick="changeQty('tandoorRoti', -1)">-</button>
-          <span id="qty-tandoorRoti" class="qty-text">0</span>
-          <button class="qty-btn" onclick="changeQty('tandoorRoti', 1)">+</button>
-        </div>
-      </div>
-
-      <!-- Live Total Bill Box -->
       <div class="bill-box">
-        <span>कुल बिल (Total):</span>
+        <span id="txt-total-lbl">कुल बिल (Total):</span>
         <span class="bill-amount">₹<span id="totalBill">0</span></span>
       </div>
 
-      <!-- Payment Method -->
       <div class="form-group">
-        <label>पेमेंट का तरीका चुनें:</label>
+        <label id="txt-pay-lbl">पेमेंट का तरीका चुनें:</label>
         <div class="pay-methods">
           <div id="method-upi" class="pay-method-card selected" onclick="selectPaymentMethod('upi')">
             📱 ऑनलाइन UPI
@@ -298,211 +208,191 @@
         </div>
       </div>
 
-      <!-- Dynamic UPI QR Container -->
+      <!-- QR & UTR Lock -->
       <div id="qrSection" class="qr-container">
-        <p style="font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 8px;">
-          स्कैन करके ₹<span id="qrAmountText">0</span> पे करें
-        </p>
-        <img id="upiQrImg" src="" alt="UPI QR Code">
-        <div style="margin-top: 8px;">
-          <a id="upiDeepLink" href="#" class="upi-pay-btn">📲 GPay / PhonePe से पे करें</a>
+        <p style="font-size: 13px; font-weight: 700;">स्कैन करके ₹<span id="qrAmountText">0</span> पे करें</p>
+        <img id="upiQrImg" src="" alt="QR">
+        <div><a id="upiDeepLink" href="#" class="upi-pay-btn">📲 Pay via UPI App</a></div>
+        
+        <div class="form-group" style="margin-top: 12px; text-align: left;">
+          <label style="color: #ea580c; font-weight: 800;">⚠️ पेमेंट के बाद 12-अंकों का UPI Ref / UTR No. दर्ज करें:</label>
+          <input type="text" id="foodUtr" placeholder="उदा. 4234xxxxxxxx (अनिवार्य)" maxlength="16">
         </div>
-        <p style="font-size: 11px; color: #64748b; margin-top: 6px;">पेमेंट करने के बाद नीचे व्हाट्सएप बटन दबाएं</p>
       </div>
 
       <div class="form-group">
-        <label>होटल/धर्मशाला का नाम और रूम नंबर</label>
+        <label id="txt-food-addr-lbl">होटल/धर्मशाला का नाम और रूम नंबर</label>
         <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, रूम 204">
       </div>
 
-      <div class="form-group">
-        <label>मोबाइल नंबर</label>
-        <input type="tel" id="foodPhone" placeholder="10 डिजिट का मोबाइल नंबर">
+      <!-- Mandatory GPS -->
+      <div class="gps-lock-box">
+        <button type="button" class="gps-action-btn" onclick="fetchLocation('food')">
+          📍 लाइव GPS लोकेशन लॉक करें (अनिवार्य)
+        </button>
+        <div id="foodGpsStatus" class="gps-status" style="color: #dc2626;">❌ लोकेशन अभी लॉक नहीं है</div>
       </div>
 
-      <button class="submit-btn" onclick="sendFoodOrder()">WhatsApp पर ऑर्डर भेजें</button>
+      <div class="form-group">
+        <label id="txt-food-phn-lbl">मोबाइल नंबर</label>
+        <input type="tel" id="foodPhone" placeholder="10 अंकों का नंबर">
+      </div>
+
+      <button class="submit-btn" onclick="sendFoodOrder()" id="txt-food-btn">WhatsApp पर ऑर्डर भेजें</button>
     </div>
 
-    <!-- 2. BIKE RIDE SECTION -->
+    <!-- 2. RIDE TAB -->
     <div id="rideSection" class="card hidden">
-      <h3 style="margin-bottom: 12px; font-size: 16px;">राइड विवरण</h3>
+      <h3 style="font-size: 15px;" id="txt-ride-title">बाइक राइड विवरण</h3>
 
-      <div class="form-group" style="margin-top: 0;">
-        <label>कहाँ से (Pickup Point)</label>
+      <div class="gps-lock-box" style="margin-top: 8px;">
+        <button type="button" class="gps-action-btn" onclick="fetchLocation('ride')">
+          📍 पिकअप GPS लोकेशन लॉक करें (अनिवार्य)
+        </button>
+        <div id="rideGpsStatus" class="gps-status" style="color: #dc2626;">❌ पिकअप लोकेशन अभी लॉक नहीं है</div>
+      </div>
+
+      <div class="form-group">
+        <label id="txt-ride-pickup-lbl">पिकअप लैंडमार्क (उदा. होटल/गेट)</label>
         <input type="text" id="pickupLoc" placeholder="उदा. तोरण द्वार / होटल का नाम">
       </div>
 
       <div class="form-group">
-        <label>कहाँ तक (Drop Route)</label>
+        <label id="txt-ride-drop-lbl">कहाँ तक (Drop Route)</label>
         <select id="dropRoute">
           <option value="पार्किंग ↔ मंदिर (₹40)">कार पार्किंग ↔ मंदिर बैरिकेड्स (₹40)</option>
           <option value="होटल ↔ मंदिर (₹50)">होटल/धर्मशाला ↔ मंदिर (₹50)</option>
           <option value="रींगस स्टेशन ↔ खाटू (₹180)">रींगस स्टेशन ↔ खाटू धाम (₹180)</option>
-          <option value="अन्य लोकल रूट (₹50)">अन्य लोकल लोकेशन (₹50)</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label>सवारी की संख्या</label>
-        <select id="passengerCount">
-          <option value="1 व्यक्ति (1 बाइक)">1 व्यक्ति (1 बाइक)</option>
-          <option value="2 व्यक्ति (2 बाइक)">2 व्यक्ति (2 बाइक)</option>
-        </select>
+        <label id="txt-ride-phn-lbl">मोबाइल नंबर</label>
+        <input type="tel" id="ridePhone" placeholder="10 अंकों का नंबर">
       </div>
 
-      <div class="form-group">
-        <label>मोबाइल नंबर</label>
-        <input type="tel" id="ridePhone" placeholder="10 डिजिट का मोबाइल नंबर">
-      </div>
-
-      <button class="submit-btn" onclick="sendRideBooking()">बाइक राइड कन्फर्म करें</button>
+      <button class="submit-btn" onclick="sendRideBooking()" id="txt-ride-btn">बाइक राइड कन्फर्म करें</button>
     </div>
 
-    <!-- 3. HOTEL / DHARAMSHALA BOOKING SECTION -->
+    <!-- 3. HOTEL TAB -->
     <div id="hotelSection" class="card hidden">
-      <h3 style="margin-bottom: 6px; font-size: 16px;">🏨 होटल / धर्मशाला रूम बुकिंग</h3>
-      <p style="font-size: 12px; color: #64748b;">खाटू श्याम मंदिर परिक्रमा व मुख्य तोरण द्वार के निकट शुद्ध वातावरण।</p>
+      <h3 style="font-size: 15px;" id="txt-hotel-title">🏨 होटल / धर्मशाला रूम स्टे</h3>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">तोरण द्वार व मंदिर परिक्रमा के समीप साफ-सुथरे कमरे।</p>
 
-      <div class="location-info">
-        📍 <strong>लोकेशन एड्रेस:</strong> मुख्य मंदिर मार्ग, तोरण द्वार रोड व मेला ग्राउंड के समीप, खाटू धाम (सीकर)
-      </div>
-
-      <div class="badge-grid">
-        <span class="feature-tag">✨ मंदिर से 2-5 मिनट दूरी</span>
-        <span class="feature-tag">❄️ AC / Non-AC</span>
-        <span class="feature-tag">🚿 24/7 गर्म पानी</span>
-        <span class="feature-tag">📶 फ़्री WiFi</span>
+      <div class="gps-lock-box" style="margin-top: 8px;">
+        <button type="button" class="gps-action-btn" onclick="fetchLocation('hotel')">
+          📍 आपकी करंट GPS लोकेशन जोड़ें (अनिवार्य)
+        </button>
+        <div id="hotelGpsStatus" class="gps-status" style="color: #dc2626;">❌ लोकेशन अभी लॉक नहीं है</div>
       </div>
 
       <div class="form-group">
-        <label>कमरे का प्रकार चुनें</label>
+        <label id="txt-hotel-type-lbl">कमरे का प्रकार चुनें</label>
         <select id="hotelRoomType">
-          <option value="बजट नॉन-एसी रूम (₹600 - ₹900/दिन)">बजट नॉन-एसी रूम (₹600 - ₹900)</option>
-          <option value="डीलक्स एसी रूम (₹1200 - ₹1600/दिन)">डीलक्स एसी रूम (₹1200 - ₹1600)</option>
-          <option value="सुपर डीलक्स फैमिली रूम 4 बेड (₹1800 - ₹2400/दिन)">फैमिली रूम 4-बेड (₹1800 - ₹2400)</option>
-          <option value="धर्मशाला हॉल / ग्रुप स्टे (बजट स्टे)">धर्मशाला हॉल / ग्रुप स्टे</option>
+          <option value="बजट नॉन-एसी रूम (₹600 - ₹900)">बजट नॉन-एसी रूम (₹600 - ₹900)</option>
+          <option value="डीलक्स एसी रूम (₹1200 - ₹1600)">डीलक्स एसी रूम (₹1200 - ₹1600)</option>
+          <option value="फैमिली 4-बेड रूम (₹1800 - ₹2400)">फैमिली 4-बेड रूम (₹1800 - ₹2400)</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label>पसंदीदा धर्मशाला/होटल या एरिया (Address / Landmark)</label>
-        <input type="text" id="hotelAddressPref" placeholder="उदा. तोरण द्वार के पास / चरणामृत कुंड रोड / कोई पसंदीदा धर्मशाला">
-      </div>
-
-      <div class="form-group">
-        <label>चेक-इन तारीख (Check-in Date)</label>
+        <label id="txt-hotel-date-lbl">चेक-इन तारीख</label>
         <input type="date" id="hotelCheckIn">
       </div>
 
       <div class="form-group">
-        <label>यात्रियों की कुल संख्या</label>
-        <input type="number" id="hotelGuests" placeholder="उदा. 2 व्यक्ति, 1 बच्चा">
+        <label id="txt-hotel-name-lbl">आपका नाम</label>
+        <input type="text" id="hotelName" placeholder="पूरा नाम">
       </div>
 
       <div class="form-group">
-        <label>आपका नाम</label>
-        <input type="text" id="hotelName" placeholder="पूरा नाम दर्ज करें">
+        <label id="txt-hotel-phn-lbl">मोबाइल नंबर</label>
+        <input type="tel" id="hotelPhone" placeholder="10 अंकों का नंबर">
       </div>
 
-      <div class="form-group">
-        <label>मोबाइल नंबर</label>
-        <input type="tel" id="hotelPhone" placeholder="10 डिजिट का मोबाइल नंबर">
-      </div>
-
-      <button class="submit-btn" onclick="sendHotelBooking()">होटल रूम बुकिंग के लिए पूछताछ करें</button>
+      <button class="submit-btn" onclick="sendHotelBooking()" id="txt-hotel-btn">होटल रूम के लिए संपर्क करें</button>
     </div>
 
   </div>
 
   <script>
-    // आपका WhatsApp और UPI विवरण
     const MY_WHATSAPP_NUMBER = "917037647464";
-    const MY_UPI_ID = "7037647464@ybl"; // <-- अपनी असली UPI ID यहाँ चेक करें
+    const MY_UPI_ID = "7037647464@ybl"; // <-- अपनी असली UPI ID
     const MY_PAYEE_NAME = "Khatu Express";
 
+    let currentLang = "hi";
     let selectedPayment = "upi";
+    let gpsLinks = { food: "", ride: "", hotel: "" };
 
-    // Drawer / Sidebar
+    const langData = {
+      hi: {
+        switch: "🌐 English",
+        heroTitle: "🚩 खाटू श्याम सेवा केंद्र",
+        heroSub: "सात्विक भोजन, त्वरित बाइक & होटल बुकिंग",
+        tabFood: "🍲 खाना",
+        tabRide: "🛵 बाइक राइड",
+        tabHotel: "🏨 होटल/स्टे",
+        foodMenu: "मेनू से आइटम चुनें",
+        foodBtn: "WhatsApp पर ऑर्डर भेजें",
+        rideBtn: "बाइक राइड कन्फर्म करें",
+        hotelBtn: "होटल रूम के लिए संपर्क करें"
+      },
+      en: {
+        switch: "🌐 हिंदी",
+        heroTitle: "🚩 Khatu Shyam Seva Center",
+        heroSub: "Satvik Food, Quick Bike Ride & Hotel Stay",
+        tabFood: "🍲 Food",
+        tabRide: "🛵 Bike Ride",
+        tabHotel: "🏨 Hotel/Stay",
+        foodMenu: "Select Items From Menu",
+        foodBtn: "Send Order on WhatsApp",
+        rideBtn: "Confirm Bike Ride",
+        hotelBtn: "Inquire for Hotel Room"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === "hi" ? "en" : "hi";
+      const d = langData[currentLang];
+      document.getElementById('langSwitchBtn').innerText = d.switch;
+      document.getElementById('txt-hero-title').innerText = d.heroTitle;
+      document.getElementById('txt-hero-sub').innerText = d.heroSub;
+      document.getElementById('tab-btn-food').innerText = d.tabFood;
+      document.getElementById('tab-btn-ride').innerText = d.tabRide;
+      document.getElementById('tab-btn-hotel').innerText = d.tabHotel;
+      document.getElementById('txt-food-menu').innerText = d.foodMenu;
+      document.getElementById('txt-food-btn').innerText = d.foodBtn;
+      document.getElementById('txt-ride-btn').innerText = d.rideBtn;
+      document.getElementById('txt-hotel-btn').innerText = d.hotelBtn;
+    }
+
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // Live Store Timing Check (6:00 AM - 11:30 PM)
-    function checkStoreTiming() {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const currentTimeInMins = hours * 60 + minutes;
-
-      const openTime = 6 * 60; // 6:00 AM
-      const closeTime = 23 * 60 + 30; // 11:30 PM
-
-      const dot = document.getElementById('statusDot');
-      const text = document.getElementById('statusText');
-
-      if (currentTimeInMins >= openTime && currentTimeInMins <= closeTime) {
-        dot.className = "status-dot dot-open";
-        text.innerText = "समय: 6:00 AM - 11:30 PM (खुला है)";
-      } else {
-        dot.className = "status-dot dot-closed";
-        text.innerText = "अभी बंद है (सुबह 6:00 बजे खुलेगा)";
-      }
-    }
-    checkStoreTiming();
-
-    let quantities = {
-      chholeBhature: 0,
-      malaiChaap: 0,
-      thali: 0,
-      falahar: 0,
-      pack: 0,
-      rumaliRoti: 0,
-      tawaRoti: 0,
-      tandoorRoti: 0
-    };
-
+    let quantities = { chholeBhature: 0, thali: 0, falahar: 0 };
     const items = {
       chholeBhature: { name: "छोले भटूरे", price: 100 },
-      malaiChaap: { name: "मलाई चाप", price: 160 },
       thali: { name: "शुद्ध सात्विक थाली", price: 140 },
-      falahar: { name: "स्पेशल फलाहार थाली", price: 180 },
-      pack: { name: "यात्रा पैक", price: 100 },
-      rumaliRoti: { name: "रूमाली रोटी", price: 15 },
-      tawaRoti: { name: "तवा रोटी", price: 10 },
-      tandoorRoti: { name: "तंदूरी रोटी", price: 12 }
+      falahar: { name: "स्पेशल फलाहार थाली", price: 180 }
     };
 
-    // 3-Way Tab Switcher
     function switchTab(type) {
-      const foodSec = document.getElementById('foodSection');
-      const rideSec = document.getElementById('rideSection');
-      const hotelSec = document.getElementById('hotelSection');
-      const buttons = document.querySelectorAll('.tab-btn');
-
-      foodSec.classList.add('hidden');
-      rideSec.classList.add('hidden');
-      hotelSec.classList.add('hidden');
-
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      if(type === 'food') {
-        foodSec.classList.remove('hidden');
-        buttons[0].classList.add('active');
-      } else if(type === 'ride') {
-        rideSec.classList.remove('hidden');
-        buttons[1].classList.add('active');
-      } else if(type === 'hotel') {
-        hotelSec.classList.remove('hidden');
-        buttons[2].classList.add('active');
-      }
+      ['food', 'ride', 'hotel'].forEach(t => {
+        document.getElementById(t + 'Section').classList.add('hidden');
+      });
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(type + 'Section').classList.remove('hidden');
+      if (type === 'food') document.getElementById('tab-btn-food').classList.add('active');
+      if (type === 'ride') document.getElementById('tab-btn-ride').classList.add('active');
+      if (type === 'hotel') document.getElementById('tab-btn-hotel').classList.add('active');
     }
 
     function calculateTotal() {
       let total = 0;
-      for (let k in quantities) {
-        total += items[k].price * quantities[k];
-      }
+      for (let k in quantities) total += items[k].price * quantities[k];
       return total;
     }
 
@@ -510,63 +400,92 @@
       const total = calculateTotal();
       document.getElementById('totalBill').innerText = total;
       document.getElementById('qrAmountText').innerText = total;
-
       const qrSection = document.getElementById('qrSection');
 
       if (selectedPayment === 'upi' && total > 0) {
         qrSection.style.display = "block";
-        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${total}&cu=INR&tn=KhatuExpressOrder`;
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
-        
-        document.getElementById('upiQrImg').src = qrUrl;
+        const upiString = `upi://pay?pa=${MY_UPI_ID}&pn=${encodeURIComponent(MY_PAYEE_NAME)}&am=${total}&cu=INR&tn=KhatuOrder`;
+        document.getElementById('upiQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
         document.getElementById('upiDeepLink').href = upiString;
       } else {
         qrSection.style.display = "none";
       }
     }
 
-    function changeQty(key, change) {
-      quantities[key] = Math.max(0, quantities[key] + change);
+    function changeQty(key, val) {
+      quantities[key] = Math.max(0, quantities[key] + val);
       document.getElementById(`qty-${key}`).innerText = quantities[key];
       updatePaymentUI();
     }
 
-    function selectPaymentMethod(method) {
-      selectedPayment = method;
-      document.getElementById('method-upi').classList.toggle('selected', method === 'upi');
-      document.getElementById('method-cod').classList.toggle('selected', method === 'cod');
+    function selectPaymentMethod(m) {
+      selectedPayment = m;
+      document.getElementById('method-upi').classList.toggle('selected', m === 'upi');
+      document.getElementById('method-cod').classList.toggle('selected', m === 'cod');
       updatePaymentUI();
     }
 
+    // Mandatory GPS Fetch
+    function fetchLocation(type) {
+      const statusElem = document.getElementById(`${type}GpsStatus`);
+      if (!navigator.geolocation) {
+        alert(currentLang === 'hi' ? "GPS सपोर्ट उपलब्ध नहीं है।" : "GPS is not supported.");
+        return;
+      }
+      statusElem.style.color = "#ea580c";
+      statusElem.innerText = currentLang === 'hi' ? "⏳ लोकेशन ली जा रही है..." : "⏳ Fetching Location...";
+
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          gpsLinks[type] = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+          statusElem.style.color = "#16a34a";
+          statusElem.innerText = currentLang === 'hi' ? "✅ लोकेशन सफलतापूर्वक लॉक हो गई!" : "✅ Location Successfully Locked!";
+        },
+        err => {
+          statusElem.style.color = "#dc2626";
+          statusElem.innerText = currentLang === 'hi' ? "❌ कृपया GPS/लोकेशन परमिशन ऑन करें!" : "❌ Please enable GPS permission!";
+          alert(currentLang === 'hi' ? "ऑर्डर के लिए लोकेशन परमिशन देना अनिवार्य है।" : "Location permission is required.");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
     function sendFoodOrder() {
-      const address = document.getElementById('foodAddress').value.trim();
-      const phone = document.getElementById('foodPhone').value.trim();
       const total = calculateTotal();
+      const addr = document.getElementById('foodAddress').value.trim();
+      const phn = document.getElementById('foodPhone').value.trim();
+      const utr = document.getElementById('foodUtr').value.trim();
 
-      let orderList = [];
+      if (total === 0) {
+        alert(currentLang === 'hi' ? "कृपया कम से कम 1 आइटम चुनें।" : "Please select at least 1 item.");
+        return;
+      }
+      if (!gpsLinks.food) {
+        alert(currentLang === 'hi' ? "कृपया पहले 'लाइव GPS लोकेशन लॉक करें' बटन दबाएं!" : "Please lock your GPS location first!");
+        return;
+      }
+      if (!addr || !phn) {
+        alert(currentLang === 'hi' ? "कृपया पता और मोबाइल नंबर भरें।" : "Please fill address and phone.");
+        return;
+      }
+      if (selectedPayment === 'upi' && utr.length < 8) {
+        alert(currentLang === 'hi' ? "कृपया पेमेंट के बाद 12 अंकों का UPI Ref / UTR नंबर डालें!" : "Please enter valid 12-digit UPI Ref/UTR No.");
+        return;
+      }
+
+      let orderItems = [];
       for (let k in quantities) {
-        if (quantities[k] > 0) {
-          orderList.push(`• ${items[k].name} (₹${items[k].price}) x ${quantities[k]} = ₹${items[k].price * quantities[k]}`);
-        }
+        if (quantities[k] > 0) orderItems.push(`• ${items[k].name} x ${quantities[k]}`);
       }
 
-      if (orderList.length === 0) {
-        alert("कृपया कम से कम 1 आइटम चुनें।");
-        return;
-      }
-      if (!address || !phone) {
-        alert("कृपया होटल का पता और मोबाइल नंबर दर्ज करें।");
-        return;
-      }
-
-      const payModeText = selectedPayment === 'upi' ? 'ऑनलाइन UPI (QR / Apps)' : 'कैश ऑन डिलीवरी (COD)';
-
+      const payStatus = selectedPayment === 'upi' ? `ऑनलाइन UPI (Paid, UTR: ${utr})` : 'कैश ऑन डिलीवरी (COD)';
       let msg = `*🍲 नया फ़ूड ऑर्डर (खाटू एक्सप्रेस)*\n\n` +
-                `*ऑर्डर विवरण:*\n${orderList.join('\n')}\n\n` +
-                `*कुल बिल:* ₹${total}\n` +
-                `*पेमेंट माध्यम:* ${payModeText}\n` +
-                `*डिलीवरी पता:* ${address}\n` +
-                `*कस्टमर नंबर:* ${phone}`;
+                `*आइटम:*\n${orderItems.join('\n')}\n` +
+                `*बिल:* ₹${total}\n` +
+                `*पेमेंट:* ${payStatus}\n` +
+                `*होटल/कमरा:* ${addr}\n` +
+                `*कस्टमर नंबर:* ${phn}\n` +
+                `*📍 लाइव GPS मैप:* ${gpsLinks.food}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
@@ -574,54 +493,52 @@
     function sendRideBooking() {
       const pickup = document.getElementById('pickupLoc').value.trim();
       const route = document.getElementById('dropRoute').value;
-      const pass = document.getElementById('passengerCount').value;
-      const phone = document.getElementById('ridePhone').value.trim();
+      const phn = document.getElementById('ridePhone').value.trim();
 
-      if (!pickup || !phone) {
-        alert("कृपया पिकअप पॉइंट और मोबाइल नंबर भरें।");
+      if (!gpsLinks.ride) {
+        alert(currentLang === 'hi' ? "राइड के लिए पिकअप GPS लोकेशन लॉक करना अनिवार्य है!" : "Locking GPS location is mandatory for ride!");
+        return;
+      }
+      if (!phn) {
+        alert(currentLang === 'hi' ? "कृपया मोबाइल नंबर भरें।" : "Please fill phone number.");
         return;
       }
 
       let msg = `*🛵 नई बाइक राइड बुकिंग*\n\n` +
-                `*पिकअप पॉइंट:* ${pickup}\n` +
+                `*पिकअप पॉइंट:* ${pickup || 'GPS लोकेशन'}\n` +
                 `*रूट:* ${route}\n` +
-                `*सवारी:* ${pass}\n` +
-                `*कस्टमर नंबर:* ${phone}`;
+                `*मोबाइल:* ${phn}\n` +
+                `*📍 पिकअप GPS:* ${gpsLinks.ride}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
     function sendHotelBooking() {
-      const roomType = document.getElementById('hotelRoomType').value;
-      const addressPref = document.getElementById('hotelAddressPref').value.trim();
-      const checkIn = document.getElementById('hotelCheckIn').value;
-      const guests = document.getElementById('hotelGuests').value.trim();
+      const type = document.getElementById('hotelRoomType').value;
+      const date = document.getElementById('hotelCheckIn').value;
       const name = document.getElementById('hotelName').value.trim();
-      const phone = document.getElementById('hotelPhone').value.trim();
+      const phn = document.getElementById('hotelPhone').value.trim();
 
-      if (!checkIn || !name || !phone) {
-        alert("कृपया चेक-इन तारीख, अपना नाम और मोबाइल नंबर भरें।");
+      if (!gpsLinks.hotel) {
+        alert(currentLang === 'hi' ? "कृपया पहले GPS लोकेशन जोड़ें!" : "Please add your GPS location first!");
+        return;
+      }
+      if (!date || !name || !phn) {
+        alert(currentLang === 'hi' ? "कृपया सभी विवरण भरें।" : "Please fill all details.");
         return;
       }
 
       let msg = `*🏨 नई होटल / धर्मशाला बुकिंग पूछताछ*\n\n` +
                 `*नाम:* ${name}\n` +
-                `*मोबाइल नंबर:* ${phone}\n` +
-                `*कमरे का प्रकार:* ${roomType}\n` +
-                `*पसंदीदा लोकेशन / धर्मशाला:* ${addressPref || 'मंदिर के नजदीक'}\n` +
-                `*चेक-इन तारीख:* ${checkIn}\n` +
-                `*यात्रियों की संख्या:* ${guests || 'उल्लेखित नहीं'}`;
+                `*मोबाइल:* ${phn}\n` +
+                `*कमरा:* ${type}\n` +
+                `*तारीख:* ${date}\n` +
+                `*📍 यूजर GPS:* ${gpsLinks.hotel}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Default load
     updatePaymentUI();
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
   </script>
 </body>
 </html>
