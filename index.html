@@ -5,67 +5,84 @@
   <meta name="theme-color" content="#ea580c">
   <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Disable Zoom completely for App-like feel -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>खाटू फ़ूड एक्सप्रेस - Khatoo Food Express</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #fdfbf7; color: #1e293b; padding-bottom: 50px; overflow-x: hidden; }
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      touch-action: pan-y; /* Prevents double-tap and pinch zoom */
+    }
+    body { background: #fdfbf7; color: #1e293b; padding-bottom: 50px; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
     
-    /* Dynamic Animated Header */
+    /* Full Frame Shyam Dhanush Background with Changing Glow Colors */
     .header {
       position: relative;
       color: white;
-      padding: 16px 18px 28px;
-      border-radius: 0 0 26px 26px;
+      padding: 16px 18px 30px;
+      border-radius: 0 0 28px 28px;
       text-align: center;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.28);
+      box-shadow: 0 10px 28px rgba(234, 88, 12, 0.32);
+      /* Divine Bow & Arrow High Quality Theme */
+      background-image: url('https://images.unsplash.com/photo-1599813398939-503463870624?auto=format&fit=crop&w=900&q=80');
       background-size: cover;
       background-position: center;
-      transition: background 1.5s ease-in-out;
+      animation: colorShiftFilter 12s infinite alternate ease-in-out;
     }
+
+    @keyframes colorShiftFilter {
+      0% { filter: hue-rotate(0deg) saturate(1.2); }
+      33% { filter: hue-rotate(45deg) saturate(1.4); }
+      66% { filter: hue-rotate(-40deg) saturate(1.3); }
+      100% { filter: hue-rotate(25deg) saturate(1.5); }
+    }
+
     .header::before {
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(234, 88, 12, 0.82) 100%);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(234, 88, 12, 0.85) 100%);
       z-index: 1;
     }
     .header-content { position: relative; z-index: 2; }
     
-    .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .top-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
     .menu-trigger { font-size: 26px; cursor: pointer; color: white; background: none; border: none; }
     .nav-actions { display: flex; align-items: center; gap: 8px; }
     .lang-btn { background: rgba(255, 255, 255, 0.25); color: white; border: 1.5px solid white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); }
     .sos-badge { background: #ef4444; color: white; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; text-decoration: none; }
 
-    /* 4x4 Square Stylish 3D Logo */
+    /* 9x9 Large Stylish 3D Logo */
     .brand-logo-container {
       position: relative;
       display: inline-block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .brand-logo { 
-      width: 110px; 
-      height: 110px; 
-      border-radius: 20px; 
+      width: 140px; 
+      height: 140px; 
+      border-radius: 26px; 
       border: 4px solid #ffffff; 
       object-fit: contain; 
       display: block; 
-      box-shadow: 0 8px 22px rgba(0,0,0,0.35), 0 0 16px rgba(251, 191, 36, 0.6); 
+      box-shadow: 0 12px 28px rgba(0,0,0,0.45), 0 0 20px rgba(251, 191, 36, 0.7); 
       background: white; 
-      padding: 4px;
+      padding: 6px;
       transition: transform 0.3s ease;
     }
     .brand-logo:hover {
-      transform: scale(1.05) rotate(1deg);
+      transform: scale(1.03);
     }
 
-    .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+    .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
     .header p { font-size: 12px; opacity: 0.95; margin-top: 2px; }
 
     /* Open/Close Pill */
-    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 10px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-top: 10px; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(4px); }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
     .dot-open { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
     .dot-closed { background: #ef4444; }
@@ -73,12 +90,37 @@
     /* Container */
     .container { max-width: 480px; margin: -16px auto 0; padding: 0 14px; position: relative; z-index: 3; }
     
-    /* Dynamic Offer Banner for ₹208 Free Delivery */
-    .offer-banner { background: linear-gradient(135deg, #10b981, #059669, #0284c7); color: white; border-radius: 16px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3); border: 1.5px dashed rgba(255,255,255,0.6); }
-    .offer-icon { font-size: 30px; animation: pulse 1.6s infinite; }
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-    .offer-content h4 { font-size: 13.5px; font-weight: 900; }
-    .offer-content p { font-size: 11.5px; opacity: 0.95; margin-top: 2px; line-height: 1.3; }
+    /* Scooty ₹49 Discount Banner */
+    .scooty-banner {
+      background: linear-gradient(135deg, #f97316, #ef4444, #ec4899);
+      color: white;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.32);
+      border: 1.5px solid rgba(255,255,255,0.7);
+    }
+    .scooty-img {
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      background: white;
+      padding: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+    .scooty-content h4 { font-size: 13.5px; font-weight: 900; }
+    .scooty-content p { font-size: 11px; opacity: 0.95; margin-top: 2px; line-height: 1.3; }
+
+    /* Free Delivery Threshold Banner */
+    .offer-banner { background: linear-gradient(135deg, #10b981, #059669, #0284c7); color: white; border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3); border: 1.5px dashed rgba(255,255,255,0.6); }
+    .offer-icon { font-size: 28px; }
+    .offer-content h4 { font-size: 13px; font-weight: 900; }
+    .offer-content p { font-size: 11px; opacity: 0.95; margin-top: 2px; }
 
     /* Tabs */
     .tabs { display: flex; background: white; border-radius: 14px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; border: 1px solid #e2e8f0; }
@@ -107,6 +149,7 @@
     /* Detailed Bill Breakdown Box */
     .bill-box-detailed { background: #fffbeb; border-radius: 12px; padding: 14px; margin-top: 16px; border: 1.5px solid #fde68a; }
     .bill-row { display: flex; justify-content: space-between; font-size: 12.5px; color: #475569; margin-bottom: 6px; }
+    .bill-row.discount-row { color: #dc2626; font-weight: 700; }
     .bill-row.total-row { border-top: 1.5px dashed #f59e0b; padding-top: 8px; margin-top: 8px; font-weight: 900; font-size: 16px; color: #b45309; }
     .free-badge { color: #16a34a; font-weight: 800; background: #dcfce7; padding: 1px 6px; border-radius: 6px; }
     .threshold-tip { font-size: 11px; color: #d97706; margin-top: 6px; font-weight: 700; text-align: right; }
@@ -134,12 +177,13 @@
 
     .submit-btn { width: 100%; margin-top: 16px; background: linear-gradient(135deg, #16a34a, #15803d); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
 
-    /* Sidebar Drawer */
+    /* Sidebar Drawer with Header Logo */
     .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s; }
     .overlay.active { opacity: 1; visibility: visible; }
     .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100vh; background: white; z-index: 999; transition: left 0.3s; display: flex; flex-direction: column; }
     .sidebar.open { left: 0; }
-    .sidebar-header { background: linear-gradient(135deg, #ea580c, #f59e0b); color: white; padding: 25px 18px 20px; }
+    .sidebar-header { background: linear-gradient(135deg, #ea580c, #f59e0b); color: white; padding: 22px 18px 18px; text-align: center; }
+    .sidebar-logo { width: 68px; height: 68px; border-radius: 14px; border: 2.5px solid white; margin: 0 auto 8px auto; display: block; background: white; object-fit: contain; }
     .sidebar-menu { list-style: none; padding: 12px 0; overflow-y: auto; flex: 1; }
     .sidebar-menu li a { display: flex; align-items: center; gap: 14px; padding: 12px 20px; color: #334155; text-decoration: none; font-size: 13px; font-weight: 700; border-bottom: 1px solid #f1f5f9; }
     .badge { margin-left: auto; background: #10b981; color: white; font-size: 10px; padding: 2px 6px; border-radius: 8px; }
@@ -149,11 +193,12 @@
 
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Sidebar -->
+  <!-- Sidebar with Logo in Menu Header -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
+      <img src="logo.png" alt="Menu Logo" class="sidebar-logo" onerror="this.style.display='none'">
       <h3 id="txt-sb-title">🚩 खाटू फ़ूड एक्सप्रेस</h3>
-      <p style="font-size: 11px; margin-top: 6px;" id="txt-sb-sub">सेवा ही धर्म है - बाबा की कृपा</p>
+      <p style="font-size: 11px; margin-top: 4px;" id="txt-sb-sub">सेवा ही धर्म है - बाबा की कृपा</p>
     </div>
     <ul class="sidebar-menu">
       <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span id="txt-sb-food">खाना & राशन मंगवाएं</span></a></li>
@@ -164,7 +209,7 @@
     </ul>
   </div>
 
-  <!-- Header with 4x4 Logo and Exact Name From Logo -->
+  <!-- Header with 9x9 Logo & Full Frame Divine Background -->
   <div class="header" id="heroHeader">
     <div class="header-content">
       <div class="top-nav">
@@ -175,6 +220,7 @@
         </div>
       </div>
       
+      <!-- 9x9 Logo Container -->
       <div class="brand-logo-container">
         <img src="logo.png" alt="Khatoo Food Express Logo" class="brand-logo" onerror="this.style.display='none'">
       </div>
@@ -191,12 +237,21 @@
 
   <div class="container">
     
+    <!-- Scooty ₹49 Discount Banner -->
+    <div class="scooty-banner">
+      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=200&q=80" alt="Delivery Scooty" class="scooty-img">
+      <div class="scooty-content">
+        <h4 id="txt-scooty-title">🛵 स्पेशल स्कूटी डिलीवरी डिस्काउंट!</h4>
+        <p id="txt-scooty-desc">₹499 से ऊपर के किसी भी ऑर्डर पर तुरंत <strong>₹49 का फ्लैट डिस्काउंट</strong> पाएं!</p>
+      </div>
+    </div>
+
     <!-- Free Delivery Threshold Banner -->
     <div class="offer-banner">
       <div class="offer-icon">🚚</div>
       <div class="offer-content">
         <h4 id="txt-ban-title">🎉 फ्री डिलीवरी महा-ऑफर!</h4>
-        <p id="txt-ban-desc">₹208 से अधिक के किसी भी ऑर्डर पर <strong>डिलीवरी बिल्कुल FREE</strong>! (कम ऑर्डर पर डिलीवरी ₹20 व प्लेटफ़ॉर्म शुल्क ₹9)।</p>
+        <p id="txt-ban-desc">₹208 से अधिक के किसी भी ऑर्डर पर <strong>डिलीवरी बिल्कुल FREE</strong>!</p>
       </div>
     </div>
 
@@ -212,7 +267,6 @@
     <div id="foodSection" class="card">
       <h3 style="font-size: 15px;" id="txt-food-menu">मेनू से आइटम चुनें</h3>
 
-      <!-- Section 1: Thali & Food -->
       <div class="menu-cat-title" id="txt-cat-special">स्पेशल डिशेस & थाली</div>
       
       <div class="menu-item">
@@ -263,7 +317,6 @@
         </div>
       </div>
 
-      <!-- Section 2: Water, Grocery & Dry Fruits -->
       <div class="menu-cat-title" id="txt-cat-grocery">किराना, पानी & ड्राई फ्रूट्स</div>
 
       <div class="menu-item">
@@ -314,7 +367,6 @@
         </div>
       </div>
 
-      <!-- Section 3: Fresh Veggies -->
       <div class="menu-cat-title" id="txt-cat-veggies">ताज़ा हरी सब्जियां</div>
 
       <div class="menu-item">
@@ -378,6 +430,10 @@
           <span id="txt-item-total-lbl">सामान का कुल मूल्य (Item Total):</span>
           <span>₹<span id="itemTotalVal">0</span></span>
         </div>
+        <div class="bill-row" id="scootyDiscountRow" style="display: none;">
+          <span id="txt-discount-lbl">🛵 स्कूटी स्पेशल छूट (Orders > ₹499):</span>
+          <span style="color: #dc2626; font-weight: 800;">-₹49</span>
+        </div>
         <div class="bill-row">
           <span id="txt-delivery-lbl">डिलीवरी चार्ज (Delivery Fee):</span>
           <span id="deliveryChargeText">₹20</span>
@@ -431,8 +487,8 @@
       </div>
 
       <div class="form-group">
-        <label id="txt-food-phn-lbl">मोबाइल नंबर</label>
-        <input type="tel" id="foodPhone" placeholder="10 अंकों का नंबर">
+        <label id="txt-food-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <input type="tel" id="foodPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
       </div>
 
       <button class="submit-btn" onclick="sendFoodOrder()" id="txt-food-btn">WhatsApp पर ऑर्डर भेजें</button>
@@ -464,8 +520,8 @@
       </div>
 
       <div class="form-group">
-        <label id="txt-ride-phn-lbl">मोबाइल नंबर</label>
-        <input type="tel" id="ridePhone" placeholder="10 अंकों का नंबर">
+        <label id="txt-ride-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <input type="tel" id="ridePhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
       </div>
 
       <button class="submit-btn" onclick="sendRideBooking()" id="txt-ride-btn">बाइक राइड कन्फर्म करें</button>
@@ -503,8 +559,8 @@
       </div>
 
       <div class="form-group">
-        <label id="txt-hotel-phn-lbl">मोबाइल नंबर</label>
-        <input type="tel" id="hotelPhone" placeholder="10 अंकों का नंबर">
+        <label id="txt-hotel-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <input type="tel" id="hotelPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
       </div>
 
       <button class="submit-btn" onclick="sendHotelBooking()" id="txt-hotel-btn">होटल रूम के लिए संपर्क करें</button>
@@ -542,8 +598,8 @@
       </div>
 
       <div class="form-group">
-        <label id="txt-tieup-phn-lbl">व्हाट्सएप मोबाइल नंबर</label>
-        <input type="tel" id="tieupPhone" placeholder="10 अंकों का व्हाट्सएप नंबर">
+        <label id="txt-tieup-phn-lbl">व्हाट्सएप मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <input type="tel" id="tieupPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
       </div>
 
       <button class="submit-btn" onclick="sendTieupRequest()" id="txt-tieup-btn">पार्टनरशिप फॉर्म सबमिट करें</button>
@@ -560,27 +616,12 @@
     let selectedPayment = "upi";
     let gpsLinks = { food: "", ride: "", hotel: "", tieup: "" };
 
-    // Header Backgrounds
-    const headerBgList = [
-      "linear-gradient(135deg, #ea580c, #f59e0b, #ec4899)",
-      "url('https://images.unsplash.com/photo-1545232979-fbf67597148a?auto=format&fit=crop&w=800&q=80')",
-      "linear-gradient(135deg, #1e3a8a, #3b82f6, #06b6d4)",
-      "url('https://images.unsplash.com/photo-1599813398939-503463870624?auto=format&fit=crop&w=800&q=80')",
-      "linear-gradient(135deg, #7c2d12, #ea580c, #f59e0b)"
-    ];
-
-    let currentBgIndex = 0;
-    function rotateHeaderBackground() {
-      const headerElem = document.getElementById('heroHeader');
-      if(headerElem) {
-        headerElem.style.backgroundImage = headerBgList[currentBgIndex];
-        currentBgIndex = (currentBgIndex + 1) % headerBgList.length;
-      }
+    // Function to check exact 10 digit Indian phone number
+    function isValidPhone(phone) {
+      const regex = /^[6-9]\d{9}$/;
+      return regex.test(phone);
     }
-    setInterval(rotateHeaderBackground, 6000);
-    rotateHeaderBackground();
 
-    // Comprehensive Bilingual Translation
     const langData = {
       hi: {
         switch: "🌐 English",
@@ -593,8 +634,10 @@
         sbHotel: "होटल / धर्मशाला",
         sbTieup: "पार्टनर टाई-अप (Join)",
         sbCall: "हेल्पलाइन कॉल करें",
+        scootyTitle: "🛵 स्पेशल स्कूटी डिलीवरी डिस्काउंट!",
+        scootyDesc: "₹499 से ऊपर के किसी भी ऑर्डर पर तुरंत ₹49 का फ्लैट डिस्काउंट पाएं!",
         banTitle: "🎉 फ्री डिलीवरी महा-ऑफर!",
-        banDesc: "₹208 से अधिक के किसी भी ऑर्डर पर डिलीवरी बिल्कुल FREE! (कम ऑर्डर पर डिलीवरी ₹20 व प्लेटफ़ॉर्म शुल्क ₹9)।",
+        banDesc: "₹208 से अधिक के किसी भी ऑर्डर पर डिलीवरी बिल्कुल FREE!",
         tabFood: "🍲 फ़ूड & किराना",
         tabRide: "🛵 बाइक",
         tabHotel: "🏨 होटल",
@@ -618,6 +661,7 @@
         customHead: "📝 अन्य आवश्यक सामान (Required Item)",
         customSub: "अगर आपको कोई ऐसा सामान चाहिए जो मेनू में नहीं है, तो यहाँ लिखें। यदि संभव होगा तो डिलीवरी बॉय जरूर लाकर देगा!",
         itemTotalLbl: "सामान का कुल मूल्य (Item Total):",
+        discountLbl: "🛵 स्कूटी स्पेशल छूट (Orders > ₹499):",
         deliveryLbl: "डिलीवरी चार्ज (Delivery Fee):",
         platformLbl: "प्लेटफ़ॉर्म फ़ीस (Platform Fee):",
         finalTotalLbl: "कुल देय राशि (Final Amount):",
@@ -628,13 +672,13 @@
         utrLbl: "⚠️ पेमेंट के बाद 12-अंकों का UPI Ref / UTR No. दर्ज करें:",
         foodAddrLbl: "होटल/धर्मशाला का नाम और रूम नंबर",
         gpsFoodBtn: "लाइव GPS लोकेशन लॉक करें (अनिवार्य)",
-        foodPhnLbl: "मोबाइल नंबर",
+        foodPhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
         foodBtn: "WhatsApp पर ऑर्डर भेजें",
         rideTitle: "बाइक राइड विवरण",
         gpsRideBtn: "पिकअप GPS लोकेशन लॉक करें (अनिवार्य)",
         ridePickupLbl: "पिकअप लैंडमार्क (उदा. होटल/गेट)",
         rideDropLbl: "कहाँ तक (Drop Route)",
-        ridePhnLbl: "मोबाइल नंबर",
+        ridePhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
         rideBtn: "बाइक राइड कन्फर्म करें",
         hotelTitle: "🏨 होटल / धर्मशाला रूम स्टे",
         hotelDesc: "तोरण द्वार व मंदिर परिक्रमा के समीप साफ-सुथरे कमरे।",
@@ -642,7 +686,7 @@
         hotelTypeLbl: "कमरे का प्रकार चुनें",
         hotelDateLbl: "चेक-इन तारीख",
         hotelNameLbl: "आपका नाम",
-        hotelPhnLbl: "मोबाइल नंबर",
+        hotelPhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
         hotelBtn: "होटल रूम के लिए संपर्क करें",
         tieupTitle: "🤝 खाटू फ़ूड एक्सप्रेस पार्टनर टाई-अप",
         tieupDesc: "राइडर बनें या अपनी होटल/धर्मशाला हमारे साथ रजिस्टर करें।",
@@ -650,7 +694,7 @@
         tieupNameLbl: "आपका या प्रतिष्ठान का नाम",
         tieupVehLbl: "गाड़ी नंबर या होटल का पता",
         gpsTieupBtn: "प्रतिष्ठान/करंट GPS लोकेशन लॉक करें (अनिवार्य)",
-        tieupPhnLbl: "व्हाट्सएप मोबाइल नंबर",
+        tieupPhnLbl: "व्हाट्सएप मोबाइल नंबर (पूरा 10 डिजिट)",
         tieupBtn: "पार्टनरशिप फॉर्म सबमिट करें"
       },
       en: {
@@ -664,8 +708,10 @@
         sbHotel: "Hotel / Dharamshala",
         sbTieup: "Partner Tie-Up (Join)",
         sbCall: "Call Helpline",
+        scootyTitle: "🛵 Special Scooty Delivery Discount!",
+        scootyDesc: "Get Flat ₹49 OFF on all orders above ₹499!",
         banTitle: "🎉 Free Delivery Mega Offer!",
-        banDesc: "Orders above ₹208 get 100% FREE DELIVERY! (Delivery ₹20 & Platform fee ₹9 on small orders).",
+        banDesc: "Orders above ₹208 get 100% FREE DELIVERY!",
         tabFood: "🍲 Food & Grocery",
         tabRide: "🛵 Bike",
         tabHotel: "🏨 Hotel",
@@ -689,6 +735,7 @@
         customHead: "📝 Any Other Required Items?",
         customSub: "Need something not listed? Write here, our delivery boy will gladly get it if available!",
         itemTotalLbl: "Items Total:",
+        discountLbl: "🛵 Scooty Discount (Orders > ₹499):",
         deliveryLbl: "Delivery Fee:",
         platformLbl: "Platform Fee:",
         finalTotalLbl: "Final Amount Payable:",
@@ -699,13 +746,13 @@
         utrLbl: "⚠️ Enter 12-digit UPI Ref / UTR No. after payment:",
         foodAddrLbl: "Hotel/Dharamshala Name & Room No.",
         gpsFoodBtn: "Lock Live GPS Location (Mandatory)",
-        foodPhnLbl: "Mobile Number",
+        foodPhnLbl: "Mobile Number (Exact 10-digits)",
         foodBtn: "Send Order on WhatsApp",
         rideTitle: "Bike Ride Details",
         gpsRideBtn: "Lock Pickup GPS Location (Mandatory)",
         ridePickupLbl: "Pickup Landmark (e.g. Hotel/Gate)",
         rideDropLbl: "Where To (Drop Route)",
-        ridePhnLbl: "Mobile Number",
+        ridePhnLbl: "Mobile Number (Exact 10-digits)",
         rideBtn: "Confirm Bike Ride",
         hotelTitle: "🏨 Hotel / Stay Booking",
         hotelDesc: "Clean rooms near Toran Dwar and Temple Parikrama.",
@@ -713,7 +760,7 @@
         hotelTypeLbl: "Select Room Type",
         hotelDateLbl: "Check-in Date",
         hotelNameLbl: "Your Name",
-        hotelPhnLbl: "Mobile Number",
+        hotelPhnLbl: "Mobile Number (Exact 10-digits)",
         hotelBtn: "Contact for Hotel Stay",
         tieupTitle: "🤝 Khatoo Food Express Partner Tie-Up",
         tieupDesc: "Join as a rider or register your hotel/dharamshala with us.",
@@ -721,7 +768,7 @@
         tieupNameLbl: "Your Name or Property Name",
         tieupVehLbl: "Vehicle Number or Hotel Address",
         gpsTieupBtn: "Lock Property/Current GPS (Mandatory)",
-        tieupPhnLbl: "WhatsApp Mobile Number",
+        tieupPhnLbl: "WhatsApp Mobile Number (10-digits)",
         tieupBtn: "Submit Partnership Request"
       }
     };
@@ -739,6 +786,8 @@
       document.getElementById('txt-sb-hotel').innerText = d.sbHotel;
       document.getElementById('txt-sb-tieup').innerText = d.sbTieup;
       document.getElementById('txt-sb-call').innerText = d.sbCall;
+      document.getElementById('txt-scooty-title').innerText = d.scootyTitle;
+      document.getElementById('txt-scooty-desc').innerText = d.scootyDesc;
       document.getElementById('txt-ban-title').innerText = d.banTitle;
       document.getElementById('txt-ban-desc').innerText = d.banDesc;
       document.getElementById('tab-btn-food').innerText = d.tabFood;
@@ -764,6 +813,7 @@
       document.getElementById('txt-custom-head').innerText = d.customHead;
       document.getElementById('txt-custom-sub').innerText = d.customSub;
       document.getElementById('txt-item-total-lbl').innerText = d.itemTotalLbl;
+      document.getElementById('txt-discount-lbl').innerText = d.discountLbl;
       document.getElementById('txt-delivery-lbl').innerText = d.deliveryLbl;
       document.getElementById('txt-platform-lbl').innerText = d.platformLbl;
       document.getElementById('txt-final-total-lbl').innerText = d.finalTotalLbl;
@@ -853,15 +903,27 @@
       return total;
     }
 
-    // Smart Bill Calculation with ₹208 Threshold
+    // Bill Calculation with ₹208 Free Delivery & ₹499 Scooty Discount
     function updatePaymentUI() {
       const itemTotal = calculateItemsTotal();
       const platformFee = itemTotal > 0 ? 9 : 0;
       let deliveryFee = 0;
+      let scootyDiscount = 0;
 
       const deliveryElem = document.getElementById('deliveryChargeText');
       const hintElem = document.getElementById('thresholdHint');
+      const discountRow = document.getElementById('scootyDiscountRow');
 
+      // Check Scooty Discount (> ₹499)
+      if (itemTotal > 499) {
+        scootyDiscount = 49;
+        discountRow.style.display = "flex";
+      } else {
+        scootyDiscount = 0;
+        discountRow.style.display = "none";
+      }
+
+      // Check Free Delivery (> ₹208)
       if (itemTotal === 0) {
         deliveryFee = 0;
         deliveryElem.innerText = "₹0";
@@ -869,7 +931,12 @@
       } else if (itemTotal >= 208) {
         deliveryFee = 0;
         deliveryElem.innerHTML = `<span class="free-badge">FREE (₹0)</span> <strike style="color:#94a3b8; font-size:11px;">₹20</strike>`;
-        hintElem.innerHTML = `<span style="color:#16a34a;">🎉 बधाई हो! ₹208 से ऊपर फ़्री डिलीवरी लागू हो गई है!</span>`;
+        if (itemTotal <= 499) {
+          const toDiscount = 500 - itemTotal;
+          hintElem.innerHTML = `🎉 फ़्री डिलीवरी लागू! 💡 केवल <strong>₹${toDiscount}</strong> का और सामान जोड़ें और पाएं <strong>₹49 का फ्लैट डिस्काउंट</strong>!`;
+        } else {
+          hintElem.innerHTML = `<span style="color:#16a34a;">🎉 बधाई हो! फ़्री डिलीवरी + ₹49 स्कूटी डिस्काउंट दोनों लागू हो गए!</span>`;
+        }
       } else {
         deliveryFee = 20;
         deliveryElem.innerText = "₹20";
@@ -877,7 +944,7 @@
         hintElem.innerHTML = `💡 केवल <strong>₹${diff}</strong> का सामान और जोड़ें और पाएं <strong>फ़्री डिलीवरी</strong>!`;
       }
 
-      const finalPayable = itemTotal + deliveryFee + platformFee;
+      const finalPayable = Math.max(0, (itemTotal - scootyDiscount) + deliveryFee + platformFee);
 
       document.getElementById('itemTotalVal').innerText = itemTotal;
       document.getElementById('finalBillAmount').innerText = finalPayable;
@@ -933,6 +1000,7 @@
       );
     }
 
+    // Strictly Validate 10-Digit Mobile on Food Order
     function sendFoodOrder() {
       const itemTotal = calculateItemsTotal();
       const addr = document.getElementById('foodAddress').value.trim();
@@ -948,14 +1016,20 @@
         alert(currentLang === 'hi' ? "कृपया पहले 'लाइव GPS लोकेशन लॉक करें' बटन दबाएं!" : "Please lock your GPS location first!");
         return;
       }
-      if (!addr || !phn) {
-        alert(currentLang === 'hi' ? "कृपया पता और मोबाइल नंबर भरें।" : "Please fill address and phone.");
+      if (!addr) {
+        alert(currentLang === 'hi' ? "कृपया होटल/धर्मशाला का पता दर्ज करें।" : "Please fill address.");
+        return;
+      }
+      if (!isValidPhone(phn)) {
+        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        document.getElementById('foodPhone').focus();
         return;
       }
 
       const deliveryFee = (itemTotal >= 208 || itemTotal === 0) ? 0 : 20;
       const platformFee = itemTotal > 0 ? 9 : 0;
-      const finalPayable = itemTotal + deliveryFee + platformFee;
+      const scootyDiscount = itemTotal > 499 ? 49 : 0;
+      const finalPayable = Math.max(0, (itemTotal - scootyDiscount) + deliveryFee + platformFee);
 
       if (selectedPayment === 'upi' && finalPayable > 0 && utr.length < 8) {
         alert(currentLang === 'hi' ? "कृपया पेमेंट के बाद 12 अंकों का UPI Ref / UTR नंबर डालें!" : "Please enter valid 12-digit UPI Ref/UTR No.");
@@ -970,11 +1044,12 @@
       const payStatus = selectedPayment === 'upi' ? `ऑनलाइन UPI (Paid, UTR: ${utr})` : 'कैश ऑन डिलीवरी (COD)';
       const customText = customNote ? `\n\n*📝 अतिरिक्त आवश्यक सामान:*\n${customNote}` : '';
       const deliveryText = deliveryFee === 0 ? '₹0 (FREE 🚚)' : '₹20';
+      const discountText = scootyDiscount > 0 ? `\n*स्कूटी डिस्काउंट छूट:* -₹49 🎉` : '';
 
       let msg = `*🍲 नया फ़ूड & किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*ऑर्डर लिस्ट:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामान लिस्ट'}` +
                 `${customText}\n\n` +
-                `*सामान मूल्य:* ₹${itemTotal}\n` +
+                `*सामान मूल्य:* ₹${itemTotal}${discountText}\n` +
                 `*डिलीवरी शुल्क:* ${deliveryText}\n` +
                 `*प्लेटफ़ॉर्म शुल्क:* ₹${platformFee}\n` +
                 `*कुल देय राशि:* ₹${finalPayable}\n` +
@@ -986,6 +1061,7 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // Strictly Validate 10-Digit Mobile on Bike Ride
     function sendRideBooking() {
       const pickup = document.getElementById('pickupLoc').value.trim();
       const route = document.getElementById('dropRoute').value;
@@ -995,8 +1071,9 @@
         alert(currentLang === 'hi' ? "राइड के लिए पिकअप GPS लोकेशन लॉक करना अनिवार्य है!" : "Locking GPS location is mandatory for ride!");
         return;
       }
-      if (!phn) {
-        alert(currentLang === 'hi' ? "कृपया मोबाइल नंबर भरें।" : "Please fill phone number.");
+      if (!isValidPhone(phn)) {
+        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        document.getElementById('ridePhone').focus();
         return;
       }
 
@@ -1009,6 +1086,7 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // Strictly Validate 10-Digit Mobile on Hotel Stay
     function sendHotelBooking() {
       const type = document.getElementById('hotelRoomType').value;
       const date = document.getElementById('hotelCheckIn').value;
@@ -1019,8 +1097,13 @@
         alert(currentLang === 'hi' ? "कृपया पहले GPS लोकेशन जोड़ें!" : "Please add your GPS location first!");
         return;
       }
-      if (!date || !name || !phn) {
-        alert(currentLang === 'hi' ? "कृपया सभी विवरण भरें।" : "Please fill all details.");
+      if (!date || !name) {
+        alert(currentLang === 'hi' ? "कृपया नाम और चेक-इन तारीख भरें।" : "Please fill name and check-in date.");
+        return;
+      }
+      if (!isValidPhone(phn)) {
+        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        document.getElementById('hotelPhone').focus();
         return;
       }
 
@@ -1034,6 +1117,7 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // Strictly Validate 10-Digit Mobile on Tie-Up
     function sendTieupRequest() {
       const role = document.getElementById('tieupRole').value;
       const name = document.getElementById('tieupName').value.trim();
@@ -1044,8 +1128,13 @@
         alert(currentLang === 'hi' ? "टाई-अप के लिए GPS लोकेशन अनिवार्य है!" : "GPS location is mandatory for tie-up!");
         return;
       }
-      if (!name || !phn) {
-        alert(currentLang === 'hi' ? "कृपया नाम और मोबाइल नंबर भरें।" : "Please fill name and phone.");
+      if (!name) {
+        alert(currentLang === 'hi' ? "कृपया नाम भरें।" : "Please fill name.");
+        return;
+      }
+      if (!isValidPhone(phn)) {
+        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध व्हाट्सएप नंबर दर्ज करें!" : "Please enter a valid 10-digit WhatsApp number!");
+        document.getElementById('tieupPhone').focus();
         return;
       }
 
