@@ -15,9 +15,9 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       touch-action: pan-y;
     }
-    body { background: #fdfbf7; color: #1e293b; padding-bottom: 60px; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
+    body { background: #fdfbf7; color: #1e293b; padding-bottom: 80px; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
     
-    /* Header with Divine Background */
+    /* Header */
     .header {
       position: relative;
       color: white;
@@ -53,12 +53,8 @@
     .lang-btn { background: rgba(255, 255, 255, 0.25); color: white; border: 1.5px solid white; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; backdrop-filter: blur(6px); }
     .sos-badge { background: #ef4444; color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-    /* 13x13 Extra Large Stylish 3D Logo */
-    .brand-logo-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
+    /* 13x13 Logo */
+    .brand-logo-container { position: relative; display: inline-block; margin-bottom: 10px; }
     .brand-logo { 
       width: 160px; 
       height: 160px; 
@@ -69,9 +65,7 @@
       box-shadow: 0 14px 32px rgba(0,0,0,0.5), 0 0 24px rgba(251, 191, 36, 0.8); 
       background: white; 
       padding: 6px;
-      transition: transform 0.3s ease;
     }
-    .brand-logo:hover { transform: scale(1.03); }
 
     .header h1 { font-size: 23px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
     .header p { font-size: 12px; opacity: 0.95; margin-top: 2px; }
@@ -83,12 +77,12 @@
 
     .container { max-width: 480px; margin: -18px auto 0; padding: 0 14px; position: relative; z-index: 3; }
     
-    /* Auto Moving Slider Carousel */
+    /* Auto Moving Carousel */
     .slider-wrapper {
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.12);
       height: 95px;
     }
@@ -119,6 +113,20 @@
     .slide-info h4 { font-size: 16px; font-weight: 900; letter-spacing: 0.3px; }
     .slide-info p { font-size: 13px; font-weight: 700; margin-top: 3px; opacity: 0.95; }
 
+    /* Quick Re-Order Button */
+    .reorder-bar {
+      display: none;
+      background: #eff6ff;
+      border: 1.5px dashed #3b82f6;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .reorder-text { font-size: 12px; font-weight: 700; color: #1d4ed8; }
+    .reorder-btn { background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
+
     /* Tabs */
     .tabs { display: flex; background: white; border-radius: 14px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); gap: 6px; border: 1px solid #e2e8f0; }
     .tab-btn { flex: 1; border: none; padding: 11px 4px; font-size: 12px; font-weight: 800; border-radius: 10px; cursor: pointer; background: transparent; color: #64748b; transition: 0.25s; text-align: center; }
@@ -148,7 +156,7 @@
     .free-badge { color: #16a34a; font-weight: 800; background: #dcfce7; padding: 1px 6px; border-radius: 6px; }
     .threshold-tip { font-size: 11.5px; color: #d97706; margin-top: 6px; font-weight: 700; text-align: right; }
 
-    /* Payment Cards with Offers Highlight */
+    /* Payment Cards */
     .pay-methods { display: flex; gap: 10px; margin-top: 10px; }
     .pay-method-card { flex: 1; border: 2px solid #e2e8f0; border-radius: 12px; padding: 10px 6px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 700; position: relative; }
     .pay-method-card.selected { border-color: #ea580c; background: #fff7ed; color: #ea580c; }
@@ -170,7 +178,55 @@
 
     .submit-btn { width: 100%; margin-top: 16px; background: linear-gradient(135deg, #16a34a, #15803d); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
 
-    /* Sidebar Drawer */
+    /* Floating Call Rider / Support Button */
+    .floating-call-btn {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+      z-index: 990;
+    }
+
+    /* Live Tracking Status Modal */
+    .tracking-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.7);
+      z-index: 1005;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .tracking-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .track-title { font-size: 18px; font-weight: 900; color: #15803d; }
+    .track-timer { font-size: 32px; font-weight: 900; color: #ea580c; margin: 12px 0; }
+    .track-steps { text-align: left; margin: 16px 0; }
+    .step-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; margin-bottom: 10px; color: #64748b; }
+    .step-item.active { color: #16a34a; }
+    .step-dot { width: 12px; height: 12px; border-radius: 50%; background: #cbd5e1; }
+    .step-item.active .step-dot { background: #16a34a; box-shadow: 0 0 8px #16a34a; }
+
+    /* Support Modal */
     .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s; }
     .overlay.active { opacity: 1; visibility: visible; }
     .sidebar { position: fixed; top: 0; left: -290px; width: 280px; height: 100vh; background: white; z-index: 999; transition: left 0.3s; display: flex; flex-direction: column; }
@@ -181,15 +237,13 @@
     .sidebar-menu li a { display: flex; align-items: center; gap: 14px; padding: 12px 20px; color: #334155; text-decoration: none; font-size: 13px; font-weight: 700; border-bottom: 1px solid #f1f5f9; }
     .badge { margin-left: auto; background: #10b981; color: white; font-size: 10px; padding: 2px 6px; border-radius: 8px; }
 
-    /* Screenshot-Style Dark Support Modal (Bottom Sheet) */
     .support-sheet {
       position: fixed;
       bottom: -100%;
-      left: 0;
-      width: 100%;
-      max-width: 480px;
       left: 50%;
       transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
       background: #181a20;
       color: #f1f5f9;
       border-radius: 24px 24px 0 0;
@@ -203,29 +257,53 @@
     .sheet-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .sheet-title { font-size: 17px; font-weight: 800; color: white; }
     .sheet-close { font-size: 22px; color: #94a3b8; background: none; border: none; cursor: pointer; }
-    
     .issue-list { list-style: none; }
-    .issue-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 13px 4px;
-      border-bottom: 1px solid #262932;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      color: #e2e8f0;
-    }
+    .issue-item { display: flex; align-items: center; justify-content: space-between; padding: 13px 4px; border-bottom: 1px solid #262932; cursor: pointer; font-size: 14px; font-weight: 600; color: #e2e8f0; }
     .issue-item:hover { color: #38bdf8; }
     .issue-left { display: flex; align-items: center; gap: 12px; }
-    .issue-radio { width: 18px; height: 18px; border: 2px solid #64748b; border-radius: 50%; display: inline-block; }
+    .issue-radio { width: 18px; height: 18px; border: 2px solid #64748b; border-radius: 50%; }
   </style>
 </head>
 <body>
 
   <div id="overlay" class="overlay" onclick="closeAllDrawers()"></div>
 
-  <!-- Sidebar with Logo in Menu Header -->
+  <!-- Floating Call Rider / Support Button -->
+  <a href="tel:7037647464" class="floating-call-btn">
+    📞 <span>राइडर / सपोर्ट को कॉल करें</span>
+  </a>
+
+  <!-- Live Tracking Status Modal -->
+  <div id="trackingModal" class="tracking-modal">
+    <div class="tracking-card">
+      <div class="track-title">✅ ऑर्डर सफलतापूर्वक भेजा गया!</div>
+      <p style="font-size: 12px; color: #64748b; margin-top: 4px;">आपका ऑर्डर तैयार किया जा रहा है</p>
+      
+      <div class="track-timer" id="trackTimerDisplay">15:00</div>
+      <p style="font-size: 11px; color: #ea580c; font-weight: 700;">अनुमानित डिलीवरी समय</p>
+
+      <div class="track-steps">
+        <div class="step-item active">
+          <div class="step-dot"></div>
+          <span>ऑर्डर प्राप्त हुआ (Received)</span>
+        </div>
+        <div class="step-item active" id="step2">
+          <div class="step-dot"></div>
+          <span>खाना तैयार हो रहा है (Preparing)</span>
+        </div>
+        <div class="step-item" id="step3">
+          <div class="step-dot"></div>
+          <span>डिलीवरी पार्टनर रास्ते में है (Out for Delivery)</span>
+        </div>
+      </div>
+
+      <button onclick="closeTrackingModal()" style="background:#f1f5f9; border:none; padding:10px 18px; border-radius:10px; font-weight:800; cursor:pointer; color:#475569; width:100%;">
+        ठीक है (Close)
+      </button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <img src="logo.png" alt="Menu Logo" class="sidebar-logo" onerror="this.style.display='none'">
@@ -241,7 +319,7 @@
     </ul>
   </div>
 
-  <!-- Screenshot-Like WhatsApp Support Bottom Sheet Modal -->
+  <!-- WhatsApp Support Bottom Sheet Modal -->
   <div id="supportSheet" class="support-sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -265,7 +343,7 @@
         <div class="issue-left"><span>🏨</span> <span>Hotel / Dharamshala Query</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('🛵 Bike Taxi Assistance')">
+      <li class="issue-item" onclick="sendQuickSupport('🛵 Bike Ride Assistance')">
         <div class="issue-left"><span>🛵</span> <span>Bike Ride Assistance</span></div>
         <div class="issue-radio"></div>
       </li>
@@ -276,7 +354,7 @@
     </ul>
   </div>
 
-  <!-- Header with 13x13 Logo & Full Frame Divine Background -->
+  <!-- Header -->
   <div class="header" id="heroHeader">
     <div class="header-content">
       <div class="top-nav">
@@ -287,7 +365,6 @@
         </div>
       </div>
       
-      <!-- 13x13 Logo -->
       <div class="brand-logo-container">
         <img src="logo.png" alt="Khatoo Food Express Logo" class="brand-logo" onerror="this.style.display='none'">
       </div>
@@ -304,10 +381,9 @@
 
   <div class="container">
     
-    <!-- Auto-Moving Carousel of Both Offers -->
+    <!-- Auto-Moving Carousel -->
     <div class="slider-wrapper">
       <div class="slider-track" id="sliderTrack">
-        <!-- Slide 1: Maha Discount Scooty Offer -->
         <div class="slide-card slide-scooty">
           <div class="slide-icon">🛵</div>
           <div class="slide-info">
@@ -315,7 +391,6 @@
             <p id="txt-slide1-desc">₹499 से ऊपर के ऑर्डर पर फ्लैट ₹49 की छूट</p>
           </div>
         </div>
-        <!-- Slide 2: Free Delivery Charge Offer -->
         <div class="slide-card slide-free">
           <div class="slide-icon">🚚</div>
           <div class="slide-info">
@@ -324,6 +399,12 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Quick Repeat Last Order Bar -->
+    <div class="reorder-bar" id="reorderBar">
+      <div class="reorder-text">🔄 पिछला ऑर्डर दोबारा दोहराएं?</div>
+      <button class="reorder-btn" onclick="repeatLastOrder()">Repeat Last Order</button>
     </div>
 
     <!-- 4 Tabs -->
@@ -528,7 +609,7 @@
         <div id="thresholdHint" class="threshold-tip"></div>
       </div>
 
-      <!-- Payment Method Selection with Live Badge -->
+      <!-- Payment Method -->
       <div class="form-group">
         <label id="txt-pay-lbl">पेमेंट का तरीका चुनें:</label>
         <div class="pay-methods">
@@ -555,9 +636,10 @@
         </div>
       </div>
 
+      <!-- Auto-Saved Address Field -->
       <div class="form-group">
         <label id="txt-food-addr-lbl">होटल/धर्मशाला का नाम और रूम नंबर</label>
-        <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, रूम 204">
+        <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, रूम 204" oninput="saveCustomerProfile()">
       </div>
 
       <!-- Mandatory GPS -->
@@ -568,9 +650,10 @@
         <div id="foodGpsStatus" class="gps-status" style="color: #dc2626;">❌ लोकेशन लॉक नहीं है</div>
       </div>
 
+      <!-- Auto-Saved Phone Field -->
       <div class="form-group">
         <label id="txt-food-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
-        <input type="tel" id="foodPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
+        <input type="tel" id="foodPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
       <button class="submit-btn" onclick="sendFoodOrder()" id="txt-food-btn">WhatsApp पर ऑर्डर भेजें</button>
@@ -603,7 +686,7 @@
 
       <div class="form-group">
         <label id="txt-ride-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
-        <input type="tel" id="ridePhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
+        <input type="tel" id="ridePhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
       <button class="submit-btn" onclick="sendRideBooking()" id="txt-ride-btn">बाइक राइड कन्फर्म करें</button>
@@ -637,12 +720,12 @@
 
       <div class="form-group">
         <label id="txt-hotel-name-lbl">आपका नाम</label>
-        <input type="text" id="hotelName" placeholder="पूरा नाम">
+        <input type="text" id="hotelName" placeholder="पूरा नाम" oninput="saveCustomerProfile()">
       </div>
 
       <div class="form-group">
         <label id="txt-hotel-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
-        <input type="tel" id="hotelPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
+        <input type="tel" id="hotelPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
       <button class="submit-btn" onclick="sendHotelBooking()" id="txt-hotel-btn">होटल रूम के लिए संपर्क करें</button>
@@ -698,7 +781,6 @@
     let selectedPayment = "upi";
     let gpsLinks = { food: "", ride: "", hotel: "", tieup: "" };
 
-    // Strict 10-Digit Mobile Check
     function isValidPhone(phone) {
       return /^[6-9]\d{9}$/.test(phone);
     }
@@ -712,6 +794,95 @@
         track.style.transform = `translateX(-${currentSlide * 50}%)`;
       }
     }, 3500);
+
+    // Auto-Save Customer Profile in LocalStorage
+    function saveCustomerProfile() {
+      const phone = document.getElementById('foodPhone').value.trim() || document.getElementById('ridePhone').value.trim();
+      const addr = document.getElementById('foodAddress').value.trim();
+      const name = document.getElementById('hotelName').value.trim();
+
+      if (phone) localStorage.setItem('khe_phone', phone);
+      if (addr) localStorage.setItem('khe_address', addr);
+      if (name) localStorage.setItem('khe_name', name);
+    }
+
+    function loadCustomerProfile() {
+      const savedPhone = localStorage.getItem('khe_phone');
+      const savedAddr = localStorage.getItem('khe_address');
+      const savedName = localStorage.getItem('khe_name');
+
+      if (savedPhone) {
+        document.getElementById('foodPhone').value = savedPhone;
+        document.getElementById('ridePhone').value = savedPhone;
+        document.getElementById('hotelPhone').value = savedPhone;
+      }
+      if (savedAddr) {
+        document.getElementById('foodAddress').value = savedAddr;
+      }
+      if (savedName) {
+        document.getElementById('hotelName').value = savedName;
+      }
+
+      // Check if there is a saved last order for repeat
+      if (localStorage.getItem('khe_last_order')) {
+        document.getElementById('reorderBar').style.display = 'flex';
+      }
+    }
+
+    // Repeat Last Order
+    function repeatLastOrder() {
+      try {
+        const lastOrder = JSON.parse(localStorage.getItem('khe_last_order'));
+        if (lastOrder) {
+          for (let k in lastOrder) {
+            if (quantities.hasOwnProperty(k)) {
+              quantities[k] = lastOrder[k];
+              const el = document.getElementById(`qty-${k}`);
+              if (el) el.innerText = quantities[k];
+            }
+          }
+          updatePaymentUI();
+          alert("✅ पिछला ऑर्डर मेनू में सेट कर दिया गया है!");
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Live Tracking Countdown Timer (15 Mins)
+    let countdownInterval = null;
+    function startTrackingCountdown() {
+      let duration = 15 * 60; // 15 minutes
+      const display = document.getElementById('trackTimerDisplay');
+      const modal = document.getElementById('trackingModal');
+      modal.style.display = 'flex';
+
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        let mins = parseInt(duration / 60, 10);
+        let secs = parseInt(duration % 60, 10);
+        mins = mins < 10 ? "0" + mins : mins;
+        secs = secs < 10 ? "0" + secs : secs;
+        display.textContent = mins + ":" + secs;
+
+        if (duration === 10 * 60) {
+          document.getElementById('step2').classList.add('active');
+        }
+        if (duration === 5 * 60) {
+          document.getElementById('step3').classList.add('active');
+        }
+
+        if (--duration < 0) {
+          clearInterval(countdownInterval);
+          display.textContent = "पहुँच गया!";
+        }
+      }, 1000);
+    }
+
+    function closeTrackingModal() {
+      document.getElementById('trackingModal').style.display = 'none';
+    }
 
     // Bottom Sheet Modals
     function openSupportModal() {
@@ -1021,7 +1192,6 @@
       return total;
     }
 
-    // Bill Calculation with UPI Discount (-₹4) & COD Charge (+₹4)
     function updatePaymentUI() {
       const itemTotal = calculateItemsTotal();
       const platformFee = itemTotal > 0 ? 9 : 0;
@@ -1036,7 +1206,6 @@
       const upiRow = document.getElementById('upiDiscountRow');
       const codRow = document.getElementById('codFeeRow');
 
-      // Scooty Discount (> ₹499)
       if (itemTotal > 499) {
         scootyDiscount = 49;
         discountRow.style.display = "flex";
@@ -1045,7 +1214,6 @@
         discountRow.style.display = "none";
       }
 
-      // Free Delivery (> ₹208)
       if (itemTotal === 0) {
         deliveryFee = 0;
         deliveryElem.innerText = "₹0";
@@ -1066,7 +1234,6 @@
         hintElem.innerHTML = `💡 केवल <strong>₹${diff}</strong> का सामान और जोड़ें और पाएं <strong>फ़्री डिलीवरी</strong>!`;
       }
 
-      // Online UPI Discount vs COD Handling Fee
       if (itemTotal > 0) {
         if (selectedPayment === 'upi') {
           upiDiscount = 4;
@@ -1115,7 +1282,6 @@
       updatePaymentUI();
     }
 
-    // Mandatory GPS Fetcher
     function fetchLocation(type) {
       const statusElem = document.getElementById(`${type}GpsStatus`);
       if (!navigator.geolocation) {
@@ -1140,7 +1306,6 @@
       );
     }
 
-    // Strictly Validate 10-Digit Mobile on Food Order
     function sendFoodOrder() {
       const itemTotal = calculateItemsTotal();
       const addr = document.getElementById('foodAddress').value.trim();
@@ -1178,6 +1343,10 @@
         return;
       }
 
+      // Save order in localStorage for Quick Repeat
+      localStorage.setItem('khe_last_order', JSON.stringify(quantities));
+      saveCustomerProfile();
+
       let orderItems = [];
       for (let k in quantities) {
         if (quantities[k] > 0) orderItems.push(`• ${items[k].name} x ${quantities[k]} = ₹${items[k].price * quantities[k]}`);
@@ -1203,9 +1372,9 @@
                 `*📍 लाइव GPS मैप:* ${gpsLinks.food}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+      startTrackingCountdown();
     }
 
-    // Strictly Validate 10-Digit Mobile on Bike Ride
     function sendRideBooking() {
       const pickup = document.getElementById('pickupLoc').value.trim();
       const route = document.getElementById('dropRoute').value;
@@ -1221,6 +1390,8 @@
         return;
       }
 
+      saveCustomerProfile();
+
       let msg = `*🛵 नई बाइक राइड बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*पिकअप पॉइंट:* ${pickup || 'GPS लोकेशन'}\n` +
                 `*रूट:* ${route}\n` +
@@ -1230,7 +1401,6 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Strictly Validate 10-Digit Mobile on Hotel Stay
     function sendHotelBooking() {
       const type = document.getElementById('hotelRoomType').value;
       const date = document.getElementById('hotelCheckIn').value;
@@ -1251,6 +1421,8 @@
         return;
       }
 
+      saveCustomerProfile();
+
       let msg = `*🏨 नई होटल / धर्मशाला बुकिंग पूछताछ*\n\n` +
                 `*नाम:* ${name}\n` +
                 `*मोबाइल:* ${phn}\n` +
@@ -1261,7 +1433,6 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Strictly Validate 10-Digit Mobile on Tie-Up
     function sendTieupRequest() {
       const role = document.getElementById('tieupRole').value;
       const name = document.getElementById('tieupName').value.trim();
@@ -1292,7 +1463,9 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // Initialize
     updatePaymentUI();
+    loadCustomerProfile();
   </script>
 </body>
 </html>
