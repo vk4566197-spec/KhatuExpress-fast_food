@@ -129,7 +129,7 @@
 
     .container { max-width: 480px; margin: -20px auto 0; padding: 0 14px; position: relative; z-index: 3; }
     
-    /* Moving Banner Carousel */
+    /* Moving Carousel */
     .slider-wrapper {
       position: relative;
       overflow: hidden;
@@ -259,7 +259,7 @@
     .qr-container img { width: 175px; height: 175px; border-radius: 12px; background: white; padding: 6px; border: 1px solid #e2e8f0; }
     .upi-pay-btn { display: inline-block; margin-top: 10px; background: #2563eb; color: white; text-decoration: none; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 800; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
 
-    .gps-lock-box { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 12px; margin-top: 14px; text-align: center; }
+    .gps-lock-box { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 12px; margin-top: 12px; text-align: center; }
     .gps-action-btn { background: var(--success); color: white; border: none; padding: 10px 14px; border-radius: 9px; font-size: 12px; font-weight: 800; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 10px rgba(22,163,74,0.25); }
     .gps-status { font-size: 11px; margin-top: 6px; font-weight: 700; }
 
@@ -267,6 +267,20 @@
     label { display: block; font-size: 12px; font-weight: 800; color: #475569; margin-bottom: 6px; }
     input, select { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 11px; font-size: 13.5px; outline: none; background: white; }
     input:focus, select:focus { border-color: var(--primary); }
+
+    /* Bike Fare Calculation Box */
+    .fare-card {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 1.5px solid #f59e0b;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .fare-detail { font-size: 12px; color: #78350f; font-weight: 700; }
+    .fare-amount { font-size: 22px; font-weight: 900; color: #b45309; }
 
     .submit-btn { 
       width: 100%; 
@@ -307,7 +321,7 @@
       50% { transform: scale(1.06); }
     }
 
-    /* Floating Live Tracking Mini Tab */
+    /* Pulsing GPS Dot Live Radar Widget */
     .side-track-widget {
       position: fixed;
       bottom: 90px;
@@ -315,20 +329,38 @@
       background: #0f172a;
       color: white;
       border-radius: 18px;
-      padding: 12px 16px;
+      padding: 14px 16px;
       box-shadow: 0 12px 30px rgba(0,0,0,0.5);
       z-index: 994;
       display: none;
       border: 1.5px solid var(--accent);
-      max-width: 260px;
+      max-width: 270px;
       backdrop-filter: blur(8px);
     }
-    .stw-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 6px; margin-bottom: 6px; }
-    .stw-badge { background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 8px; }
+    .stw-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 8px; }
+    
+    /* Live Radar Pulse Effect */
+    .radar-box { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; color: #4ade80; }
+    .pulse-dot-container { position: relative; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; }
+    .pulse-dot-core { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; z-index: 2; }
+    .pulse-dot-ring {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.5);
+      animation: radarPulse 1.4s infinite ease-out;
+      z-index: 1;
+    }
+    @keyframes radarPulse {
+      0% { transform: scale(0.6); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
     .stw-timer { font-size: 15px; font-weight: 900; color: #4ade80; }
     .stw-status { font-size: 12px; font-weight: 800; color: #fde047; margin: 4px 0; }
-    .stw-rider { font-size: 11px; color: #94a3b8; display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
-    .stw-call-btn { background: var(--success); color: white; text-decoration: none; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+    .stw-rider { font-size: 11px; color: #94a3b8; display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+    .stw-call-btn { background: var(--success); color: white; text-decoration: none; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; }
 
     /* Support Drawer */
     .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s; }
@@ -376,16 +408,22 @@
     📞
   </a>
 
-  <!-- Floating Live Tracking Side Tab -->
+  <!-- Floating Live Tracking Side Tab with Pulsing Radar Dot -->
   <div id="sideTrackWidget" class="side-track-widget">
     <div class="stw-header">
-      <span class="stw-badge">LIVE TRACK</span>
+      <div class="radar-box">
+        <div class="pulse-dot-container">
+          <div class="pulse-dot-ring"></div>
+          <div class="pulse-dot-core"></div>
+        </div>
+        <span id="sideTypeBadge">LIVE RIDER</span>
+      </div>
       <span class="stw-timer" id="sideTimerDisplay">15:00</span>
     </div>
-    <div class="stw-status" id="sideStatusText">🛵 तैयारी जारी है...</div>
-    <div id="sideOrderSummary" style="font-size: 10.5px; color: #cbd5e1; line-height: 1.3;"></div>
+    <div class="stw-status" id="sideStatusText">तैयारी जारी है...</div>
+    <div id="sideOrderSummary" style="font-size: 11px; color: #cbd5e1; line-height: 1.3;"></div>
     <div class="stw-rider">
-      <span>राइडर हेल्पलाइन</span>
+      <span id="txt-side-rider-lbl">राइडर हेल्पलाइन</span>
       <a href="tel:7037647464" class="stw-call-btn">📞 Call</a>
     </div>
   </div>
@@ -398,11 +436,11 @@
       <p style="font-size: 11px; margin-top: 4px;" id="txt-sb-sub">सेवा ही धर्म है - बाबा की कृपा</p>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span id="txt-sb-food">खाना & राशन मंगवाएं</span></a></li>
-      <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span id="txt-sb-ride">बाइक राइड बुक करें</span></a></li>
-      <li><a href="#" onclick="toggleSidebar(); switchTab('hotel');">🏨 <span id="txt-sb-hotel">होटल / धर्मशाला</span></a></li>
-      <li><a href="#" onclick="toggleSidebar(); switchTab('tieup');">🤝 <span id="txt-sb-tieup">पार्टनर टाई-अप (Join)</span> <span class="badge">New</span></a></li>
-      <li><a href="#" onclick="openSupportModal();">📞 <span id="txt-sb-call">व्हाट्सएप सपोर्ट हेल्प डेस्क</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('food');">🍲 <span id="txt-sb-food">भोजन एवं किराना ऑर्डर करें</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('ride');">🛵 <span id="txt-sb-ride">बाइक टैक्सी बुक करें</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('hotel');">🏨 <span id="txt-sb-hotel">होटल एवं धर्मशाला बुकिंग</span></a></li>
+      <li><a href="#" onclick="toggleSidebar(); switchTab('tieup');">🤝 <span id="txt-sb-tieup">पार्टनर सहभागिता (टाई-अप)</span> <span class="badge">New</span></a></li>
+      <li><a href="#" onclick="openSupportModal();">📞 <span id="txt-sb-call">व्हाट्सएप सहायता केंद्र</span></a></li>
     </ul>
   </div>
 
@@ -410,32 +448,32 @@
   <div id="supportSheet" class="support-sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <div class="sheet-title">Tap to Select Issue</div>
+      <div class="sheet-title" id="txt-sup-header">समस्या का चयन करें</div>
       <button class="sheet-close" onclick="closeSupportModal()">✕</button>
     </div>
     <ul class="issue-list">
-      <li class="issue-item" onclick="sendQuickSupport('📱 App Issue / ऐप में समस्या')">
-        <div class="issue-left"><span>📱</span> <span>App Issue</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('एप्लिकेशन तकनीकी समस्या (App Issue)')">
+        <div class="issue-left"><span>📱</span> <span id="txt-sup-opt1">एप्लिकेशन तकनीकी समस्या</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('📦 Delivery Hub / लेट डिलीवरी')">
-        <div class="issue-left"><span>📦</span> <span>Delivery Hub / Late Issue</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('डिलीवरी विलंब समस्या (Delivery Hub Issue)')">
+        <div class="issue-left"><span>📦</span> <span id="txt-sup-opt2">डिलीवरी विलंब समस्या</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('💳 Payment / UTR Verification Issue')">
-        <div class="issue-left"><span>💳</span> <span>Payment / Refund Issue</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('भुगतान एवं यूटीआर समस्या (Payment Issue)')">
+        <div class="issue-left"><span>💳</span> <span id="txt-sup-opt3">भुगतान एवं यूटीआर समस्या</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('🏨 Hotel Booking Support')">
-        <div class="issue-left"><span>🏨</span> <span>Hotel / Dharamshala Query</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('होटल एवं धर्मशाला संबंधी प्रश्न (Hotel Query)')">
+        <div class="issue-left"><span>🏨</span> <span id="txt-sup-opt4">होटल एवं धर्मशाला संबंधी प्रश्न</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('🛵 Bike Ride Assistance')">
-        <div class="issue-left"><span>🛵</span> <span>Bike Ride Assistance</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('बाइक टैक्सी सहायता (Bike Ride Help)')">
+        <div class="issue-left"><span>🛵</span> <span id="txt-sup-opt5">बाइक टैक्सी सहायता</span></div>
         <div class="issue-radio"></div>
       </li>
-      <li class="issue-item" onclick="sendQuickSupport('🚨 Emergency Support / तत्काल सहायता')">
-        <div class="issue-left"><span>🚨</span> <span style="color: #ef4444; font-weight: bold;">Emergency Support</span></div>
+      <li class="issue-item" onclick="sendQuickSupport('आपातकालीन तत्काल सहायता (Emergency SOS)')">
+        <div class="issue-left"><span>🚨</span> <span id="txt-sup-opt6" style="color: #ef4444; font-weight: bold;">आपातकालीन सहायता</span></div>
         <div class="issue-radio"></div>
       </li>
     </ul>
@@ -448,7 +486,7 @@
         <button class="menu-trigger" onclick="toggleSidebar()">☰</button>
         <div class="nav-actions">
           <button class="lang-btn" onclick="toggleLanguage()" id="langSwitchBtn">🌐 English</button>
-          <button class="sos-badge" onclick="openSupportModal()">💬 WhatsApp Help</button>
+          <button class="sos-badge" onclick="openSupportModal()" id="txt-help-btn">💬 सहायता</button>
         </div>
       </div>
       
@@ -458,11 +496,11 @@
       </div>
 
       <h1 id="txt-hero-title">🚩 खाटू फ़ूड एक्सप्रेस</h1>
-      <p id="txt-hero-sub">सेवा ही धर्म है • शुद्ध सात्विक भोजन & फ़ास्ट डिलीवरी</p>
+      <p id="txt-hero-sub">सेवा ही धर्म है • शुद्ध सात्विक भोजन एवं द्रुतगामी सेवा</p>
 
       <div class="status-pill">
         <span id="statusDot" class="status-dot dot-open"></span>
-        <span id="statusText">समय: 6:00 AM - 11:30 PM (खुला है)</span>
+        <span id="statusText">कार्य समय: प्रातः 6:00 से रात्रि 11:30 (खुला है)</span>
       </div>
     </div>
   </div>
@@ -489,29 +527,29 @@
       </div>
     </div>
 
-    <!-- Quick Repeat Last Order Bar -->
+    <!-- Quick Re-Order Bar -->
     <div class="reorder-bar" id="reorderBar">
-      <div class="reorder-text">🔄 पिछला ऑर्डर दोबारा दोहराएं?</div>
-      <button class="reorder-btn" onclick="repeatLastOrder()">Repeat Last Order</button>
+      <div class="reorder-text" id="txt-reorder-msg">🔄 पिछला ऑर्डर पुनः दोहराएं?</div>
+      <button class="reorder-btn" onclick="repeatLastOrder()" id="txt-reorder-btn">ऑर्डर दोहराएं</button>
     </div>
 
     <!-- 4 Tabs -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('food')" id="tab-btn-food">🍲 फ़ूड & किराना</button>
+      <button class="tab-btn active" onclick="switchTab('food')" id="tab-btn-food">🍲 भोजन</button>
       <button class="tab-btn" onclick="switchTab('ride')" id="tab-btn-ride">🛵 बाइक</button>
       <button class="tab-btn" onclick="switchTab('hotel')" id="tab-btn-hotel">🏨 होटल</button>
-      <button class="tab-btn" onclick="switchTab('tieup')" id="tab-btn-tieup">🤝 टाई-अप</button>
+      <button class="tab-btn" onclick="switchTab('tieup')" id="tab-btn-tieup">🤝 सहभागिता</button>
     </div>
 
     <!-- 1. FOOD & GROCERY TAB -->
     <div id="foodSection" class="card">
-      <h3 style="font-size: 15px;" id="txt-food-menu">मेनू से आइटम चुनें</h3>
+      <h3 style="font-size: 15px;" id="txt-food-menu">मेनू से सामग्री चुनें</h3>
 
-      <div class="menu-cat-title" id="txt-cat-special">स्पेशल डिशेस & थाली</div>
+      <div class="menu-cat-title" id="txt-cat-special">विशिष्ट व्यंजन एवं थाली</div>
       
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-cb">छोले भटूरे (2 पीस)</div>
+          <div class="item-title" id="txt-item-cb">छोले भटूरे (2 नग)</div>
           <div class="item-price">₹100</div>
         </div>
         <div class="qty-controls">
@@ -535,7 +573,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-dalrice">दाल चावल कॉम्बो प्लेट</div>
+          <div class="item-title" id="txt-item-dalrice">दाल चावल कॉम्बो थाली</div>
           <div class="item-price">₹100</div>
         </div>
         <div class="qty-controls">
@@ -547,7 +585,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-fal">स्पेशल फलाहार थाली</div>
+          <div class="item-title" id="txt-item-fal">विशिष्ट फलाहारी व्रत थाली</div>
           <div class="item-price">₹180</div>
         </div>
         <div class="qty-controls">
@@ -557,11 +595,11 @@
         </div>
       </div>
 
-      <div class="menu-cat-title" id="txt-cat-grocery">किराना, पानी & ड्राई फ्रूट्स</div>
+      <div class="menu-cat-title" id="txt-cat-grocery">किराना, पेय जल एवं मेवे</div>
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-water">पानी की बोतल (1 लीटर ठंडा)</div>
+          <div class="item-title" id="txt-item-water">पेय जल बोतल (1 लीटर शीतल)</div>
           <div class="item-price">₹20</div>
         </div>
         <div class="qty-controls">
@@ -573,7 +611,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-sugar">चीनी / Sugar (1 किलो पैकेट)</div>
+          <div class="item-title" id="txt-item-sugar">चीनी (1 किलोग्राम पैकेट)</div>
           <div class="item-price">₹48</div>
         </div>
         <div class="qty-controls">
@@ -585,7 +623,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-kaju">काजू / Cashew (100 ग्राम)</div>
+          <div class="item-title" id="txt-item-kaju">काजू (100 ग्राम)</div>
           <div class="item-price">₹110</div>
         </div>
         <div class="qty-controls">
@@ -597,7 +635,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-badam">बादाम / Almond (100 ग्राम)</div>
+          <div class="item-title" id="txt-item-badam">बादाम (100 ग्राम)</div>
           <div class="item-price">₹110</div>
         </div>
         <div class="qty-controls">
@@ -607,11 +645,11 @@
         </div>
       </div>
 
-      <div class="menu-cat-title" id="txt-cat-veggies">ताज़ा हरी सब्जियां</div>
+      <div class="menu-cat-title" id="txt-cat-veggies">ताज़ी हरी सब्जियां</div>
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-aalu">आलू / Potato (1 किलो)</div>
+          <div class="item-title" id="txt-item-aalu">आलू (1 किलोग्राम)</div>
           <div class="item-price">₹30</div>
         </div>
         <div class="qty-controls">
@@ -623,7 +661,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-ghiya">घिया / लौकी / Bottle Gourd (1 किलो)</div>
+          <div class="item-title" id="txt-item-ghiya">घिया / लौकी (1 किलोग्राम)</div>
           <div class="item-price">₹40</div>
         </div>
         <div class="qty-controls">
@@ -635,7 +673,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-pyaj">प्याज / Onion (1 किलो)</div>
+          <div class="item-title" id="txt-item-pyaj">प्याज (1 किलोग्राम)</div>
           <div class="item-price">₹40</div>
         </div>
         <div class="qty-controls">
@@ -647,7 +685,7 @@
 
       <div class="menu-item">
         <div>
-          <div class="item-title" id="txt-item-lahson">लहसुन / Garlic (250 ग्राम)</div>
+          <div class="item-title" id="txt-item-lahson">लहसुन (250 ग्राम)</div>
           <div class="item-price">₹60</div>
         </div>
         <div class="qty-controls">
@@ -659,15 +697,15 @@
 
       <!-- Custom Required Item Box -->
       <div class="custom-item-box">
-        <h5 id="txt-custom-head">📝 अन्य आवश्यक सामान (Required Item)</h5>
-        <p id="txt-custom-sub">अगर आपको कोई ऐसा सामान चाहिए जो मेनू में नहीं है, तो यहाँ लिखें। यदि संभव होगा तो डिलीवरी बॉय जरूर लाकर देगा!</p>
-        <textarea id="customItemNote" placeholder="उदा. दूध का पैकेट, माचिस, बिस्कुट, पूजा सामग्री या अन्य कोई जरूरी सामान..."></textarea>
+        <h5 id="txt-custom-head">📝 अतिरिक्त आवश्यक सामग्री</h5>
+        <p id="txt-custom-sub">यदि आपको कोई अन्य वस्तु चाहिए जो सूची में नहीं है, तो यहाँ लिखें। डिलीवरी साथी उपलब्ध होने पर अवश्य लाएगा।</p>
+        <textarea id="customItemNote" placeholder="उदा. दूध पैकेट, पूजा सामग्री, बिस्कुट या कोई अन्य आवश्यक वस्तु..."></textarea>
       </div>
 
       <!-- Detailed Bill Breakdown Box -->
       <div class="bill-box-detailed">
         <div class="bill-row">
-          <span id="txt-item-total-lbl">सामान का कुल मूल्य (Item Total):</span>
+          <span id="txt-item-total-lbl">सामग्री का कुल मूल्य:</span>
           <span>₹<span id="itemTotalVal">0</span></span>
         </div>
         <div class="bill-row discount-row" id="scootyDiscountRow" style="display: none;">
@@ -675,23 +713,23 @@
           <span>-₹49</span>
         </div>
         <div class="bill-row discount-row" id="upiDiscountRow" style="display: none;">
-          <span id="txt-upi-dis-lbl">📱 ऑनलाइन UPI छूट:</span>
+          <span id="txt-upi-dis-lbl">📱 ऑनलाइन यूपीआई छूट:</span>
           <span>-₹4</span>
         </div>
         <div class="bill-row" id="codFeeRow" style="display: none; color: var(--danger); font-weight: 700;">
-          <span id="txt-cod-fee-lbl">💵 COD हैंडलिंग चार्ज:</span>
+          <span id="txt-cod-fee-lbl">💵 कैश ऑन डिलीवरी प्रभार:</span>
           <span>+₹4</span>
         </div>
         <div class="bill-row">
-          <span id="txt-delivery-lbl">डिलीवरी चार्ज (Delivery Fee):</span>
+          <span id="txt-delivery-lbl">वितरण प्रभार (डिलीवरी):</span>
           <span id="deliveryChargeText">₹20</span>
         </div>
         <div class="bill-row">
-          <span id="txt-platform-lbl">प्लेटफ़ॉर्म फ़ीस (Platform Fee):</span>
+          <span id="txt-platform-lbl">मंच प्रभार (प्लेटफ़ॉर्म शुल्क):</span>
           <span>₹9</span>
         </div>
         <div class="bill-row total-row">
-          <span id="txt-final-total-lbl">कुल देय राशि (Final Amount):</span>
+          <span id="txt-final-total-lbl">कुल देय धनराशि:</span>
           <span>₹<span id="finalBillAmount">0</span></span>
         </div>
         <div id="thresholdHint" class="threshold-tip"></div>
@@ -699,164 +737,194 @@
 
       <!-- Payment Method -->
       <div class="form-group">
-        <label id="txt-pay-lbl">पेमेंट का तरीका चुनें:</label>
+        <label id="txt-pay-lbl">भुगतान विधि का चयन करें:</label>
         <div class="pay-methods">
           <div id="method-upi" class="pay-method-card selected" onclick="selectPaymentMethod('upi')">
-            <span class="pay-badge-save">बचत ₹4 OFF</span>
-            📱 <span id="txt-pay-upi">ऑनलाइन UPI</span>
+            <span class="pay-badge-save" id="txt-upi-badge">₹4 बचत</span>
+            📱 <span id="txt-pay-upi">ऑनलाइन यूपीआई</span>
           </div>
           <div id="method-cod" class="pay-method-card" onclick="selectPaymentMethod('cod')">
-            <span class="pay-badge-fee">+₹4 चार्ज</span>
+            <span class="pay-badge-fee" id="txt-cod-badge">+₹4 प्रभार</span>
             💵 <span id="txt-pay-cod">कैश ऑन डिलीवरी</span>
           </div>
         </div>
       </div>
 
-      <!-- Dynamic QR & UTR Lock -->
+      <!-- QR & UTR Lock -->
       <div id="qrSection" class="qr-container">
-        <p style="font-size: 13px; font-weight: 700;"><span id="txt-qr-scan">स्कैन करके पे करें:</span> ₹<span id="qrAmountText">0</span></p>
+        <p style="font-size: 13px; font-weight: 700;"><span id="txt-qr-scan">स्कैन करके भुगतान करें:</span> ₹<span id="qrAmountText">0</span></p>
         <img id="upiQrImg" src="" alt="QR">
-        <div><a id="upiDeepLink" href="#" class="upi-pay-btn">📲 Pay via UPI App</a></div>
+        <div><a id="upiDeepLink" href="#" class="upi-pay-btn" id="txt-pay-app-btn">📲 यूपीआई ऐप से भुगतान करें</a></div>
         
         <div class="form-group" style="margin-top: 12px; text-align: left;">
-          <label style="color: var(--primary); font-weight: 800;" id="txt-utr-lbl">⚠️ पेमेंट के बाद 12-अंकों का UPI Ref / UTR No. दर्ज करें:</label>
+          <label style="color: var(--primary); font-weight: 800;" id="txt-utr-lbl">⚠️ भुगतान पश्चात 12-अंकों का UPI Ref / UTR क्रमांक दर्ज करें:</label>
           <input type="text" id="foodUtr" placeholder="उदा. 4234xxxxxxxx (अनिवार्य)" maxlength="16">
         </div>
       </div>
 
       <!-- Auto-Saved Address Field -->
       <div class="form-group">
-        <label id="txt-food-addr-lbl">होटल/धर्मशाला का नाम और रूम नंबर</label>
-        <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, रूम 204" oninput="saveCustomerProfile()">
+        <label id="txt-food-addr-lbl">होटल / धर्मशाला का नाम एवं कक्ष क्रमांक</label>
+        <input type="text" id="foodAddress" placeholder="उदा. श्याम गेस्ट हाउस, कमरा 204" oninput="saveCustomerProfile()">
       </div>
 
       <!-- Mandatory GPS -->
       <div class="gps-lock-box">
         <button type="button" class="gps-action-btn" onclick="fetchLocation('food')">
-          📍 <span id="txt-gps-food-btn">लाइव GPS लोकेशन लॉक करें (अनिवार्य)</span>
+          📍 <span id="txt-gps-food-btn">सटीक जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
         </button>
         <div id="foodGpsStatus" class="gps-status" style="color: var(--danger);">❌ लोकेशन लॉक नहीं है</div>
       </div>
 
       <!-- Auto-Saved Phone Field -->
       <div class="form-group">
-        <label id="txt-food-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <label id="txt-food-phn-lbl">मोबाइल नंबर (10 अंक)</label>
         <input type="tel" id="foodPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
-      <!-- Food Order Button -->
-      <button class="submit-btn" id="foodOrderBtn" onclick="sendFoodOrder()">WhatsApp पर ऑर्डर भेजें</button>
+      <button class="submit-btn" id="foodOrderBtn" onclick="sendFoodOrder()">व्हाट्सएप पर ऑर्डर भेजें</button>
     </div>
 
-    <!-- 2. RIDE TAB -->
+    <!-- 2. RIDE TAB (2 Locations + ₹7/km Auto Calculation) -->
     <div id="rideSection" class="card hidden">
-      <h3 style="font-size: 15px;" id="txt-ride-title">बाइक राइड विवरण</h3>
+      <h3 style="font-size: 15px;" id="txt-ride-title">बाइक टैक्सी यात्रा विवरण</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-ride-sub">दर: ₹7 प्रति किलोमीटर (पारदर्शी एवं त्वरित सेवा)</p>
 
-      <div class="gps-lock-box" style="margin-top: 8px;">
-        <button type="button" class="gps-action-btn" onclick="fetchLocation('ride')">
-          📍 <span id="txt-gps-ride-btn">पिकअप GPS लोकेशन लॉक करें (अनिवार्य)</span>
-        </button>
-        <div id="rideGpsStatus" class="gps-status" style="color: var(--danger);">❌ पिकअप लोकेशन लॉक नहीं है</div>
-      </div>
-
-      <div class="form-group">
-        <label id="txt-ride-pickup-lbl">पिकअप लैंडमार्क (उदा. होटल/गेट)</label>
-        <input type="text" id="pickupLoc" placeholder="उदा. तोरण द्वार / होटल का नाम">
-      </div>
-
-      <div class="form-group">
-        <label id="txt-ride-drop-lbl">कहाँ तक (Drop Route)</label>
-        <select id="dropRoute">
-          <option value="पार्किंग ↔ मंदिर (₹40)">कार पार्किंग ↔ मंदिर बैरिकेड्स (₹40)</option>
-          <option value="होटल ↔ मंदिर (₹50)">होटल/धर्मशाला ↔ मंदिर (₹50)</option>
-          <option value="रींगस स्टेशन ↔ खाटू (₹180)">रींगस स्टेशन ↔ खाटू धाम (₹180)</option>
+      <!-- 1. Pickup Location Section -->
+      <div class="form-group" style="margin-top: 10px;">
+        <label id="txt-ride-pickup-title" style="color: var(--primary); font-weight: 900;">📍 1. पिकअप लोकेशन (प्रारंभिक स्थल):</label>
+        <select id="pickupPreset" onchange="handlePresetChange('pickup')" style="margin-bottom: 6px;">
+          <option value="custom">-- सूची से चुनें या अपनी लोकेशन लॉक करें --</option>
+          <option value="27.3595,75.3115">खाटू मुख्य मंदिर तोरण द्वार</option>
+          <option value="27.3540,75.3080">52 बीघा मुख्य पार्किंग स्थल</option>
+          <option value="27.3575,75.3050">लखदातार पार्किंग ग्राउंड</option>
+          <option value="27.3610,75.3160">चरणामृत कुंड क्षेत्र</option>
+          <option value="27.3568,75.3995">रींगस रेलवे स्टेशन चौराहा</option>
         </select>
+        <input type="text" id="pickupLoc" placeholder="उदा. तोरण द्वार के पास या होटल का नाम">
+      </div>
+
+      <div class="gps-lock-box">
+        <button type="button" class="gps-action-btn" onclick="fetchLocation('ride_pickup')">
+          📍 <span id="txt-gps-p-btn">पिकअप जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
+        </button>
+        <div id="ride_pickupGpsStatus" class="gps-status" style="color: var(--danger);">❌ पिकअप लोकेशन लॉक नहीं है</div>
+      </div>
+
+      <!-- 2. Drop / Delivery Location Section -->
+      <div class="form-group" style="margin-top: 14px;">
+        <label id="txt-ride-drop-title" style="color: #2563eb; font-weight: 900;">🏁 2. ड्रॉप / गंतव्य लोकेशन (पहुंचने का स्थल):</label>
+        <select id="dropPreset" onchange="handlePresetChange('drop')" style="margin-bottom: 6px;">
+          <option value="custom">-- सूची से चुनें या अपनी लोकेशन चुनें --</option>
+          <option value="27.3595,75.3115">खाटू मुख्य मंदिर तोरण द्वार</option>
+          <option value="27.3540,75.3080">52 बीघा मुख्य पार्किंग स्थल</option>
+          <option value="27.3575,75.3050">लखदातार पार्किंग ग्राउंड</option>
+          <option value="27.3610,75.3160">चरणामृत कुंड क्षेत्र</option>
+          <option value="27.3568,75.3995">रींगस रेलवे स्टेशन चौराहा</option>
+        </select>
+        <input type="text" id="dropLoc" placeholder="उदा. पार्किंग, धर्मशाला या स्टेशन">
+      </div>
+
+      <div class="gps-lock-box">
+        <button type="button" class="gps-action-btn" style="background: #2563eb;" onclick="fetchLocation('ride_drop')">
+          📍 <span id="txt-gps-d-btn">ड्रॉप जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
+        </button>
+        <div id="ride_dropGpsStatus" class="gps-status" style="color: var(--danger);">❌ ड्रॉप लोकेशन लॉक नहीं है</div>
+      </div>
+
+      <!-- Fare Display Box -->
+      <div class="fare-card">
+        <div>
+          <div class="fare-detail" id="txt-fare-dist-lbl">अनुमानित दूरी: <span id="rideDistanceText">0.0</span> किमी</div>
+          <div style="font-size: 11px; color: #92400e; margin-top: 2px;" id="txt-fare-rate-lbl">(दर: ₹7 प्रति किमी | न्यूनतम ₹30)</div>
+        </div>
+        <div class="fare-amount">₹<span id="rideFareText">30</span></div>
       </div>
 
       <div class="form-group">
-        <label id="txt-ride-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <label id="txt-ride-phn-lbl">मोबाइल नंबर (10 अंक)</label>
         <input type="tel" id="ridePhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
-      <button class="submit-btn" onclick="sendRideBooking()" id="txt-ride-btn">बाइक राइड कन्फर्म करें</button>
+      <button class="submit-btn" onclick="sendRideBooking()" id="txt-ride-btn">बाइक टैक्सी राइड कन्फर्म करें</button>
     </div>
 
     <!-- 3. HOTEL TAB -->
     <div id="hotelSection" class="card hidden">
-      <h3 style="font-size: 15px;" id="txt-hotel-title">🏨 होटल / धर्मशाला रूम स्टे</h3>
-      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-hotel-desc">तोरण द्वार व मंदिर परिक्रमा के समीप साफ-सुथरे कमरे।</p>
+      <h3 style="font-size: 15px;" id="txt-hotel-title">🏨 होटल एवं धर्मशाला कक्ष आरक्षण</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-hotel-desc">तोरण द्वार एवं मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।</p>
 
-      <div class="gps-lock-box" style="margin-top: 8px;">
+      <div class="gps-lock-box">
         <button type="button" class="gps-action-btn" onclick="fetchLocation('hotel')">
-          📍 <span id="txt-gps-hotel-btn">आपकी करंट GPS लोकेशन जोड़ें (अनिवार्य)</span>
+          📍 <span id="txt-gps-hotel-btn">वर्तमान जीपीएस लोकेशन जोड़ें (अनिवार्य)</span>
         </button>
         <div id="hotelGpsStatus" class="gps-status" style="color: var(--danger);">❌ लोकेशन लॉक नहीं है</div>
       </div>
 
       <div class="form-group">
-        <label id="txt-hotel-type-lbl">कमरे का प्रकार चुनें</label>
+        <label id="txt-hotel-type-lbl">कक्ष प्रकार का चयन करें</label>
         <select id="hotelRoomType">
-          <option value="बजट नॉन-एसी रूम (₹600 - ₹900)">बजट नॉन-एसी रूम (₹600 - ₹900)</option>
-          <option value="डीलक्स एसी रूम (₹1200 - ₹1600)">डीलक्स एसी रूम (₹1200 - ₹1600)</option>
-          <option value="फैमिली 4-बेड रूम (₹1800 - ₹2400)">फैमिली 4-बेड रूम (₹1800 - ₹2400)</option>
+          <option value="बजट नॉन-एसी कमरा (₹600 - ₹900)">बजट नॉन-एसी कमरा (₹600 - ₹900)</option>
+          <option value="डीलक्स वातानुकूलित (एसी) कमरा (₹1200 - ₹1600)">डीलक्स वातानुकूलित (एसी) कमरा (₹1200 - ₹1600)</option>
+          <option value="पारिवारिक 4-बेड कमरा (₹1800 - ₹2400)">पारिवारिक 4-बेड कमरा (₹1800 - ₹2400)</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label id="txt-hotel-date-lbl">चेक-इन तारीख</label>
+        <label id="txt-hotel-date-lbl">आगमन तिथि (चेक-इन)</label>
         <input type="date" id="hotelCheckIn">
       </div>
 
       <div class="form-group">
-        <label id="txt-hotel-name-lbl">आपका नाम</label>
-        <input type="text" id="hotelName" placeholder="पूरा नाम" oninput="saveCustomerProfile()">
+        <label id="txt-hotel-name-lbl">आपका पूरा नाम</label>
+        <input type="text" id="hotelName" placeholder="पूरा नाम दर्ज करें" oninput="saveCustomerProfile()">
       </div>
 
       <div class="form-group">
-        <label id="txt-hotel-phn-lbl">मोबाइल नंबर (पूरा 10 डिजिट)</label>
+        <label id="txt-hotel-phn-lbl">मोबाइल नंबर (10 अंक)</label>
         <input type="tel" id="hotelPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10" oninput="saveCustomerProfile()">
       </div>
 
-      <button class="submit-btn" onclick="sendHotelBooking()" id="txt-hotel-btn">होटल रूम के लिए संपर्क करें</button>
+      <button class="submit-btn" onclick="sendHotelBooking()" id="txt-hotel-btn">होटल कक्ष हेतु संपर्क करें</button>
     </div>
 
     <!-- 4. PARTNER TIE-UP TAB -->
     <div id="tieupSection" class="card hidden">
-      <h3 style="font-size: 15px;" id="txt-tieup-title">🤝 खाटू फ़ूड एक्सप्रेस पार्टनर टाई-अप</h3>
-      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-tieup-desc">राइडर बनें या अपनी होटल/धर्मशाला हमारे साथ रजिस्टर करें।</p>
+      <h3 style="font-size: 15px;" id="txt-tieup-title">🤝 खाटू फ़ूड एक्सप्रेस पार्टनर सहभागिता</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-tieup-desc">बाइक राइडर बनें अथवा अपनी होटल/धर्मशाला हमारे साथ पंजीकृत करें।</p>
 
       <div class="form-group">
-        <label id="txt-tieup-role-lbl">टाई-अप प्रकार चुनें</label>
+        <label id="txt-tieup-role-lbl">सहभागिता प्रकार चुनें</label>
         <select id="tieupRole">
-          <option value="बाइक राइडर / डिलीवरी बॉय (Rider Partner)">🛵 बाइक राइडर / डिलीवरी पार्टनर</option>
-          <option value="होटल / धर्मशाला मालिक (Hotel / Dharamshala Partner)">🏨 होटल / धर्मशाला पार्टनर</option>
-          <option value="रेस्टोरेंट / किराना पार्टनर (Merchant Partner)">🍲 रेस्टोरेंट / किराना पार्टनर</option>
+          <option value="बाइक राइडर / डिलीवरी साथी (Rider Partner)">🛵 बाइक राइडर / डिलीवरी साथी</option>
+          <option value="होटल / धर्मशाला प्रबंधक (Hotel Partner)">🏨 होटल / धर्मशाला प्रबंधक</option>
+          <option value="भोजनालय / किराना विक्रेता (Merchant Partner)">🍲 भोजनालय / किराना विक्रेता</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label id="txt-tieup-name-lbl">आपका या प्रतिष्ठान का नाम</label>
+        <label id="txt-tieup-name-lbl">आपका अथवा प्रतिष्ठान का नाम</label>
         <input type="text" id="tieupName" placeholder="उदा. राहुल शर्मा / श्याम वाटिका">
       </div>
 
       <div class="form-group">
-        <label id="txt-tieup-veh-lbl">गाड़ी नंबर या होटल का पता</label>
-        <input type="text" id="tieupDetail" placeholder="उदा. RJ-23-AB-1234 या तोरण द्वार रोड">
+        <label id="txt-tieup-veh-lbl">वाहन क्रमांक अथवा होटल का संपूर्ण पता</label>
+        <input type="text" id="tieupDetail" placeholder="उदा. RJ-23-AB-1234 अथवा तोरण द्वार मार्ग">
       </div>
 
-      <div class="gps-lock-box" style="margin-top: 8px;">
+      <div class="gps-lock-box">
         <button type="button" class="gps-action-btn" onclick="fetchLocation('tieup')">
-          📍 <span id="txt-gps-tieup-btn">प्रतिष्ठान/करंट GPS लोकेशन लॉक करें (अनिवार्य)</span>
+          📍 <span id="txt-gps-tieup-btn">प्रतिष्ठान जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
         </button>
         <div id="tieupGpsStatus" class="gps-status" style="color: var(--danger);">❌ लोकेशन लॉक नहीं है</div>
       </div>
 
       <div class="form-group">
-        <label id="txt-tieup-phn-lbl">व्हाट्सएप मोबाइल नंबर (पूरा 10 डिजिट)</label>
-        <input type="tel" id="tieupPhone" placeholder="10 अंकों का वैध मोबाइल नंबर" maxlength="10">
+        <label id="txt-tieup-phn-lbl">व्हाट्सएप मोबाइल नंबर (10 अंक)</label>
+        <input type="tel" id="tieupPhone" placeholder="10 अंकों का वैध व्हाट्सएप नंबर" maxlength="10">
       </div>
 
-      <button class="submit-btn" onclick="sendTieupRequest()" id="txt-tieup-btn">पार्टनरशिप फॉर्म सबमिट करें</button>
+      <button class="submit-btn" onclick="sendTieupRequest()" id="txt-tieup-btn">सहभागिता आवेदन प्रेषित करें</button>
     </div>
 
   </div>
@@ -865,13 +933,26 @@
     const MY_WHATSAPP_NUMBER = "917037647464";
     const MY_UPI_ID = "7037647464@ybl";
     const MY_PAYEE_NAME = "Khatoo Food Express";
-    const ADMIN_SECRET_PIN = "4746"; // Admin PIN for order status updates
+    const ADMIN_SECRET_PIN = "4746";
 
     let currentLang = "hi";
     let selectedPayment = "upi";
-    let gpsLinks = { food: "", ride: "", hotel: "", tieup: "" };
 
-    // Unique Device ID Binding
+    // Coordinates Storage for Math distance
+    let coords = {
+      pickup: null,
+      drop: null
+    };
+
+    let gpsLinks = {
+      food: "",
+      ride_pickup: "",
+      ride_drop: "",
+      hotel: "",
+      tieup: ""
+    };
+
+    // Device Binding
     function getDeviceUUID() {
       let dId = localStorage.getItem('khe_device_id');
       if (!dId) {
@@ -886,7 +967,7 @@
       return /^[6-9]\d{9}$/.test(phone);
     }
 
-    // Auto Moving Carousel Logic
+    // Auto-Moving Carousel
     let currentSlide = 0;
     setInterval(() => {
       currentSlide = currentSlide === 0 ? 1 : 0;
@@ -896,7 +977,7 @@
       }
     }, 3500);
 
-    // Auto-Save Customer Profile strictly to this phone's localStorage
+    // Profile Local Storage
     function saveCustomerProfile() {
       const phone = document.getElementById('foodPhone').value.trim() || document.getElementById('ridePhone').value.trim();
       const addr = document.getElementById('foodAddress').value.trim();
@@ -917,12 +998,8 @@
         document.getElementById('ridePhone').value = savedPhone;
         document.getElementById('hotelPhone').value = savedPhone;
       }
-      if (savedAddr) {
-        document.getElementById('foodAddress').value = savedAddr;
-      }
-      if (savedName) {
-        document.getElementById('hotelName').value = savedName;
-      }
+      if (savedAddr) document.getElementById('foodAddress').value = savedAddr;
+      if (savedName) document.getElementById('hotelName').value = savedName;
 
       if (localStorage.getItem(CURRENT_DEVICE_ID + '_last_order')) {
         document.getElementById('reorderBar').style.display = 'flex';
@@ -931,230 +1008,222 @@
       checkActiveOrderWidget();
     }
 
-    function repeatLastOrder() {
-      try {
-        const lastOrder = JSON.parse(localStorage.getItem(CURRENT_DEVICE_ID + '_last_order'));
-        if (lastOrder) {
-          for (let k in lastOrder) {
-            if (quantities.hasOwnProperty(k)) {
-              quantities[k] = lastOrder[k];
-              const el = document.getElementById(`qty-${k}`);
-              if (el) el.innerText = quantities[k];
-            }
-          }
-          updatePaymentUI();
-          
-          const btn = document.getElementById('foodOrderBtn');
-          if(btn) {
-            btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      } catch (e) {
-        console.error(e);
-      }
+    // Haversine Distance Formula (km)
+    function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Earth's radius in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
     }
 
-    // Side Floating Tracking Tab Management with Admin Verification
-    let sideTimerInterval = null;
+    // Update Bike Ride Fare Automatically (₹7/km)
+    function updateBikeFare() {
+      if (coords.pickup && coords.drop) {
+        let dist = calculateHaversineDistance(coords.pickup.lat, coords.pickup.lng, coords.drop.lat, coords.drop.lng);
+        // Road factor allowance (straight-line distance to road curve = ~1.25x)
+        dist = dist * 1.25;
+        if (dist < 1.0) dist = 1.0;
 
-    function checkActiveOrderWidget() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const updateStatus = urlParams.get('order_status');
-      const targetDevId = urlParams.get('device_id');
-
-      // Admin verification logic
-      if (updateStatus) {
-        const enteredPin = prompt("🔒 एडमिन वेरिफिकेशन: कृपया 4 अंकों का एडमिन पिन डालें:");
-        if (enteredPin === ADMIN_SECRET_PIN) {
-          if (targetDevId === CURRENT_DEVICE_ID || !targetDevId) {
-            if (updateStatus === 'ready') {
-              localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'READY');
-              alert("✅ ऑर्डर स्टेटस: 'ORDER READY' सेट कर दिया गया है!");
-            } else if (updateStatus === 'delivered') {
-              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_active');
-              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_state');
-              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_items');
-              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_time');
-              alert("✅ ऑर्डर सफलतापूर्वक डिलीवर हो गया! ट्रैकिंग विजेट हटा दिया गया है।");
-            }
-          }
-        } else {
-          alert("❌ गलत एडमिन पिन! आप स्टेटस नहीं बदल सकते।");
-        }
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
-
-      // Show widget only if this device has an active order
-      const isActive = localStorage.getItem(CURRENT_DEVICE_ID + '_order_active');
-      if (isActive) {
-        startSideTrackingWidget();
+        const fare = Math.max(30, Math.round(dist * 7));
+        document.getElementById('rideDistanceText').innerText = dist.toFixed(1);
+        document.getElementById('rideFareText').innerText = fare;
       } else {
-        document.getElementById('sideTrackWidget').style.display = 'none';
+        document.getElementById('rideDistanceText').innerText = "0.0";
+        document.getElementById('rideFareText').innerText = "30";
       }
     }
 
-    function startSideTrackingWidget() {
-      const widget = document.getElementById('sideTrackWidget');
-      const timerDisplay = document.getElementById('sideTimerDisplay');
-      const statusText = document.getElementById('sideStatusText');
-      const summaryText = document.getElementById('sideOrderSummary');
+    // Preset Selection Handler
+    function handlePresetChange(type) {
+      const select = document.getElementById(type + 'Preset');
+      const val = select.value;
+      const input = document.getElementById(type === 'pickup' ? 'pickupLoc' : 'dropLoc');
+      const status = document.getElementById(`ride_${type}GpsStatus`);
 
-      widget.style.display = 'block';
-
-      const itemsSummary = localStorage.getItem(CURRENT_DEVICE_ID + '_order_items') || 'फ़ूड ऑर्डर';
-      summaryText.innerText = itemsSummary;
-
-      let savedState = localStorage.getItem(CURRENT_DEVICE_ID + '_order_state') || 'PREPARING';
-      if (savedState === 'READY') {
-        statusText.innerText = "🚀 ऑर्डर तैयार है! राइडर निकला";
-        statusText.style.color = "#4ade80";
+      if (val !== 'custom') {
+        const parts = val.split(',');
+        const lat = parseFloat(parts[0]);
+        const lng = parseFloat(parts[1]);
+        coords[type] = { lat: lat, lng: lng };
+        gpsLinks[`ride_${type}`] = `https://maps.google.com/?q=${lat},${lng}`;
+        input.value = select.options[select.selectedIndex].text;
+        status.style.color = "#16a34a";
+        status.innerText = currentLang === 'hi' ? "✅ लोकेशन चयनित!" : "✅ Location Selected!";
       } else {
-        statusText.innerText = "🍳 तैयारी जारी है...";
-        statusText.style.color = "#fde047";
+        coords[type] = null;
+        gpsLinks[`ride_${type}`] = "";
+        status.style.color = "#dc2626";
+        status.innerText = currentLang === 'hi' ? "❌ लोकेशन लॉक नहीं है" : "❌ Location Not Locked";
       }
-
-      const startTime = parseInt(localStorage.getItem(CURRENT_DEVICE_ID + '_order_time') || Date.now(), 10);
-      const totalSeconds = 15 * 60;
-
-      if (sideTimerInterval) clearInterval(sideTimerInterval);
-
-      sideTimerInterval = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        let remaining = totalSeconds - elapsed;
-
-        if (remaining <= 0) {
-          timerDisplay.innerText = "पहुँच गया!";
-          clearInterval(sideTimerInterval);
-        } else {
-          let mins = parseInt(remaining / 60, 10);
-          let secs = parseInt(remaining % 60, 10);
-          timerDisplay.innerText = (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
-        }
-      }, 1000);
+      updateBikeFare();
     }
 
-    function openSupportModal() {
-      document.getElementById('supportSheet').classList.add('active');
-      document.getElementById('overlay').classList.add('active');
-    }
-    function closeSupportModal() {
-      document.getElementById('supportSheet').classList.remove('active');
-      document.getElementById('overlay').classList.remove('active');
-    }
-    function closeAllDrawers() {
-      document.getElementById('sidebar').classList.remove('open');
-      closeSupportModal();
-    }
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
+    // GPS Fetcher with Coordinate Registration
+    function fetchLocation(type) {
+      const statusElem = document.getElementById(`${type}GpsStatus`);
+      if (!navigator.geolocation) {
+        alert(currentLang === 'hi' ? "आपके ब्राउज़र में जीपीएस सपोर्ट उपलब्ध नहीं है।" : "GPS is not supported on this browser.");
+        return;
+      }
+      statusElem.style.color = "#ea580c";
+      statusElem.innerText = currentLang === 'hi' ? "⏳ जीपीएस लोकेशन ली जा रही है..." : "⏳ Fetching GPS coordinates...";
+
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          gpsLinks[type] = `https://maps.google.com/?q=${lat},${lng}`;
+          statusElem.style.color = "#16a34a";
+          statusElem.innerText = currentLang === 'hi' ? "✅ लोकेशन सफलतापूर्वक लॉक हुई!" : "✅ Location Successfully Locked!";
+
+          if (type === 'ride_pickup') {
+            coords.pickup = { lat: lat, lng: lng };
+            document.getElementById('pickupLoc').value = currentLang === 'hi' ? "मेरी वर्तमान जीपीएस लोकेशन" : "My Current GPS Location";
+            updateBikeFare();
+          } else if (type === 'ride_drop') {
+            coords.drop = { lat: lat, lng: lng };
+            document.getElementById('dropLoc').value = currentLang === 'hi' ? "ड्रॉप जीपीएस लोकेशन" : "Drop GPS Location";
+            updateBikeFare();
+          }
+        },
+        err => {
+          statusElem.style.color = "#dc2626";
+          statusElem.innerText = currentLang === 'hi' ? "❌ जीपीएस अनुमति प्रदान करें!" : "❌ Please enable GPS permission!";
+          alert(currentLang === 'hi' ? "सटीक सेवा के लिए जीपीएस अनुमति अनिवार्य है।" : "GPS permission is required for accurate service.");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
     }
 
-    function sendQuickSupport(issue) {
-      closeSupportModal();
-      const msg = `*🚨 सहायता एवं सपोर्ट (खाटू फ़ूड एक्सप्रेस)*\n\n` +
-                  `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
-                  `*समस्या का प्रकार:* ${issue}\n` +
-                  `*कृपया मुझे तुरंत सहायता प्रदान करें।*`;
-      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
+    // 100% Pure Hindi vs 100% Pure English Translation Dictionary
     const langData = {
       hi: {
         switch: "🌐 English",
+        helpBtn: "💬 सहायता",
         heroTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
-        heroSub: "सेवा ही धर्म है • शुद्ध सात्विक भोजन & फ़ास्ट डिलीवरी",
+        heroSub: "सेवा ही धर्म है • शुद्ध सात्विक भोजन एवं द्रुतगामी सेवा",
         sbTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
         sbSub: "सेवा ही धर्म है - बाबा की कृपा",
-        sbFood: "खाना & राशन मंगवाएं",
-        sbRide: "बाइक राइड बुक करें",
-        sbHotel: "होटल / धर्मशाला",
-        sbTieup: "पार्टनर टाई-अप (Join)",
-        sbCall: "व्हाट्सएप सपोर्ट हेल्प डेस्क",
+        sbFood: "भोजन एवं किराना ऑर्डर करें",
+        sbRide: "बाइक टैक्सी बुक करें",
+        sbHotel: "होटल एवं धर्मशाला बुकिंग",
+        sbTieup: "पार्टनर सहभागिता (टाई-अप)",
+        sbCall: "व्हाट्सएप सहायता केंद्र",
+        supHeader: "समस्या का चयन करें",
+        supOpt1: "एप्लिकेशन तकनीकी समस्या",
+        supOpt2: "डिलीवरी विलंब समस्या",
+        supOpt3: "भुगतान एवं यूटीआर समस्या",
+        supOpt4: "होटल एवं धर्मशाला संबंधी प्रश्न",
+        supOpt5: "बाइक टैक्सी सहायता",
+        supOpt6: "आपातकालीन सहायता",
         slide1Title: "महा डिस्काउंट ऑफ़र!",
         slide1Desc: "₹499 से ऊपर के ऑर्डर पर फ्लैट ₹49 की छूट",
         slide2Title: "फ्री डिलीवरी चार्ज ऑफ़र!",
         slide2Desc: "₹208 से ऊपर के हर ऑर्डर पर डिलीवरी बिल्कुल FREE",
-        tabFood: "🍲 फ़ूड & किराना",
+        reorderMsg: "🔄 पिछला ऑर्डर पुनः दोहराएं?",
+        reorderBtn: "ऑर्डर दोहराएं",
+        tabFood: "🍲 भोजन",
         tabRide: "🛵 बाइक",
         tabHotel: "🏨 होटल",
-        tabTieup: "🤝 टाई-अप",
-        foodMenu: "मेनू से आइटम चुनें",
-        catSpecial: "स्पेशल डिशेस & थाली",
-        catGrocery: "किराना, पानी & ड्राई फ्रूट्स",
-        catVeggies: "ताज़ा हरी सब्जियां",
-        itemCb: "छोले भटूरे (2 पीस)",
+        tabTieup: "🤝 सहभागिता",
+        foodMenu: "मेनू से सामग्री चुनें",
+        catSpecial: "विशिष्ट व्यंजन एवं थाली",
+        catGrocery: "किराना, पेय जल एवं मेवे",
+        catVeggies: "ताज़ी हरी सब्जियां",
+        itemCb: "छोले भटूरे (2 नग)",
         itemThali: "शुद्ध सात्विक थाली",
-        itemDalrice: "दाल चावल कॉम्बो प्लेट",
-        itemFal: "स्पेशल फलाहार थाली",
-        itemWater: "पानी की बोतल (1 लीटर ठंडा)",
-        itemSugar: "चीनी / Sugar (1 किलो पैकेट)",
-        itemKaju: "काजू / Cashew (100 ग्राम)",
-        itemBadam: "बादाम / Almond (100 ग्राम)",
-        itemAalu: "आलू / Potato (1 किलो)",
-        itemGhiya: "घिया / लौकी / Bottle Gourd (1 किलो)",
-        itemPyaj: "प्याज / Onion (1 किलो)",
-        itemLahson: "लहसुन / Garlic (250 ग्राम)",
-        customHead: "📝 अन्य आवश्यक सामान (Required Item)",
-        customSub: "अगर आपको कोई ऐसा सामान चाहिए जो मेनू में नहीं है, तो यहाँ लिखें। यदि संभव होगा तो डिलीवरी बॉय जरूर लाकर देगा!",
-        itemTotalLbl: "सामान का कुल मूल्य (Item Total):",
+        itemDalrice: "दाल चावल कॉम्बो थाली",
+        itemFal: "विशिष्ट फलाहारी व्रत थाली",
+        itemWater: "पेय जल बोतल (1 लीटर शीतल)",
+        itemSugar: "चीनी (1 किलोग्राम पैकेट)",
+        itemKaju: "काजू (100 ग्राम)",
+        itemBadam: "बादाम (100 ग्राम)",
+        itemAalu: "आलू (1 किलोग्राम)",
+        itemGhiya: "घिया / लौकी (1 किलोग्राम)",
+        itemPyaj: "प्याज (1 किलोग्राम)",
+        itemLahson: "लहसुन (250 ग्राम)",
+        customHead: "📝 अतिरिक्त आवश्यक सामग्री",
+        customSub: "यदि आपको कोई अन्य वस्तु चाहिए जो सूची में नहीं है, तो यहाँ लिखें। डिलीवरी साथी उपलब्ध होने पर अवश्य लाएगा।",
+        itemTotalLbl: "सामग्री का कुल मूल्य:",
         discountLbl: "🛵 महा डिस्काउंट छूट (> ₹499):",
-        upiDisLbl: "📱 ऑनलाइन UPI छूट:",
-        codFeeLbl: "💵 COD हैंडलिंग चार्ज:",
-        deliveryLbl: "डिलीवरी चार्ज (Delivery Fee):",
-        platformLbl: "प्लेटफ़ॉर्म फ़ीस (Platform Fee):",
-        finalTotalLbl: "कुल देय राशि (Final Amount):",
-        payLbl: "पेमेंट का तरीका चुनें:",
-        payUpi: "ऑनलाइन UPI",
+        upiDisLbl: "📱 ऑनलाइन यूपीआई छूट:",
+        codFeeLbl: "💵 कैश ऑन डिलीवरी प्रभार:",
+        deliveryLbl: "वितरण प्रभार (डिलीवरी):",
+        platformLbl: "मंच प्रभार (प्लेटफ़ॉर्म शुल्क):",
+        finalTotalLbl: "कुल देय धनराशि:",
+        payLbl: "भुगतान विधि का चयन करें:",
+        upiBadge: "₹4 बचत",
+        codBadge: "+₹4 प्रभार",
+        payUpi: "ऑनलाइन यूपीआई",
         payCod: "कैश ऑन डिलीवरी",
-        qrScan: "स्कैन करके पे करें:",
-        utrLbl: "⚠️ पेमेंट के बाद 12-अंकों का UPI Ref / UTR No. दर्ज करें:",
-        foodAddrLbl: "होटल/धर्मशाला का नाम और रूम नंबर",
-        gpsFoodBtn: "लाइव GPS लोकेशन लॉक करें (अनिवार्य)",
-        foodPhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
-        foodBtn: "WhatsApp पर ऑर्डर भेजें",
-        rideTitle: "बाइक राइड विवरण",
-        gpsRideBtn: "पिकअप GPS लोकेशन लॉक करें (अनिवार्य)",
-        ridePickupLbl: "पिकअप लैंडमार्क (उदा. होटल/गेट)",
-        rideDropLbl: "कहाँ तक (Drop Route)",
-        ridePhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
-        rideBtn: "बाइक राइड कन्फर्म करें",
-        hotelTitle: "🏨 होटल / धर्मशाला रूम स्टे",
-        hotelDesc: "तोरण द्वार व मंदिर परिक्रमा के समीप साफ-सुथरे कमरे।",
-        gpsHotelBtn: "आपकी करंट GPS लोकेशन जोड़ें (अनिवार्य)",
-        hotelTypeLbl: "कमरे का प्रकार चुनें",
-        hotelDateLbl: "चेक-इन तारीख",
-        hotelNameLbl: "आपका नाम",
-        hotelPhnLbl: "मोबाइल नंबर (पूरा 10 डिजिट)",
-        hotelBtn: "होटल रूम के लिए संपर्क करें",
-        tieupTitle: "🤝 खाटू फ़ूड एक्सप्रेस पार्टनर टाई-अप",
-        tieupDesc: "राइडर बनें या अपनी होटल/धर्मशाला हमारे साथ रजिस्टर करें।",
-        tieupRoleLbl: "टाई-अप प्रकार चुनें",
-        tieupNameLbl: "आपका या प्रतिष्ठान का नाम",
-        tieupVehLbl: "गाड़ी नंबर या होटल का पता",
-        gpsTieupBtn: "प्रतिष्ठान/करंट GPS लोकेशन लॉक करें (अनिवार्य)",
-        tieupPhnLbl: "व्हाट्सएप मोबाइल नंबर (पूरा 10 डिजिट)",
-        tieupBtn: "पार्टनरशिप फॉर्म सबमिट करें"
+        qrScan: "स्कैन करके भुगतान करें:",
+        payAppBtn: "📲 यूपीआई ऐप से भुगतान करें",
+        utrLbl: "⚠️ भुगतान पश्चात 12-अंकों का UPI Ref / UTR क्रमांक दर्ज करें:",
+        foodAddrLbl: "होटल / धर्मशाला का नाम एवं कक्ष क्रमांक",
+        gpsFoodBtn: "सटीक जीपीएस लोकेशन लॉक करें (अनिवार्य)",
+        foodPhnLbl: "मोबाइल नंबर (10 अंक)",
+        foodBtn: "व्हाट्सएप पर ऑर्डर भेजें",
+        rideTitle: "बाइक टैक्सी यात्रा विवरण",
+        rideSub: "दर: ₹7 प्रति किलोमीटर (पारदर्शी एवं त्वरित सेवा)",
+        ridePickupTitle: "📍 1. पिकअप लोकेशन (प्रारंभिक स्थल):",
+        gpsPBtn: "पिकअप जीपीएस लोकेशन लॉक करें (अनिवार्य)",
+        rideDropTitle: "🏁 2. ड्रॉप / गंतव्य लोकेशन (पहुंचने का स्थल):",
+        gpsDBtn: "ड्रॉप जीपीएस लोकेशन लॉक करें (अनिवार्य)",
+        fareDistLbl: "अनुमानित दूरी: ",
+        fareRateLbl: "(दर: ₹7 प्रति किमी | न्यूनतम ₹30)",
+        ridePhnLbl: "मोबाइल नंबर (10 अंक)",
+        rideBtn: "बाइक टैक्सी राइड कन्फर्म करें",
+        hotelTitle: "🏨 होटल एवं धर्मशाला कक्ष आरक्षण",
+        hotelDesc: "तोरण द्वार एवं मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।",
+        gpsHotelBtn: "वर्तमान जीपीएस लोकेशन जोड़ें (अनिवार्य)",
+        hotelTypeLbl: "कक्ष प्रकार का चयन करें",
+        hotelDateLbl: "आगमन तिथि (चेक-इन)",
+        hotelNameLbl: "आपका पूरा नाम",
+        hotelPhnLbl: "मोबाइल नंबर (10 अंक)",
+        hotelBtn: "होटल कक्ष हेतु संपर्क करें",
+        tieupTitle: "🤝 खाटू फ़ूड एक्सप्रेस पार्टनर सहभागिता",
+        tieupDesc: "बाइक राइडर बनें अथवा अपनी होटल/धर्मशाला हमारे साथ पंजीकृत करें।",
+        tieupRoleLbl: "सहभागिता प्रकार चुनें",
+        tieupNameLbl: "आपका अथवा प्रतिष्ठान का नाम",
+        tieupVehLbl: "वाहन क्रमांक अथवा होटल का संपूर्ण पता",
+        gpsTieupBtn: "प्रतिष्ठान जीपीएस लोकेशन लॉक करें (अनिवार्य)",
+        tieupPhnLbl: "व्हाट्सएप मोबाइल नंबर (10 अंक)",
+        tieupBtn: "सहभागिता आवेदन प्रेषित करें",
+        sideRiderLbl: "राइडर हेल्पलाइन"
       },
       en: {
         switch: "🌐 हिंदी",
+        helpBtn: "💬 Help Desk",
         heroTitle: "🚩 Khatoo Food Express",
-        heroSub: "Seva Hi Dharm Hai • Pure Satvik Food & Fast Delivery",
+        heroSub: "Service is Devotion • Pure Satvik Food & Swift Transit",
         sbTitle: "🚩 Khatoo Food Express",
-        sbSub: "Seva Hi Dharm Hai - Baba Ki Kripa",
+        sbSub: "Service is Devotion - Baba's Grace",
         sbFood: "Order Food & Grocery",
-        sbRide: "Book Bike Ride",
-        sbHotel: "Hotel / Dharamshala",
-        sbTieup: "Partner Tie-Up (Join)",
-        sbCall: "WhatsApp Help Support",
-        slide1Title: "Maha Discount Offer!",
+        sbRide: "Book Bike Taxi",
+        sbHotel: "Hotel & Dharamshala Stay",
+        sbTieup: "Partner Collaboration",
+        sbCall: "WhatsApp Help Desk",
+        supHeader: "Select Your Inquiry",
+        supOpt1: "Application Technical Issue",
+        supOpt2: "Delivery Delay Concern",
+        supOpt3: "Payment / UTR Issue",
+        supOpt4: "Hotel & Stay Query",
+        supOpt5: "Bike Taxi Assistance",
+        supOpt6: "Emergency Support",
+        slide1Title: "Mega Discount Offer!",
         slide1Desc: "Flat ₹49 OFF on all orders above ₹499",
-        slide2Title: "Free Delivery Charge Offer!",
+        slide2Title: "Free Delivery Offer!",
         slide2Desc: "100% FREE DELIVERY on orders above ₹208",
-        tabFood: "🍲 Food & Grocery",
+        reorderMsg: "🔄 Repeat your recent order?",
+        reorderBtn: "Repeat Order",
+        tabFood: "🍲 Food",
         tabRide: "🛵 Bike",
         tabHotel: "🏨 Hotel",
-        tabTieup: "🤝 Tie-Up",
+        tabTieup: "🤝 Partner",
         foodMenu: "Select Items From Menu",
         catSpecial: "Special Dishes & Thali",
         catGrocery: "Grocery, Water & Dry Fruits",
@@ -1162,62 +1231,72 @@
         itemCb: "Chhole Bhature (2 Pcs)",
         itemThali: "Pure Satvik Thali",
         itemDalrice: "Dal Rice Combo Plate",
-        itemFal: "Special Vrat Thali",
-        itemWater: "Mineral Water Bottle (1L Chilled)",
+        itemFal: "Special Vrat Fasting Thali",
+        itemWater: "Mineral Water (1L Chilled)",
         itemSugar: "Sugar (1 Kg Packet)",
         itemKaju: "Cashew Nuts (100g)",
         itemBadam: "Almonds (100g)",
-        itemAalu: "Potatoes / Aalu (1 Kg)",
-        itemGhiya: "Bottle Gourd / Lauki (1 Kg)",
-        itemPyaj: "Onion / Pyaj (1 Kg)",
-        itemLahson: "Garlic / Lahsun (250g)",
-        customHead: "📝 Any Other Required Items?",
-        customSub: "Need something not listed? Write here, our delivery boy will gladly get it if available!",
-        itemTotalLbl: "Items Total:",
-        discountLbl: "🛵 Maha Discount (> ₹499):",
+        itemAalu: "Potatoes (1 Kg)",
+        itemGhiya: "Bottle Gourd (1 Kg)",
+        itemPyaj: "Onions (1 Kg)",
+        itemLahson: "Garlic (250g)",
+        customHead: "📝 Additional Required Items",
+        customSub: "If you need any item not in the menu, write here. Our delivery partner will bring it if available.",
+        itemTotalLbl: "Items Total Cost:",
+        discountLbl: "🛵 Mega Discount (> ₹499):",
         upiDisLbl: "📱 Online UPI Discount:",
-        codFeeLbl: "💵 COD Handling Charge:",
-        deliveryLbl: "Delivery Fee:",
-        platformLbl: "Platform Fee:",
-        finalTotalLbl: "Final Amount Payable:",
-        payLbl: "Choose Payment Method:",
+        codFeeLbl: "💵 Cash on Delivery Fee:",
+        deliveryLbl: "Delivery Charges:",
+        platformLbl: "Platform Service Fee:",
+        finalTotalLbl: "Total Amount Payable:",
+        payLbl: "Select Payment Method:",
+        upiBadge: "Save ₹4",
+        codBadge: "+₹4 Fee",
         payUpi: "Online UPI",
         payCod: "Cash on Delivery",
         qrScan: "Scan & Pay:",
+        payAppBtn: "📲 Pay via UPI App",
         utrLbl: "⚠️ Enter 12-digit UPI Ref / UTR No. after payment:",
-        foodAddrLbl: "Hotel/Dharamshala Name & Room No.",
-        gpsFoodBtn: "Lock Live GPS Location (Mandatory)",
-        foodPhnLbl: "Mobile Number (Exact 10-digits)",
-        foodBtn: "Send Order on WhatsApp",
-        rideTitle: "Bike Ride Details",
-        gpsRideBtn: "Lock Pickup GPS Location (Mandatory)",
-        ridePickupLbl: "Pickup Landmark (e.g. Hotel/Gate)",
-        rideDropLbl: "Where To (Drop Route)",
-        ridePhnLbl: "Mobile Number (Exact 10-digits)",
-        rideBtn: "Confirm Bike Ride",
-        hotelTitle: "🏨 Hotel / Stay Booking",
-        hotelDesc: "Clean rooms near Toran Dwar and Temple Parikrama.",
-        gpsHotelBtn: "Add Current GPS Location (Mandatory)",
-        hotelTypeLbl: "Select Room Type",
-        hotelDateLbl: "Check-in Date",
-        hotelNameLbl: "Your Name",
-        hotelPhnLbl: "Mobile Number (Exact 10-digits)",
-        hotelBtn: "Contact for Hotel Stay",
-        tieupTitle: "🤝 Khatoo Food Express Partner Tie-Up",
-        tieupDesc: "Join as a rider or register your hotel/dharamshala with us.",
-        tieupRoleLbl: "Select Tie-up Type",
+        foodAddrLbl: "Hotel / Dharamshala Name & Room Number",
+        gpsFoodBtn: "Lock Precise GPS Location (Mandatory)",
+        foodPhnLbl: "Mobile Number (10 Digits)",
+        foodBtn: "Place Order via WhatsApp",
+        rideTitle: "Bike Taxi Ride Booking",
+        rideSub: "Fare: ₹7 per Kilometer (Transparent & Quick)",
+        ridePickupTitle: "📍 1. Pickup Location (Starting Point):",
+        gpsPBtn: "Lock Pickup GPS Location (Mandatory)",
+        rideDropTitle: "🏁 2. Drop Location (Destination):",
+        gpsDBtn: "Lock Drop GPS Location (Mandatory)",
+        fareDistLbl: "Estimated Distance: ",
+        fareRateLbl: "(Rate: ₹7 per km | Minimum ₹30)",
+        ridePhnLbl: "Mobile Number (10 Digits)",
+        rideBtn: "Confirm Bike Taxi Ride",
+        hotelTitle: "🏨 Hotel & Stay Room Booking",
+        hotelDesc: "Clean rooms near Toran Dwar and Temple Perimeter.",
+        gpsHotelBtn: "Add Current GPS Coordinates (Mandatory)",
+        hotelTypeLbl: "Select Room Category",
+        hotelDateLbl: "Arrival Date (Check-in)",
+        hotelNameLbl: "Full Name",
+        hotelPhnLbl: "Mobile Number (10 Digits)",
+        hotelBtn: "Inquire for Room Booking",
+        tieupTitle: "🤝 Partner Collaboration Program",
+        tieupDesc: "Join as a rider or list your hotel/dharamshala with us.",
+        tieupRoleLbl: "Select Collaboration Role",
         tieupNameLbl: "Your Name or Property Name",
-        tieupVehLbl: "Vehicle Number or Hotel Address",
-        gpsTieupBtn: "Lock Property/Current GPS (Mandatory)",
-        tieupPhnLbl: "WhatsApp Mobile Number (10-digits)",
-        tieupBtn: "Submit Partnership Request"
+        tieupVehLbl: "Vehicle Number or Property Address",
+        gpsTieupBtn: "Lock Location GPS (Mandatory)",
+        tieupPhnLbl: "WhatsApp Mobile Number (10 Digits)",
+        tieupBtn: "Submit Collaboration Form",
+        sideRiderLbl: "Rider Helpline"
       }
     };
 
     function toggleLanguage() {
       currentLang = currentLang === "hi" ? "en" : "hi";
       const d = langData[currentLang];
+      
       document.getElementById('langSwitchBtn').innerText = d.switch;
+      document.getElementById('txt-help-btn').innerText = d.helpBtn;
       document.getElementById('txt-hero-title').innerText = d.heroTitle;
       document.getElementById('txt-hero-sub').innerText = d.heroSub;
       document.getElementById('txt-sb-title').innerText = d.sbTitle;
@@ -1227,10 +1306,19 @@
       document.getElementById('txt-sb-hotel').innerText = d.sbHotel;
       document.getElementById('txt-sb-tieup').innerText = d.sbTieup;
       document.getElementById('txt-sb-call').innerText = d.sbCall;
+      document.getElementById('txt-sup-header').innerText = d.supHeader;
+      document.getElementById('txt-sup-opt1').innerText = d.supOpt1;
+      document.getElementById('txt-sup-opt2').innerText = d.supOpt2;
+      document.getElementById('txt-sup-opt3').innerText = d.supOpt3;
+      document.getElementById('txt-sup-opt4').innerText = d.supOpt4;
+      document.getElementById('txt-sup-opt5').innerText = d.supOpt5;
+      document.getElementById('txt-sup-opt6').innerText = d.supOpt6;
       document.getElementById('txt-slide1-title').innerText = d.slide1Title;
       document.getElementById('txt-slide1-desc').innerText = d.slide1Desc;
       document.getElementById('txt-slide2-title').innerText = d.slide2Title;
       document.getElementById('txt-slide2-desc').innerText = d.slide2Desc;
+      document.getElementById('txt-reorder-msg').innerText = d.reorderMsg;
+      document.getElementById('txt-reorder-btn').innerText = d.reorderBtn;
       document.getElementById('tab-btn-food').innerText = d.tabFood;
       document.getElementById('tab-btn-ride').innerText = d.tabRide;
       document.getElementById('tab-btn-hotel').innerText = d.tabHotel;
@@ -1261,18 +1349,25 @@
       document.getElementById('txt-platform-lbl').innerText = d.platformLbl;
       document.getElementById('txt-final-total-lbl').innerText = d.finalTotalLbl;
       document.getElementById('txt-pay-lbl').innerText = d.payLbl;
+      document.getElementById('txt-upi-badge').innerText = d.upiBadge;
+      document.getElementById('txt-cod-badge').innerText = d.codBadge;
       document.getElementById('txt-pay-upi').innerText = d.payUpi;
       document.getElementById('txt-pay-cod').innerText = d.payCod;
       document.getElementById('txt-qr-scan').innerText = d.qrScan;
+      document.getElementById('txt-pay-app-btn').innerText = d.payAppBtn;
       document.getElementById('txt-utr-lbl').innerText = d.utrLbl;
       document.getElementById('txt-food-addr-lbl').innerText = d.foodAddrLbl;
       document.getElementById('txt-gps-food-btn').innerText = d.gpsFoodBtn;
       document.getElementById('txt-food-phn-lbl').innerText = d.foodPhnLbl;
-      document.getElementById('txt-food-btn').innerText = d.foodBtn;
+      document.getElementById('foodOrderBtn').innerText = d.foodBtn;
       document.getElementById('txt-ride-title').innerText = d.rideTitle;
-      document.getElementById('txt-gps-ride-btn').innerText = d.gpsRideBtn;
-      document.getElementById('txt-ride-pickup-lbl').innerText = d.ridePickupLbl;
-      document.getElementById('txt-ride-drop-lbl').innerText = d.rideDropLbl;
+      document.getElementById('txt-ride-sub').innerText = d.rideSub;
+      document.getElementById('txt-ride-pickup-title').innerText = d.ridePickupTitle;
+      document.getElementById('txt-gps-p-btn').innerText = d.gpsPBtn;
+      document.getElementById('txt-ride-drop-title').innerText = d.rideDropTitle;
+      document.getElementById('txt-gps-d-btn').innerText = d.gpsDBtn;
+      document.getElementById('txt-fare-dist-lbl').childNodes[0].nodeValue = d.fareDistLbl;
+      document.getElementById('txt-fare-rate-lbl').innerText = d.fareRateLbl;
       document.getElementById('txt-ride-phn-lbl').innerText = d.ridePhnLbl;
       document.getElementById('txt-ride-btn').innerText = d.rideBtn;
       document.getElementById('txt-hotel-title').innerText = d.hotelTitle;
@@ -1291,6 +1386,7 @@
       document.getElementById('txt-gps-tieup-btn').innerText = d.gpsTieupBtn;
       document.getElementById('txt-tieup-phn-lbl').innerText = d.tieupPhnLbl;
       document.getElementById('txt-tieup-btn').innerText = d.tieupBtn;
+      document.getElementById('txt-side-rider-lbl').innerText = d.sideRiderLbl;
 
       updatePaymentUI();
     }
@@ -1372,15 +1468,19 @@
         deliveryElem.innerHTML = `<span class="free-badge">FREE (₹0)</span> <strike style="color:#94a3b8; font-size:11px;">₹20</strike>`;
         if (itemTotal <= 499) {
           const toDiscount = 500 - itemTotal;
-          hintElem.innerHTML = `🎉 फ़्री डिलीवरी लागू! 💡 केवल <strong>₹${toDiscount}</strong> का सामान और जोड़ें और पाएं <strong>₹49 का महा डिस्काउंट</strong>!`;
+          hintElem.innerHTML = currentLang === 'hi' 
+            ? `🎉 फ़्री डिलीवरी लागू! 💡 केवल <strong>₹${toDiscount}</strong> की सामग्री और जोड़ें एवं <strong>₹49 का महा डिस्काउंट</strong> पाएं!`
+            : `🎉 Free Delivery Applied! 💡 Add items worth <strong>₹${toDiscount}</strong> more to get <strong>₹49 Mega Discount</strong>!`;
         } else {
-          hintElem.innerHTML = `<span style="color:#16a34a;">🎉 बधाई हो! फ़्री डिलीवरी + ₹49 महा डिस्काउंट दोनों लागू हैं!</span>`;
+          hintElem.innerHTML = `<span style="color:#16a34a;">${currentLang === 'hi' ? '🎉 बधाई! फ़्री डिलीवरी एवं ₹49 महा डिस्काउंट दोनों लागू हैं!' : '🎉 Congratulations! Free Delivery and ₹49 Discount are active!'}</span>`;
         }
       } else {
         deliveryFee = 20;
         deliveryElem.innerText = "₹20";
         const diff = 208 - itemTotal;
-        hintElem.innerHTML = `💡 केवल <strong>₹${diff}</strong> का सामान और जोड़ें और पाएं <strong>फ़्री डिलीवरी</strong>!`;
+        hintElem.innerHTML = currentLang === 'hi'
+          ? `💡 केवल <strong>₹${diff}</strong> की सामग्री और जोड़ें और पाएं <strong>फ़्री डिलीवरी</strong>!`
+          : `💡 Add items worth <strong>₹${diff}</strong> more for <strong>Free Delivery</strong>!`;
       }
 
       if (itemTotal > 0) {
@@ -1431,30 +1531,137 @@
       updatePaymentUI();
     }
 
-    function fetchLocation(type) {
-      const statusElem = document.getElementById(`${type}GpsStatus`);
-      if (!navigator.geolocation) {
-        alert(currentLang === 'hi' ? "GPS सपोर्ट उपलब्ध नहीं है।" : "GPS is not supported.");
-        return;
+    // Repeat Order
+    function repeatLastOrder() {
+      try {
+        const lastOrder = JSON.parse(localStorage.getItem(CURRENT_DEVICE_ID + '_last_order'));
+        if (lastOrder) {
+          for (let k in lastOrder) {
+            if (quantities.hasOwnProperty(k)) {
+              quantities[k] = lastOrder[k];
+              const el = document.getElementById(`qty-${k}`);
+              if (el) el.innerText = quantities[k];
+            }
+          }
+          updatePaymentUI();
+          const btn = document.getElementById('foodOrderBtn');
+          if(btn) btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (e) {
+        console.error(e);
       }
-      statusElem.style.color = "#ea580c";
-      statusElem.innerText = currentLang === 'hi' ? "⏳ लोकेशन ली जा रही है..." : "⏳ Fetching Location...";
-
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          gpsLinks[type] = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-          statusElem.style.color = "#16a34a";
-          statusElem.innerText = currentLang === 'hi' ? "✅ लोकेशन सफलतापूर्वक लॉक हो गई!" : "✅ Location Successfully Locked!";
-        },
-        err => {
-          statusElem.style.color = "#dc2626";
-          statusElem.innerText = currentLang === 'hi' ? "❌ कृपया GPS ऑन करें!" : "❌ Please enable GPS!";
-          alert(currentLang === 'hi' ? "प्रक्रिया के लिए लोकेशन परमिशन देना अनिवार्य है।" : "Location permission is required.");
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
     }
 
+    // Active Tracking Logic with Live Pulsing Dot
+    let sideTimerInterval = null;
+
+    function checkActiveOrderWidget() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const updateStatus = urlParams.get('order_status');
+      const targetDevId = urlParams.get('device_id');
+
+      if (updateStatus) {
+        const enteredPin = prompt(currentLang === 'hi' ? "🔒 एडमिन प्रमाणीकरण: कृपया 4-अंकों का गुप्त पिन दर्ज करें:" : "🔒 Admin Verification: Please enter 4-digit PIN:");
+        if (enteredPin === ADMIN_SECRET_PIN) {
+          if (targetDevId === CURRENT_DEVICE_ID || !targetDevId) {
+            if (updateStatus === 'ready') {
+              localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'READY');
+              alert(currentLang === 'hi' ? "✅ ऑर्डर स्थिति: 'ORDER READY' अपडेट हो गई!" : "✅ Order status set to READY!");
+            } else if (updateStatus === 'delivered') {
+              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_active');
+              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_state');
+              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_items');
+              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_time');
+              localStorage.removeItem(CURRENT_DEVICE_ID + '_order_type');
+              alert(currentLang === 'hi' ? "✅ सेवा पूर्ण हुई! ट्रैकिंग विजेट हटा दिया गया।" : "✅ Service completed! Tracking widget closed.");
+            }
+          }
+        } else {
+          alert(currentLang === 'hi' ? "❌ अमान्य पिन! स्थिति परिवर्तित नहीं की जा सकती।" : "❌ Invalid PIN! Access Denied.");
+        }
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      const isActive = localStorage.getItem(CURRENT_DEVICE_ID + '_order_active');
+      if (isActive) {
+        startSideTrackingWidget();
+      } else {
+        document.getElementById('sideTrackWidget').style.display = 'none';
+      }
+    }
+
+    function startSideTrackingWidget() {
+      const widget = document.getElementById('sideTrackWidget');
+      const timerDisplay = document.getElementById('sideTimerDisplay');
+      const statusText = document.getElementById('sideStatusText');
+      const summaryText = document.getElementById('sideOrderSummary');
+      const typeBadge = document.getElementById('sideTypeBadge');
+
+      widget.style.display = 'block';
+
+      const orderType = localStorage.getItem(CURRENT_DEVICE_ID + '_order_type') || 'FOOD';
+      typeBadge.innerText = orderType === 'RIDE' ? 'LIVE RIDE' : 'LIVE RIDER';
+
+      const itemsSummary = localStorage.getItem(CURRENT_DEVICE_ID + '_order_items') || 'विवरण';
+      summaryText.innerText = itemsSummary;
+
+      let savedState = localStorage.getItem(CURRENT_DEVICE_ID + '_order_state') || 'PREPARING';
+      if (savedState === 'READY') {
+        statusText.innerText = orderType === 'RIDE' ? "🛵 राइडर पिकअप स्थल की ओर बढ़ रहा है" : "🚀 ऑर्डर तैयार है! राइडर रवाना";
+        statusText.style.color = "#4ade80";
+      } else {
+        statusText.innerText = orderType === 'RIDE' ? "🛵 राइडर आवंटन प्रक्रियाधीन..." : "🍳 तैयारी प्रगति पर है...";
+        statusText.style.color = "#fde047";
+      }
+
+      const startTime = parseInt(localStorage.getItem(CURRENT_DEVICE_ID + '_order_time') || Date.now(), 10);
+      const totalSeconds = 15 * 60;
+
+      if (sideTimerInterval) clearInterval(sideTimerInterval);
+
+      sideTimerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        let remaining = totalSeconds - elapsed;
+
+        if (remaining <= 0) {
+          timerDisplay.innerText = currentLang === 'hi' ? "पहुँच गया!" : "Arrived!";
+          clearInterval(sideTimerInterval);
+        } else {
+          let mins = parseInt(remaining / 60, 10);
+          let secs = parseInt(remaining % 60, 10);
+          timerDisplay.innerText = (mins < 10 ? "0" + mins : mins) + ":" + (secs < 10 ? "0" + secs : secs);
+        }
+      }, 1000);
+    }
+
+    // Modal Handlers
+    function openSupportModal() {
+      document.getElementById('supportSheet').classList.add('active');
+      document.getElementById('overlay').classList.add('active');
+    }
+    function closeSupportModal() {
+      document.getElementById('supportSheet').classList.remove('active');
+      document.getElementById('overlay').classList.remove('active');
+    }
+    function closeAllDrawers() {
+      document.getElementById('sidebar').classList.remove('open');
+      closeSupportModal();
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('active');
+    }
+
+    function sendQuickSupport(issue) {
+      closeSupportModal();
+      const msg = `*🚨 सहायता एवं सपोर्ट (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+                  `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
+                  `*समस्या का प्रकार:* ${issue}\n` +
+                  `*कृपया मुझे तुरंत सहायता प्रदान करें।*`;
+      window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Food Order Submission
     function sendFoodOrder() {
       const itemTotal = calculateItemsTotal();
       const addr = document.getElementById('foodAddress').value.trim();
@@ -1463,19 +1670,19 @@
       const customNote = document.getElementById('customItemNote').value.trim();
 
       if (itemTotal === 0 && !customNote) {
-        alert(currentLang === 'hi' ? "कृपया मेनू से कोई आइटम चुनें या अतिरिक्त सामान लिखें।" : "Please select an item or write custom item.");
+        alert(currentLang === 'hi' ? "कृपया मेनू से कोई सामग्री चुनें अथवा अतिरिक्त मांग लिखें।" : "Please select an item or enter a custom requirement.");
         return;
       }
       if (!gpsLinks.food) {
-        alert(currentLang === 'hi' ? "कृपया पहले 'लाइव GPS लोकेशन लॉक करें' बटन दबाएं!" : "Please lock your GPS location first!");
+        alert(currentLang === 'hi' ? "कृपया पहले 'जीपीएस लोकेशन लॉक करें' बटन दबाएं!" : "Please lock your GPS location first!");
         return;
       }
       if (!addr) {
-        alert(currentLang === 'hi' ? "कृपया होटल/धर्मशाला का पता दर्ज करें।" : "Please fill address.");
+        alert(currentLang === 'hi' ? "कृपया होटल/धर्मशाला का नाम एवं कमरा नंबर दर्ज करें।" : "Please enter your address and room number.");
         return;
       }
       if (!isValidPhone(phn)) {
-        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        alert(currentLang === 'hi' ? "कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
         document.getElementById('foodPhone').focus();
         return;
       }
@@ -1488,11 +1695,10 @@
       const finalPayable = Math.max(0, (itemTotal - scootyDiscount - upiDiscount) + deliveryFee + platformFee + codCharge);
 
       if (selectedPayment === 'upi' && finalPayable > 0 && utr.length < 8) {
-        alert(currentLang === 'hi' ? "कृपया पेमेंट के बाद 12 अंकों का UPI Ref / UTR नंबर डालें!" : "Please enter valid 12-digit UPI Ref/UTR No.");
+        alert(currentLang === 'hi' ? "कृपया भुगतान पश्चात वैध 12-अंकों का UPI Ref / UTR नंबर दर्ज करें!" : "Please enter valid 12-digit UPI Ref/UTR No. after payment!");
         return;
       }
 
-      // Save order strictly to this device's memory
       localStorage.setItem(CURRENT_DEVICE_ID + '_last_order', JSON.stringify(quantities));
       saveCustomerProfile();
 
@@ -1505,72 +1711,98 @@
         }
       }
 
-      // Save active order tracking details bound to Device ID
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_active', 'true');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_type', 'FOOD');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'PREPARING');
-      localStorage.setItem(CURRENT_DEVICE_ID + '_order_items', briefItems.join(', ') || customNote || 'फ़ूड ऑर्डर');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_items', briefItems.join(', ') || customNote || 'भोजन ऑर्डर');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_time', Date.now().toString());
 
-      const payStatus = selectedPayment === 'upi' ? `ऑनलाइन UPI (Paid, UTR: ${utr} | ₹4 छूट)` : `कैश ऑन डिलीवरी (COD | ₹4 हैंडलिंग चार्ज)`;
-      const customText = customNote ? `\n\n*📝 अतिरिक्त आवश्यक सामान:*\n${customNote}` : '';
-      const deliveryText = deliveryFee === 0 ? '₹0 (FREE 🚚)' : '₹20';
+      const payStatus = selectedPayment === 'upi' ? `ऑनलाइन यूपीआई (Paid, UTR: ${utr} | ₹4 छूट)` : `कैश ऑन डिलीवरी (COD | ₹4 प्रभार)`;
+      const customText = customNote ? `\n\n*📝 अतिरिक्त आवश्यक सामग्री:*\n${customNote}` : '';
+      const deliveryText = deliveryFee === 0 ? '₹0 (निःशुल्क 🚚)' : '₹20';
       const discountText = scootyDiscount > 0 ? `\n*महा डिस्काउंट छूट:* -₹49 🎉` : '';
-      const upiText = upiDiscount > 0 ? `\n*UPI पेमेंट छूट:* -₹4` : '';
-      const codText = codCharge > 0 ? `\n*COD हैंडलिंग शुल्क:* +₹4` : '';
+      const upiText = upiDiscount > 0 ? `\n*यूपीआई भुगतान छूट:* -₹4` : '';
+      const codText = codCharge > 0 ? `\n*सीओडी प्रभार:* +₹4` : '';
 
-      // Secure Admin Status Links with Device ID
       const currentUrl = window.location.origin + window.location.pathname;
       const readyLink = `${currentUrl}?order_status=ready&device_id=${CURRENT_DEVICE_ID}`;
       const deliveredLink = `${currentUrl}?order_status=delivered&device_id=${CURRENT_DEVICE_ID}`;
 
-      let msg = `*🍲 नया फ़ूड & किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🍲 नया भोजन एवं किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
-                `*ऑर्डर लिस्ट:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामान लिस्ट'}` +
+                `*ऑर्डर सूची:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामग्री'}` +
                 `${customText}\n\n` +
-                `*सामान मूल्य:* ₹${itemTotal}${discountText}${upiText}${codText}\n` +
-                `*डिलीवरी शुल्क:* ${deliveryText}\n` +
-                `*प्लेटफ़ॉर्म शुल्क:* ₹${platformFee}\n` +
-                `*कुल देय राशि:* ₹${finalPayable}\n` +
-                `*पेमेंट माध्यम:* ${payStatus}\n` +
-                `*होटल/कमरा:* ${addr}\n` +
-                `*कस्टमर नंबर:* ${phn}\n` +
-                `*📍 लाइव GPS मैप:* ${gpsLinks.food}\n\n` +
+                `*सामग्री मूल्य:* ₹${itemTotal}${discountText}${upiText}${codText}\n` +
+                `*वितरण प्रभार:* ${deliveryText}\n` +
+                `*मंच प्रभार:* ₹${platformFee}\n` +
+                `*कुल देय धनराशि:* ₹${finalPayable}\n` +
+                `*भुगतान माध्यम:* ${payStatus}\n` +
+                `*होटल / कक्ष:* ${addr}\n` +
+                `*ग्राहक मोबाइल:* ${phn}\n` +
+                `*📍 सटीक जीपीएस मैप लिंक:* ${gpsLinks.food}\n\n` +
                 `-----------------------------\n` +
-                `*🔒 एडमिन स्टेटस अपडेट लिंक (पिन आवश्यक):*\n` +
+                `*🔒 एडमिन स्थिति नियंत्रण (पिन आवश्यक):*\n` +
                 `1️⃣ *Order Ready:* ${readyLink}\n` +
-                `2️⃣ *Order Delivered (हट जाएगा):* ${deliveredLink}`;
+                `2️⃣ *Order Delivered (समाप्त):* ${deliveredLink}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
       startSideTrackingWidget();
     }
 
+    // Bike Ride Submission (2 Locations + Auto Fare)
     function sendRideBooking() {
-      const pickup = document.getElementById('pickupLoc').value.trim();
-      const route = document.getElementById('dropRoute').value;
+      const pickupName = document.getElementById('pickupLoc').value.trim();
+      const dropName = document.getElementById('dropLoc').value.trim();
       const phn = document.getElementById('ridePhone').value.trim();
+      const dist = document.getElementById('rideDistanceText').innerText;
+      const fare = document.getElementById('rideFareText').innerText;
 
-      if (!gpsLinks.ride) {
-        alert(currentLang === 'hi' ? "राइड के लिए पिकअप GPS लोकेशन लॉक करना अनिवार्य है!" : "Locking GPS location is mandatory for ride!");
+      if (!gpsLinks.ride_pickup) {
+        alert(currentLang === 'hi' ? "कृपया पहले 'पिकअप जीपीएस लोकेशन' लॉक करें!" : "Please lock your Pickup GPS location first!");
+        return;
+      }
+      if (!gpsLinks.ride_drop) {
+        alert(currentLang === 'hi' ? "कृपया 'ड्रॉप जीपीएस लोकेशन' का चयन या लॉक करें!" : "Please lock your Drop GPS location first!");
         return;
       }
       if (!isValidPhone(phn)) {
-        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        alert(currentLang === 'hi' ? "कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
         document.getElementById('ridePhone').focus();
         return;
       }
 
       saveCustomerProfile();
 
-      let msg = `*🛵 नई बाइक राइड बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      // Activate Live Tracking Widget for Ride
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_active', 'true');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_type', 'RIDE');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'PREPARING');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_items', `राइड: ${pickupName || 'प्रारंभ'} ➔ ${dropName || 'गंतव्य'} (₹${fare})`);
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_time', Date.now().toString());
+
+      const currentUrl = window.location.origin + window.location.pathname;
+      const readyLink = `${currentUrl}?order_status=ready&device_id=${CURRENT_DEVICE_ID}`;
+      const deliveredLink = `${currentUrl}?order_status=delivered&device_id=${CURRENT_DEVICE_ID}`;
+
+      let msg = `*🛵 नई बाइक टैक्सी बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
-                `*पिकअप पॉइंट:* ${pickup || 'GPS लोकेशन'}\n` +
-                `*रूट:* ${route}\n` +
-                `*मोबाइल:* ${phn}\n` +
-                `*📍 पिकअप GPS:* ${gpsLinks.ride}`;
+                `*प्रारंभिक स्थल (पिकअप):* ${pickupName || 'जीपीएस लोकेशन'}\n` +
+                `*गंतव्य स्थल (ड्रॉप):* ${dropName || 'जीपीएस लोकेशन'}\n` +
+                `*दूरी:* ~${dist} किमी\n` +
+                `*कुल अनुमानित किराया:* ₹${fare} (दर: ₹7/किमी)\n` +
+                `*यात्री मोबाइल क्रमांक:* ${phn}\n\n` +
+                `*📍 पिकअप जीपीएस मैप:* ${gpsLinks.ride_pickup}\n` +
+                `*🏁 ड्रॉप जीपीएस मैप:* ${gpsLinks.ride_drop}\n\n` +
+                `-----------------------------\n` +
+                `*🔒 एडमिन राइड स्थिति नियंत्रण (पिन आवश्यक):*\n` +
+                `1️⃣ *Rider Dispatched (रवाना):* ${readyLink}\n` +
+                `2️⃣ *Ride Completed (समाप्त):* ${deliveredLink}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+      startSideTrackingWidget();
     }
 
+    // Hotel Booking Submission
     function sendHotelBooking() {
       const type = document.getElementById('hotelRoomType').value;
       const date = document.getElementById('hotelCheckIn').value;
@@ -1578,32 +1810,33 @@
       const phn = document.getElementById('hotelPhone').value.trim();
 
       if (!gpsLinks.hotel) {
-        alert(currentLang === 'hi' ? "कृपया पहले GPS लोकेशन जोड़ें!" : "Please add your GPS location first!");
+        alert(currentLang === 'hi' ? "कृपया पहले वर्तमान जीपीएस लोकेशन जोड़ें!" : "Please add your current GPS location first!");
         return;
       }
       if (!date || !name) {
-        alert(currentLang === 'hi' ? "कृपया नाम और चेक-इन तारीख भरें।" : "Please fill name and check-in date.");
+        alert(currentLang === 'hi' ? "कृपया अपना नाम एवं आगमन तिथि दर्ज करें।" : "Please enter your name and check-in date.");
         return;
       }
       if (!isValidPhone(phn)) {
-        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
+        alert(currentLang === 'hi' ? "कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें!" : "Please enter a valid 10-digit mobile number!");
         document.getElementById('hotelPhone').focus();
         return;
       }
 
       saveCustomerProfile();
 
-      let msg = `*🏨 नई होटल / धर्मशाला बुकिंग पूछताछ*\n\n` +
+      let msg = `*🏨 नई होटल / धर्मशाला आरक्षण पूछताछ (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                 `*नाम:* ${name}\n` +
                 `*मोबाइल:* ${phn}\n` +
-                `*कमरा:* ${type}\n` +
-                `*तारीख:* ${date}\n` +
-                `*📍 यूजर GPS:* ${gpsLinks.hotel}`;
+                `*कक्ष श्रेणी:* ${type}\n` +
+                `*आगमन तिथि:* ${date}\n` +
+                `*📍 ग्राहक जीपीएस मैप:* ${gpsLinks.hotel}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // Tie-Up Partner Submission
     function sendTieupRequest() {
       const role = document.getElementById('tieupRole').value;
       const name = document.getElementById('tieupName').value.trim();
@@ -1611,31 +1844,31 @@
       const phn = document.getElementById('tieupPhone').value.trim();
 
       if (!gpsLinks.tieup) {
-        alert(currentLang === 'hi' ? "टाई-अप के लिए GPS लोकेशन अनिवार्य है!" : "GPS location is mandatory for tie-up!");
+        alert(currentLang === 'hi' ? "प्रतिष्ठान जीपीएस लोकेशन लॉक करना अनिवार्य है!" : "Locking establishment GPS location is mandatory!");
         return;
       }
       if (!name) {
-        alert(currentLang === 'hi' ? "कृपया नाम भरें।" : "Please fill name.");
+        alert(currentLang === 'hi' ? "कृपया नाम दर्ज करें।" : "Please enter name.");
         return;
       }
       if (!isValidPhone(phn)) {
-        alert(currentLang === 'hi' ? "कृपया पूरा 10 डिजिट का वैध व्हाट्सएप नंबर दर्ज करें!" : "Please enter a valid 10-digit WhatsApp number!");
+        alert(currentLang === 'hi' ? "कृपया 10 अंकों का वैध व्हाट्सएप नंबर दर्ज करें!" : "Please enter a valid 10-digit WhatsApp number!");
         document.getElementById('tieupPhone').focus();
         return;
       }
 
-      let msg = `*🤝 नया पार्टनर टाई-अप आवेदन (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🤝 नया पार्टनर सहभागिता आवेदन (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
-                `*प्रकार:* ${role}\n` +
-                `*नाम/प्रतिष्ठान:* ${name}\n` +
-                `*विवरण/वाहन/पता:* ${detail || 'N/A'}\n` +
-                `*व्हाट्सएप नंबर:* ${phn}\n` +
-                `*📍 प्रतिष्ठान GPS लोकेशन:* ${gpsLinks.tieup}`;
+                `*सहभागिता प्रकार:* ${role}\n` +
+                `*नाम / प्रतिष्ठान:* ${name}\n` +
+                `*वाहन / पता:* ${detail || 'उपलब्ध नहीं'}\n` +
+                `*व्हाट्सएप संपर्क:* ${phn}\n` +
+                `*📍 प्रतिष्ठान जीपीएस मैप:* ${gpsLinks.tieup}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Load LocalStorage and Device Context
+    // Initialize App State
     updatePaymentUI();
     loadCustomerProfile();
   </script>
