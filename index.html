@@ -7,6 +7,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>खाटू फ़ूड एक्सप्रेस - Khatoo Food Express</title>
+  
+  <!-- Leaflet CSS for Map Selection -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <style>
     :root {
       --primary: #ea580c;
@@ -226,7 +230,7 @@
       margin: 18px 0 10px 0; 
       border-bottom: 2px solid #fed7aa; 
       padding-bottom: 4px; 
-      letter-spacing: 0.5px;
+      letter-spacing: 0.5px; 
     }
     .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #e2e8f0; }
     .item-title { font-weight: 700; font-size: 14px; }
@@ -267,6 +271,45 @@
     label { display: block; font-size: 12px; font-weight: 800; color: #475569; margin-bottom: 6px; }
     input, select { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 11px; font-size: 13.5px; outline: none; background: white; }
     input:focus, select:focus { border-color: var(--primary); }
+
+    /* Interactive Leaflet Map for Ride */
+    #rideMap {
+      width: 100%;
+      height: 250px;
+      border-radius: 14px;
+      margin-top: 10px;
+      border: 2px solid #cbd5e1;
+      z-index: 1;
+    }
+    .map-mode-selector {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .map-mode-btn {
+      flex: 1;
+      padding: 9px 4px;
+      border: 1.5px solid #cbd5e1;
+      background: white;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .map-mode-btn.active-pickup {
+      background: #f0fdf4;
+      border-color: #16a34a;
+      color: #15803d;
+    }
+    .map-mode-btn.active-drop {
+      background: #eff6ff;
+      border-color: #2563eb;
+      color: #1d4ed8;
+    }
 
     /* Bike Fare Calculation Box */
     .fare-card {
@@ -339,7 +382,6 @@
     }
     .stw-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 8px; }
     
-    /* Live Radar Pulse Effect */
     .radar-box { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; color: #4ade80; }
     .pulse-dot-container { position: relative; width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; }
     .pulse-dot-core { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; z-index: 2; }
@@ -785,58 +827,51 @@
       <button class="submit-btn" id="foodOrderBtn" onclick="sendFoodOrder()">व्हाट्सएप पर ऑर्डर भेजें</button>
     </div>
 
-    <!-- 2. RIDE TAB (2 Locations + ₹7/km Auto Calculation) -->
+    <!-- 2. RIDE TAB (Direct Map Selection & Accurate Fare Calculation) -->
     <div id="rideSection" class="card hidden">
-      <h3 style="font-size: 15px;" id="txt-ride-title">बाइक टैक्सी यात्रा विवरण</h3>
-      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-ride-sub">दर: ₹7 प्रति किलोमीटर (पारदर्शी एवं त्वरित सेवा)</p>
+      <h3 style="font-size: 15px;" id="txt-ride-title">बाइक टैक्सी राइड बुकिंग</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-ride-sub">दर: ₹7 प्रति किलोमीटर | न्यूनतम ₹30 (पारदर्शी एवं त्वरित सेवा)</p>
 
-      <!-- 1. Pickup Location Section -->
+      <!-- Map Selector Mode Buttons -->
+      <div class="map-mode-selector">
+        <button type="button" class="map-mode-btn active-pickup" id="btnModePickup" onclick="setMapSelectionMode('pickup')">
+          🟢 1. सेट पिकअप (Map)
+        </button>
+        <button type="button" class="map-mode-btn" id="btnModeDrop" onclick="setMapSelectionMode('drop')">
+          🔴 2. सेट ड्रॉप (Map)
+        </button>
+      </div>
+
+      <!-- Interactive Map -->
+      <div id="rideMap"></div>
+      <p style="font-size: 11px; color: var(--primary); font-weight: 700; margin-top: 6px;" id="txt-map-instruction">
+        👉 मैप पर कहीं भी टैप करें और अपनी लोकेशन चुनें!
+      </p>
+
+      <!-- GPS Quick Fetch Button for Pickup -->
+      <button type="button" class="gps-action-btn" style="margin-top: 10px;" onclick="fetchCurrentLocationForPickup()">
+        📍 <span id="txt-gps-curr-btn">मेरी करंट जीपीएस लोकेशन को पिकअप बनाएं</span>
+      </button>
+
+      <!-- 1. Pickup Input Field -->
+      <div class="form-group" style="margin-top: 12px;">
+        <label id="txt-ride-pickup-title" style="color: var(--success); font-weight: 900;">📍 पिकअप लोकेशन (प्रारंभिक स्थल):</label>
+        <input type="text" id="pickupLoc" placeholder="मैप पर टैप करें या लैंडमार्क दर्ज करें">
+        <div id="ride_pickupGpsStatus" class="gps-status" style="color: var(--danger);">❌ पिकअप मैप पर नहीं चुना गया</div>
+      </div>
+
+      <!-- 2. Drop Input Field -->
       <div class="form-group" style="margin-top: 10px;">
-        <label id="txt-ride-pickup-title" style="color: var(--primary); font-weight: 900;">📍 1. पिकअप लोकेशन (प्रारंभिक स्थल):</label>
-        <select id="pickupPreset" onchange="handlePresetChange('pickup')" style="margin-bottom: 6px;">
-          <option value="custom">-- सूची से चुनें या अपनी लोकेशन लॉक करें --</option>
-          <option value="27.3595,75.3115">खाटू मुख्य मंदिर तोरण द्वार</option>
-          <option value="27.3540,75.3080">52 बीघा मुख्य पार्किंग स्थल</option>
-          <option value="27.3575,75.3050">लखदातार पार्किंग ग्राउंड</option>
-          <option value="27.3610,75.3160">चरणामृत कुंड क्षेत्र</option>
-          <option value="27.3568,75.3995">रींगस रेलवे स्टेशन चौराहा</option>
-        </select>
-        <input type="text" id="pickupLoc" placeholder="उदा. तोरण द्वार के पास या होटल का नाम">
+        <label id="txt-ride-drop-title" style="color: #2563eb; font-weight: 900;">🏁 ड्रॉप लोकेशन (गंतव्य स्थल):</label>
+        <input type="text" id="dropLoc" placeholder="मैप पर टैप करें या गंतव्य दर्ज करें">
+        <div id="ride_dropGpsStatus" class="gps-status" style="color: var(--danger);">❌ ड्रॉप मैप पर नहीं चुना गया</div>
       </div>
 
-      <div class="gps-lock-box">
-        <button type="button" class="gps-action-btn" onclick="fetchLocation('ride_pickup')">
-          📍 <span id="txt-gps-p-btn">पिकअप जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
-        </button>
-        <div id="ride_pickupGpsStatus" class="gps-status" style="color: var(--danger);">❌ पिकअप लोकेशन लॉक नहीं है</div>
-      </div>
-
-      <!-- 2. Drop / Delivery Location Section -->
-      <div class="form-group" style="margin-top: 14px;">
-        <label id="txt-ride-drop-title" style="color: #2563eb; font-weight: 900;">🏁 2. ड्रॉप / गंतव्य लोकेशन (पहुंचने का स्थल):</label>
-        <select id="dropPreset" onchange="handlePresetChange('drop')" style="margin-bottom: 6px;">
-          <option value="custom">-- सूची से चुनें या अपनी लोकेशन चुनें --</option>
-          <option value="27.3595,75.3115">खाटू मुख्य मंदिर तोरण द्वार</option>
-          <option value="27.3540,75.3080">52 बीघा मुख्य पार्किंग स्थल</option>
-          <option value="27.3575,75.3050">लखदातार पार्किंग ग्राउंड</option>
-          <option value="27.3610,75.3160">चरणामृत कुंड क्षेत्र</option>
-          <option value="27.3568,75.3995">रींगस रेलवे स्टेशन चौराहा</option>
-        </select>
-        <input type="text" id="dropLoc" placeholder="उदा. पार्किंग, धर्मशाला या स्टेशन">
-      </div>
-
-      <div class="gps-lock-box">
-        <button type="button" class="gps-action-btn" style="background: #2563eb;" onclick="fetchLocation('ride_drop')">
-          📍 <span id="txt-gps-d-btn">ड्रॉप जीपीएस लोकेशन लॉक करें (अनिवार्य)</span>
-        </button>
-        <div id="ride_dropGpsStatus" class="gps-status" style="color: var(--danger);">❌ ड्रॉप लोकेशन लॉक नहीं है</div>
-      </div>
-
-      <!-- Fare Display Box -->
+      <!-- Real-time Fare Calculation Card -->
       <div class="fare-card">
         <div>
-          <div class="fare-detail" id="txt-fare-dist-lbl">अनुमानित दूरी: <span id="rideDistanceText">0.0</span> किमी</div>
-          <div style="font-size: 11px; color: #92400e; margin-top: 2px;" id="txt-fare-rate-lbl">(दर: ₹7 प्रति किमी | न्यूनतम ₹30)</div>
+          <div class="fare-detail" id="txt-fare-dist-lbl">सटीक दूरी: <span id="rideDistanceText">0.0</span> किमी</div>
+          <div style="font-size: 11px; color: #92400e; margin-top: 2px;" id="txt-fare-rate-lbl">(दर: ₹7 प्रति किमी | न्यूनतम किराया ₹30)</div>
         </div>
         <div class="fare-amount">₹<span id="rideFareText">30</span></div>
       </div>
@@ -929,6 +964,9 @@
 
   </div>
 
+  <!-- Leaflet JS Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
     const MY_WHATSAPP_NUMBER = "917037647464";
     const MY_UPI_ID = "7037647464@ybl";
@@ -938,7 +976,13 @@
     let currentLang = "hi";
     let selectedPayment = "upi";
 
-    // Coordinates Storage for Math distance
+    // Map & Coordinate state
+    let map = null;
+    let currentMapMode = "pickup"; // 'pickup' or 'drop'
+    let pickupMarker = null;
+    let dropMarker = null;
+    let routeLine = null;
+
     let coords = {
       pickup: null,
       drop: null
@@ -952,7 +996,6 @@
       tieup: ""
     };
 
-    // Device Binding
     function getDeviceUUID() {
       let dId = localStorage.getItem('khe_device_id');
       if (!dId) {
@@ -1010,7 +1053,7 @@
 
     // Haversine Distance Formula (km)
     function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Earth's radius in km
+      const R = 6371;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
       const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -1020,11 +1063,123 @@
       return R * c;
     }
 
-    // Update Bike Ride Fare Automatically (₹7/km)
-    function updateBikeFare() {
+    // Leaflet Interactive Map Initialization
+    function initRideMap() {
+      if (map !== null) return;
+
+      // Centered on Khatu Shyam Ji Temple
+      const khatuLat = 27.3595;
+      const khatuLng = 75.3115;
+
+      map = L.map('rideMap').setView([khatuLat, khatuLng], 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      // On Map Click
+      map.on('click', function(e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        if (currentMapMode === 'pickup') {
+          setPickupPoint(lat, lng, `मैप पिन (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+          setMapSelectionMode('drop'); // Auto toggle to drop mode
+        } else {
+          setDropPoint(lat, lng, `मैप पिन (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+        }
+      });
+    }
+
+    function setMapSelectionMode(mode) {
+      currentMapMode = mode;
+      const btnPickup = document.getElementById('btnModePickup');
+      const btnDrop = document.getElementById('btnModeDrop');
+      const inst = document.getElementById('txt-map-instruction');
+
+      if (mode === 'pickup') {
+        btnPickup.className = 'map-mode-btn active-pickup';
+        btnDrop.className = 'map-mode-btn';
+        inst.innerText = currentLang === 'hi' 
+          ? "👉 मैप पर टैप करके 'पिकअप' स्थान चुनें (हरा पिन)!" 
+          : "👉 Tap on the map to set 'Pickup' location (Green Pin)!";
+      } else {
+        btnPickup.className = 'map-mode-btn';
+        btnDrop.className = 'map-mode-btn active-drop';
+        inst.innerText = currentLang === 'hi' 
+          ? "👉 अब मैप पर टैप करके 'ड्रॉप' स्थान चुनें (लाल पिन)!" 
+          : "👉 Now tap on the map to set 'Drop' location (Red Pin)!";
+      }
+    }
+
+    function setPickupPoint(lat, lng, label) {
+      coords.pickup = { lat: lat, lng: lng };
+      gpsLinks.ride_pickup = `https://maps.google.com/?q=${lat},${lng}`;
+
+      if (pickupMarker) map.removeLayer(pickupMarker);
+
+      // Green Icon for Pickup
+      const greenIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      pickupMarker = L.marker([lat, lng], { icon: greenIcon }).addTo(map)
+        .bindPopup(currentLang === 'hi' ? "🟢 पिकअप स्थल" : "🟢 Pickup Location").openPopup();
+
+      document.getElementById('pickupLoc').value = label;
+      const status = document.getElementById('ride_pickupGpsStatus');
+      status.style.color = "#16a34a";
+      status.innerText = currentLang === 'hi' ? "✅ पिकअप लोकेशन मैप पर सेट है!" : "✅ Pickup Location Locked on Map!";
+
+      updateMapRouteAndFare();
+    }
+
+    function setDropPoint(lat, lng, label) {
+      coords.drop = { lat: lat, lng: lng };
+      gpsLinks.ride_drop = `https://maps.google.com/?q=${lat},${lng}`;
+
+      if (dropMarker) map.removeLayer(dropMarker);
+
+      // Red Icon for Drop
+      const redIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      dropMarker = L.marker([lat, lng], { icon: redIcon }).addTo(map)
+        .bindPopup(currentLang === 'hi' ? "🔴 गंतव्य स्थल (ड्रॉप)" : "🔴 Drop Location").openPopup();
+
+      document.getElementById('dropLoc').value = label;
+      const status = document.getElementById('ride_dropGpsStatus');
+      status.style.color = "#16a34a";
+      status.innerText = currentLang === 'hi' ? "✅ ड्रॉप लोकेशन मैप पर सेट है!" : "✅ Drop Location Locked on Map!";
+
+      updateMapRouteAndFare();
+    }
+
+    function updateMapRouteAndFare() {
       if (coords.pickup && coords.drop) {
+        // Draw Route line on map
+        if (routeLine) map.removeLayer(routeLine);
+        routeLine = L.polyline([
+          [coords.pickup.lat, coords.pickup.lng],
+          [coords.drop.lat, coords.drop.lng]
+        ], { color: '#2563eb', weight: 4, dashArray: '6, 8' }).addTo(map);
+
+        map.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+
+        // Calculate Distance with 1.25x road curvature factor
         let dist = calculateHaversineDistance(coords.pickup.lat, coords.pickup.lng, coords.drop.lat, coords.drop.lng);
-        // Road factor allowance (straight-line distance to road curve = ~1.25x)
         dist = dist * 1.25;
         if (dist < 1.0) dist = 1.0;
 
@@ -1037,36 +1192,49 @@
       }
     }
 
-    // Preset Selection Handler
-    function handlePresetChange(type) {
-      const select = document.getElementById(type + 'Preset');
-      const val = select.value;
-      const input = document.getElementById(type === 'pickup' ? 'pickupLoc' : 'dropLoc');
-      const status = document.getElementById(`ride_${type}GpsStatus`);
-
-      if (val !== 'custom') {
-        const parts = val.split(',');
-        const lat = parseFloat(parts[0]);
-        const lng = parseFloat(parts[1]);
-        coords[type] = { lat: lat, lng: lng };
-        gpsLinks[`ride_${type}`] = `https://maps.google.com/?q=${lat},${lng}`;
-        input.value = select.options[select.selectedIndex].text;
-        status.style.color = "#16a34a";
-        status.innerText = currentLang === 'hi' ? "✅ लोकेशन चयनित!" : "✅ Location Selected!";
-      } else {
-        coords[type] = null;
-        gpsLinks[`ride_${type}`] = "";
-        status.style.color = "#dc2626";
-        status.innerText = currentLang === 'hi' ? "❌ लोकेशन लॉक नहीं है" : "❌ Location Not Locked";
+    function fetchCurrentLocationForPickup() {
+      if (!navigator.geolocation) {
+        alert("GPS is not supported.");
+        return;
       }
-      updateBikeFare();
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          if (map) map.setView([lat, lng], 15);
+          setPickupPoint(lat, lng, currentLang === 'hi' ? "मेरी करंट जीपीएस लोकेशन" : "My Current GPS Location");
+          setMapSelectionMode('drop');
+        },
+        err => {
+          alert(currentLang === 'hi' ? "कृपया फोन का जीपीएस ऑन करें!" : "Please turn on GPS!");
+        },
+        { enableHighAccuracy: true }
+      );
     }
 
-    // GPS Fetcher with Coordinate Registration
+    function switchTab(type) {
+      ['food', 'ride', 'hotel', 'tieup'].forEach(t => {
+        document.getElementById(t + 'Section').classList.add('hidden');
+      });
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(type + 'Section').classList.remove('hidden');
+      document.getElementById('tab-btn-' + type).classList.add('active');
+
+      // Initialize map on first click to ride tab
+      if (type === 'ride') {
+        setTimeout(() => {
+          initRideMap();
+          if (map) map.invalidateSize();
+        }, 150);
+      }
+    }
+
+    // Generic GPS Fetcher for Food, Hotel, Tieup
     function fetchLocation(type) {
       const statusElem = document.getElementById(`${type}GpsStatus`);
       if (!navigator.geolocation) {
-        alert(currentLang === 'hi' ? "आपके ब्राउज़र में जीपीएस सपोर्ट उपलब्ध नहीं है।" : "GPS is not supported on this browser.");
+        alert(currentLang === 'hi' ? "जीपीएस सपोर्ट उपलब्ध नहीं है।" : "GPS is not supported.");
         return;
       }
       statusElem.style.color = "#ea580c";
@@ -1079,27 +1247,17 @@
           gpsLinks[type] = `https://maps.google.com/?q=${lat},${lng}`;
           statusElem.style.color = "#16a34a";
           statusElem.innerText = currentLang === 'hi' ? "✅ लोकेशन सफलतापूर्वक लॉक हुई!" : "✅ Location Successfully Locked!";
-
-          if (type === 'ride_pickup') {
-            coords.pickup = { lat: lat, lng: lng };
-            document.getElementById('pickupLoc').value = currentLang === 'hi' ? "मेरी वर्तमान जीपीएस लोकेशन" : "My Current GPS Location";
-            updateBikeFare();
-          } else if (type === 'ride_drop') {
-            coords.drop = { lat: lat, lng: lng };
-            document.getElementById('dropLoc').value = currentLang === 'hi' ? "ड्रॉप जीपीएस लोकेशन" : "Drop GPS Location";
-            updateBikeFare();
-          }
         },
         err => {
           statusElem.style.color = "#dc2626";
           statusElem.innerText = currentLang === 'hi' ? "❌ जीपीएस अनुमति प्रदान करें!" : "❌ Please enable GPS permission!";
-          alert(currentLang === 'hi' ? "सटीक सेवा के लिए जीपीएस अनुमति अनिवार्य है।" : "GPS permission is required for accurate service.");
+          alert(currentLang === 'hi' ? "सटीक सेवा के लिए जीपीएस अनुमति अनिवार्य है।" : "GPS permission is required.");
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
     }
 
-    // 100% Pure Hindi vs 100% Pure English Translation Dictionary
+    // 100% Pure Hindi vs 100% Pure English Translation
     const langData = {
       hi: {
         switch: "🌐 English",
@@ -1167,14 +1325,15 @@
         gpsFoodBtn: "सटीक जीपीएस लोकेशन लॉक करें (अनिवार्य)",
         foodPhnLbl: "मोबाइल नंबर (10 अंक)",
         foodBtn: "व्हाट्सएप पर ऑर्डर भेजें",
-        rideTitle: "बाइक टैक्सी यात्रा विवरण",
-        rideSub: "दर: ₹7 प्रति किलोमीटर (पारदर्शी एवं त्वरित सेवा)",
-        ridePickupTitle: "📍 1. पिकअप लोकेशन (प्रारंभिक स्थल):",
-        gpsPBtn: "पिकअप जीपीएस लोकेशन लॉक करें (अनिवार्य)",
-        rideDropTitle: "🏁 2. ड्रॉप / गंतव्य लोकेशन (पहुंचने का स्थल):",
-        gpsDBtn: "ड्रॉप जीपीएस लोकेशन लॉक करें (अनिवार्य)",
-        fareDistLbl: "अनुमानित दूरी: ",
-        fareRateLbl: "(दर: ₹7 प्रति किमी | न्यूनतम ₹30)",
+        rideTitle: "बाइक टैक्सी राइड बुकिंग",
+        rideSub: "दर: ₹7 प्रति किलोमीटर | न्यूनतम ₹30 (पारदर्शी एवं त्वरित सेवा)",
+        btnPickup: "🟢 1. सेट पिकअप (Map)",
+        btnDrop: "🔴 2. सेट ड्रॉप (Map)",
+        gpsCurrBtn: "मेरी करंट जीपीएस लोकेशन को पिकअप बनाएं",
+        ridePickupTitle: "📍 पिकअप लोकेशन (प्रारंभिक स्थल):",
+        rideDropTitle: "🏁 ड्रॉप लोकेशन (गंतव्य स्थल):",
+        fareDistLbl: "सटीक दूरी: ",
+        fareRateLbl: "(दर: ₹7 प्रति किमी | न्यूनतम किराया ₹30)",
         ridePhnLbl: "मोबाइल नंबर (10 अंक)",
         rideBtn: "बाइक टैक्सी राइड कन्फर्म करें",
         hotelTitle: "🏨 होटल एवं धर्मशाला कक्ष आरक्षण",
@@ -1262,13 +1421,14 @@
         foodPhnLbl: "Mobile Number (10 Digits)",
         foodBtn: "Place Order via WhatsApp",
         rideTitle: "Bike Taxi Ride Booking",
-        rideSub: "Fare: ₹7 per Kilometer (Transparent & Quick)",
-        ridePickupTitle: "📍 1. Pickup Location (Starting Point):",
-        gpsPBtn: "Lock Pickup GPS Location (Mandatory)",
-        rideDropTitle: "🏁 2. Drop Location (Destination):",
-        gpsDBtn: "Lock Drop GPS Location (Mandatory)",
-        fareDistLbl: "Estimated Distance: ",
-        fareRateLbl: "(Rate: ₹7 per km | Minimum ₹30)",
+        rideSub: "Fare: ₹7 per Kilometer | Min ₹30 (Transparent & Quick)",
+        btnPickup: "🟢 1. Set Pickup (Map)",
+        btnDrop: "🔴 2. Set Drop (Map)",
+        gpsCurrBtn: "Set Current GPS as Pickup",
+        ridePickupTitle: "📍 Pickup Location (Starting Point):",
+        rideDropTitle: "🏁 Drop Location (Destination):",
+        fareDistLbl: "Accurate Distance: ",
+        fareRateLbl: "(Rate: ₹7 per km | Minimum Fare ₹30)",
         ridePhnLbl: "Mobile Number (10 Digits)",
         rideBtn: "Confirm Bike Taxi Ride",
         hotelTitle: "🏨 Hotel & Stay Room Booking",
@@ -1362,10 +1522,11 @@
       document.getElementById('foodOrderBtn').innerText = d.foodBtn;
       document.getElementById('txt-ride-title').innerText = d.rideTitle;
       document.getElementById('txt-ride-sub').innerText = d.rideSub;
+      document.getElementById('btnModePickup').innerText = d.btnPickup;
+      document.getElementById('btnModeDrop').innerText = d.btnDrop;
+      document.getElementById('txt-gps-curr-btn').innerText = d.gpsCurrBtn;
       document.getElementById('txt-ride-pickup-title').innerText = d.ridePickupTitle;
-      document.getElementById('txt-gps-p-btn').innerText = d.gpsPBtn;
       document.getElementById('txt-ride-drop-title').innerText = d.rideDropTitle;
-      document.getElementById('txt-gps-d-btn').innerText = d.gpsDBtn;
       document.getElementById('txt-fare-dist-lbl').childNodes[0].nodeValue = d.fareDistLbl;
       document.getElementById('txt-fare-rate-lbl').innerText = d.fareRateLbl;
       document.getElementById('txt-ride-phn-lbl').innerText = d.ridePhnLbl;
@@ -1407,11 +1568,11 @@
     };
 
     const items = {
-      chholeBhature: { name: "छोले भटूरे (2 पीस)", price: 100 },
+      chholeBhature: { name: "छोले भटूरे (2 नग)", price: 100 },
       thali: { name: "शुद्ध सात्विक थाली", price: 140 },
-      dalrice: { name: "दाल चावल कॉम्बो", price: 100 },
-      falahar: { name: "स्पेशल फलाहार थाली", price: 180 },
-      water: { name: "पानी की बोतल (1L)", price: 20 },
+      dalrice: { name: "दाल चावल कॉम्बो थाली", price: 100 },
+      falahar: { name: "विशिष्ट फलाहारी व्रत थाली", price: 180 },
+      water: { name: "पेय जल बोतल (1L)", price: 20 },
       sugar: { name: "चीनी (1 Kg)", price: 48 },
       kaju: { name: "काजू (100g)", price: 110 },
       badam: { name: "बादाम (100g)", price: 110 },
@@ -1420,16 +1581,6 @@
       pyaj: { name: "प्याज (1 Kg)", price: 40 },
       lahson: { name: "लहसुन (250g)", price: 60 }
     };
-
-    function switchTab(type) {
-      ['food', 'ride', 'hotel', 'tieup'].forEach(t => {
-        document.getElementById(t + 'Section').classList.add('hidden');
-      });
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      
-      document.getElementById(type + 'Section').classList.remove('hidden');
-      document.getElementById('tab-btn-' + type).classList.add('active');
-    }
 
     function calculateItemsTotal() {
       let total = 0;
@@ -1531,7 +1682,6 @@
       updatePaymentUI();
     }
 
-    // Repeat Order
     function repeatLastOrder() {
       try {
         const lastOrder = JSON.parse(localStorage.getItem(CURRENT_DEVICE_ID + '_last_order'));
@@ -1552,7 +1702,7 @@
       }
     }
 
-    // Active Tracking Logic with Live Pulsing Dot
+    // Active Tracking Logic
     let sideTimerInterval = null;
 
     function checkActiveOrderWidget() {
@@ -1634,7 +1784,6 @@
       }, 1000);
     }
 
-    // Modal Handlers
     function openSupportModal() {
       document.getElementById('supportSheet').classList.add('active');
       document.getElementById('overlay').classList.add('active');
@@ -1661,7 +1810,6 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Food Order Submission
     function sendFoodOrder() {
       const itemTotal = calculateItemsTotal();
       const addr = document.getElementById('foodAddress').value.trim();
@@ -1749,7 +1897,7 @@
       startSideTrackingWidget();
     }
 
-    // Bike Ride Submission (2 Locations + Auto Fare)
+    // Bike Ride Submission (Direct Map Selection & Distance Verified)
     function sendRideBooking() {
       const pickupName = document.getElementById('pickupLoc').value.trim();
       const dropName = document.getElementById('dropLoc').value.trim();
@@ -1757,12 +1905,14 @@
       const dist = document.getElementById('rideDistanceText').innerText;
       const fare = document.getElementById('rideFareText').innerText;
 
-      if (!gpsLinks.ride_pickup) {
-        alert(currentLang === 'hi' ? "कृपया पहले 'पिकअप जीपीएस लोकेशन' लॉक करें!" : "Please lock your Pickup GPS location first!");
+      if (!coords.pickup) {
+        alert(currentLang === 'hi' ? "कृपया मैप पर टैप करके 'पिकअप लोकेशन' चुनें!" : "Please tap on map to select Pickup Location!");
+        setMapSelectionMode('pickup');
         return;
       }
-      if (!gpsLinks.ride_drop) {
-        alert(currentLang === 'hi' ? "कृपया 'ड्रॉप जीपीएस लोकेशन' का चयन या लॉक करें!" : "Please lock your Drop GPS location first!");
+      if (!coords.drop) {
+        alert(currentLang === 'hi' ? "कृपया मैप पर टैप करके 'ड्रॉप लोकेशन' चुनें!" : "Please tap on map to select Drop Location!");
+        setMapSelectionMode('drop');
         return;
       }
       if (!isValidPhone(phn)) {
@@ -1773,11 +1923,10 @@
 
       saveCustomerProfile();
 
-      // Activate Live Tracking Widget for Ride
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_active', 'true');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_type', 'RIDE');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'PREPARING');
-      localStorage.setItem(CURRENT_DEVICE_ID + '_order_items', `राइड: ${pickupName || 'प्रारंभ'} ➔ ${dropName || 'गंतव्य'} (₹${fare})`);
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_items', `राइड: ${pickupName || 'पिकअप'} ➔ ${dropName || 'ड्रॉप'} (₹${fare})`);
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_time', Date.now().toString());
 
       const currentUrl = window.location.origin + window.location.pathname;
@@ -1786,13 +1935,13 @@
 
       let msg = `*🛵 नई बाइक टैक्सी बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
-                `*प्रारंभिक स्थल (पिकअप):* ${pickupName || 'जीपीएस लोकेशन'}\n` +
-                `*गंतव्य स्थल (ड्रॉप):* ${dropName || 'जीपीएस लोकेशन'}\n` +
-                `*दूरी:* ~${dist} किमी\n` +
-                `*कुल अनुमानित किराया:* ₹${fare} (दर: ₹7/किमी)\n` +
+                `*प्रारंभिक स्थल (पिकअप):* ${pickupName}\n` +
+                `*गंतव्य स्थल (ड्रॉप):* ${dropName}\n` +
+                `*मैप द्वारा मापी गई दूरी:* ~${dist} किमी\n` +
+                `*किराया गणना:* ₹${fare} (₹7/किमी | न्यूनतम ₹30)\n` +
                 `*यात्री मोबाइल क्रमांक:* ${phn}\n\n` +
-                `*📍 पिकअप जीपीएस मैप:* ${gpsLinks.ride_pickup}\n` +
-                `*🏁 ड्रॉप जीपीएस मैप:* ${gpsLinks.ride_drop}\n\n` +
+                `*📍 मैप पिकअप लिंक:* ${gpsLinks.ride_pickup}\n` +
+                `*🏁 मैप ड्रॉप लिंक:* ${gpsLinks.ride_drop}\n\n` +
                 `-----------------------------\n` +
                 `*🔒 एडमिन राइड स्थिति नियंत्रण (पिन आवश्यक):*\n` +
                 `1️⃣ *Rider Dispatched (रवाना):* ${readyLink}\n` +
@@ -1802,7 +1951,6 @@
       startSideTrackingWidget();
     }
 
-    // Hotel Booking Submission
     function sendHotelBooking() {
       const type = document.getElementById('hotelRoomType').value;
       const date = document.getElementById('hotelCheckIn').value;
@@ -1836,7 +1984,6 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Tie-Up Partner Submission
     function sendTieupRequest() {
       const role = document.getElementById('tieupRole').value;
       const name = document.getElementById('tieupName').value.trim();
@@ -1868,7 +2015,7 @@
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // Initialize App State
+    // Initialize State
     updatePaymentUI();
     loadCustomerProfile();
   </script>
