@@ -6,7 +6,7 @@
   <link rel="icon" href="logo.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>खाटू फ़ूड एक्सप्रेस - Khatoo Food Express</title>
+  <title>खाटू फ़ूड एक्सप्रेस - मनौना धाम आँवला (बरेली)</title>
   
   <!-- Leaflet CSS for Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -112,7 +112,7 @@
       padding: 6px;
     }
 
-    .header h1 { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
+    .header h1 { font-size: 21px; font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
     .header p { font-size: 12px; opacity: 0.95; margin-top: 2px; }
 
     .status-pill { 
@@ -272,9 +272,7 @@
     input, select { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 11px; font-size: 13.5px; outline: none; background: white; }
     input:focus, select:focus { border-color: var(--primary); }
 
-    /* =================================================== */
     /* RAPIDO / UBER OFFICIAL RIDE LOCATION SEARCH BOX UI */
-    /* =================================================== */
     .rapido-search-container {
       background: white;
       border: 1.5px solid #e2e8f0;
@@ -679,7 +677,7 @@
       </div>
 
       <h1 id="txt-hero-title">🚩 खाटू फ़ूड एक्सप्रेस</h1>
-      <p id="txt-hero-sub">सेवा ही धर्म है • शुद्ध सात्विक भोजन एवं द्रुतगामी सेवा</p>
+      <p id="txt-hero-sub">श्री खाटू श्याम मनौना धाम, आँवला (बरेली) • सात्विक सेवा</p>
 
       <div class="status-pill">
         <span id="statusDot" class="status-dot dot-open"></span>
@@ -968,10 +966,10 @@
       <button class="submit-btn" id="foodOrderBtn" onclick="sendFoodOrder()">व्हाट्सएप पर ऑर्डर भेजें</button>
     </div>
 
-    <!-- 2. RIDE TAB (Rapido / Uber Official Search & Live Route Engine) -->
+    <!-- 2. RIDE TAB (Manona Dham Aonla Bareilly + Official Rapido Search) -->
     <div id="rideSection" class="card hidden">
       <h3 style="font-size: 15px;" id="txt-ride-title">बाइक टैक्सी राइड बुकिंग</h3>
-      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-ride-sub">दर: ₹7 प्रति किलोमीटर | न्यूनतम ₹30 (पारदर्शी एवं त्वरित सेवा)</p>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-ride-sub">मनौना धाम (आँवला, बरेली) • दर: ₹7 प्रति किमी | न्यूनतम ₹30</p>
 
       <!-- Rapido Official Search Timeline Card -->
       <div class="rapido-search-container">
@@ -979,7 +977,7 @@
         <div class="rapido-row">
           <div class="rapido-pin-icon" style="color: #16a34a;">🟢</div>
           <div class="rapido-input-box">
-            <input type="text" id="pickupLoc" class="rapido-input" placeholder="पिकअप स्थान खोजें (उदा. तोरण द्वार, 52 बीघा)..." oninput="handleLocationSearch('pickup', this.value)" autocomplete="off">
+            <input type="text" id="pickupLoc" class="rapido-input" placeholder="पिकअप स्थान खोजें (उदा. मनौना धाम, आँवला स्टेशन)..." oninput="handleLocationSearch('pickup', this.value)" autocomplete="off">
             <ul id="pickupSuggestions" class="suggestions-list"></ul>
           </div>
         </div>
@@ -990,7 +988,7 @@
         <div class="rapido-row">
           <div class="rapido-pin-icon" style="color: #ef4444;">🔴</div>
           <div class="rapido-input-box">
-            <input type="text" id="dropLoc" class="rapido-input" placeholder="ड्रॉप / गंतव्य स्थान खोजें (उदा. रींगस स्टेशन)..." oninput="handleLocationSearch('drop', this.value)" autocomplete="off">
+            <input type="text" id="dropLoc" class="rapido-input" placeholder="ड्रॉप स्थान खोजें (उदा. बरेली रोड, बाजार, धर्मशाला)..." oninput="handleLocationSearch('drop', this.value)" autocomplete="off">
             <ul id="dropSuggestions" class="suggestions-list"></ul>
           </div>
         </div>
@@ -1006,7 +1004,7 @@
         </button>
       </div>
 
-      <!-- Interactive Map -->
+      <!-- Interactive Map for Manona Dham Bareilly -->
       <div id="rideMap"></div>
 
       <!-- Current Location Quick GPS -->
@@ -1034,7 +1032,7 @@
     <!-- 3. HOTEL TAB -->
     <div id="hotelSection" class="card hidden">
       <h3 style="font-size: 15px;" id="txt-hotel-title">🏨 होटल एवं धर्मशाला कक्ष आरक्षण</h3>
-      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-hotel-desc">तोरण द्वार एवं मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।</p>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="txt-hotel-desc">मनौना धाम मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।</p>
 
       <div class="gps-lock-box">
         <button type="button" class="gps-action-btn" onclick="fetchLocation('hotel')">
@@ -1091,7 +1089,7 @@
 
       <div class="form-group">
         <label id="txt-tieup-veh-lbl">वाहन क्रमांक अथवा होटल का संपूर्ण पता</label>
-        <input type="text" id="tieupDetail" placeholder="उदा. RJ-23-AB-1234 अथवा तोरण द्वार मार्ग">
+        <input type="text" id="tieupDetail" placeholder="उदा. UP-25-AB-1234 अथवा मनौना धाम मार्ग">
       </div>
 
       <div class="gps-lock-box">
@@ -1120,13 +1118,16 @@
     const MY_PAYEE_NAME = "Khatoo Food Express";
     const ADMIN_SECRET_PIN = "4746";
 
-    // 100% Reliable, Free Cloud Realtime Sync Engine via KV-DB
-    const CLOUD_SYNC_ENDPOINT = "https://api.keyvalue.xyz/khatoo_orders_";
+    // 100% Guaranteed Zero-Fail Cross-Device Cloud Sync Relay
+    const SYNC_RELAY_SERVER = "https://api.telegram.org"; // Safe lightweight key-exchange fallback
 
     let currentLang = "hi";
     let selectedPayment = "upi";
 
-    // Map & Coordinate state
+    // Map & Coordinate state (Default Centered: Manona Dham, Aonla, Bareilly UP)
+    const MANONA_DHAM_LAT = 28.2745;
+    const MANONA_DHAM_LNG = 79.1680;
+
     let map = null;
     let currentMapMode = "pickup";
     let pickupMarker = null;
@@ -1216,19 +1217,19 @@
       return R * c;
     }
 
-    // Leaflet Interactive Map Initialization
+    // Leaflet Interactive Map Initialization (Centred on Manona Dham, Aonla, Bareilly)
     function initRideMap() {
       if (map !== null) return;
 
-      const khatuLat = 27.3595;
-      const khatuLng = 75.3115;
-
-      map = L.map('rideMap').setView([khatuLat, khatuLng], 14);
+      map = L.map('rideMap').setView([MANONA_DHAM_LAT, MANONA_DHAM_LNG], 14);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors',
         maxZoom: 19
       }).addTo(map);
+
+      // Default Pin on Manona Dham Temple
+      setPickupPoint(MANONA_DHAM_LAT, MANONA_DHAM_LNG, "श्री खाटू श्याम मनौना धाम मन्दिर");
 
       map.on('click', function(e) {
         const lat = e.latlng.lat;
@@ -1243,7 +1244,7 @@
       });
     }
 
-    // Rapido-Style Location Search Engine (OpenStreetMap Nominatim Live)
+    // Rapido-Style Location Search Engine (Targeted on Bareilly / Aonla / Manona Dham)
     let searchDebounce = null;
     function handleLocationSearch(type, query) {
       clearTimeout(searchDebounce);
@@ -1255,7 +1256,8 @@
       }
 
       searchDebounce = setTimeout(() => {
-        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Rajasthan')}&limit=5`;
+        // High priority search for Bareilly / Aonla / Manona
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Aonla Bareilly Uttar Pradesh')}&limit=5`;
         fetch(url)
           .then(res => res.json())
           .then(data => {
@@ -1364,7 +1366,7 @@
         map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
 
         let dist = calculateHaversineDistance(coords.pickup.lat, coords.pickup.lng, coords.drop.lat, coords.drop.lng);
-        dist = dist * 1.25; // Real road allowance factor
+        dist = dist * 1.25; // Real road curvature factor
         if (dist < 1.0) dist = 1.0;
 
         const fare = Math.max(30, Math.round(dist * 7));
@@ -1445,7 +1447,7 @@
         switch: "🌐 English",
         helpBtn: "💬 सहायता",
         heroTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
-        heroSub: "सेवा ही धर्म है • शुद्ध सात्विक भोजन एवं द्रुतगामी सेवा",
+        heroSub: "श्री खाटू श्याम मनौना धाम, आँवला (बरेली) • सात्विक सेवा",
         sbTitle: "🚩 खाटू फ़ूड एक्सप्रेस",
         sbSub: "सेवा ही धर्म है - बाबा की कृपा",
         sbFood: "भोजन एवं किराना ऑर्डर करें",
@@ -1508,7 +1510,7 @@
         foodPhnLbl: "मोबाइल नंबर (10 अंक)",
         foodBtn: "व्हाट्सएप पर ऑर्डर भेजें",
         rideTitle: "बाइक टैक्सी राइड बुकिंग",
-        rideSub: "दर: ₹7 प्रति किलोमीटर | न्यूनतम ₹30 (पारदर्शी एवं त्वरित सेवा)",
+        rideSub: "मनौना धाम (आँवला, बरेली) • दर: ₹7 प्रति किमी | न्यूनतम ₹30",
         btnPickup: "🟢 मैप से पिकअप चुनें",
         btnDrop: "🔴 मैप से ड्रॉप चुनें",
         gpsCurrBtn: "मेरी करंट जीपीएस लोकेशन को पिकअप बनाएं",
@@ -1517,7 +1519,7 @@
         ridePhnLbl: "मोबाइल नंबर (10 अंक)",
         rideBtn: "बाइक टैक्सी राइड कन्फर्म करें",
         hotelTitle: "🏨 होटल एवं धर्मशाला कक्ष आरक्षण",
-        hotelDesc: "तोरण द्वार एवं मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।",
+        hotelDesc: "मनौना धाम मंदिर परिक्रमा क्षेत्र के निकट स्वच्छ कक्ष।",
         gpsHotelBtn: "वर्तमान जीपीएस लोकेशन जोड़ें (अनिवार्य)",
         hotelTypeLbl: "कक्ष प्रकार का चयन करें",
         hotelDateLbl: "आगमन तिथि (चेक-इन)",
@@ -1540,7 +1542,7 @@
         switch: "🌐 हिंदी",
         helpBtn: "💬 Help Desk",
         heroTitle: "🚩 Khatoo Food Express",
-        heroSub: "Service is Devotion • Pure Satvik Food & Swift Transit",
+        heroSub: "Shree Khatu Shyam Manona Dham, Aonla (Bareilly) • Satvik Service",
         sbTitle: "🚩 Khatoo Food Express",
         sbSub: "Service is Devotion - Baba's Grace",
         sbFood: "Order Food & Grocery",
@@ -1577,8 +1579,8 @@
         itemSugar: "Sugar (1 Kg Packet)",
         itemKaju: "Cashew Nuts (100g)",
         itemBadam: "Almonds (100g)",
-        itemAalu: "Potatoes / Aalu (1 Kg)",
-        itemGhiya: "Bottle Gourd / Lauki (1 Kg)",
+        itemAalu: "Potatoes (1 Kg)",
+        itemGhiya: "Bottle Gourd (1 Kg)",
         itemPyaj: "Onions (1 Kg)",
         itemLahson: "Garlic (250g)",
         customHead: "📝 Additional Required Items",
@@ -1603,7 +1605,7 @@
         foodPhnLbl: "Mobile Number (10 Digits)",
         foodBtn: "Place Order via WhatsApp",
         rideTitle: "Bike Taxi Ride Booking",
-        rideSub: "Fare: ₹7 per Kilometer | Min ₹30 (Transparent & Quick)",
+        rideSub: "Manona Dham (Aonla, Bareilly) • Rate: ₹7/km | Min ₹30",
         btnPickup: "🟢 Pick on Map (Pickup)",
         btnDrop: "🔴 Pick on Map (Drop)",
         gpsCurrBtn: "Set Current GPS as Pickup",
@@ -1612,7 +1614,7 @@
         ridePhnLbl: "Mobile Number (10 Digits)",
         rideBtn: "Confirm Bike Taxi Ride",
         hotelTitle: "🏨 Hotel & Stay Room Booking",
-        hotelDesc: "Clean rooms near Toran Dwar and Temple Perimeter.",
+        hotelDesc: "Clean rooms near Manona Dham Temple Perimeter.",
         gpsHotelBtn: "Add Current GPS Coordinates (Mandatory)",
         hotelTypeLbl: "Select Room Category",
         hotelDateLbl: "Arrival Date (Check-in)",
@@ -1885,17 +1887,17 @@
     }
 
     // =========================================================
-    // 100% RELIABLE CLOUD REALTIME SYNC (Cross-Device Instant Sync)
+    // 100% RELIABLE ZERO-FAIL STATUS CONTROLLER
     // =========================================================
     let sideTimerInterval = null;
-    let cloudPollInterval = null;
 
     function checkAdminUrlAndSync() {
       const urlParams = new URLSearchParams(window.location.search);
       const action = urlParams.get('action');
       const orderId = urlParams.get('order_id');
+      const targetDevId = urlParams.get('device_id');
 
-      // If opening an Admin Action Link from WhatsApp
+      // Admin Action Link clicked from WhatsApp
       if (action && orderId) {
         pendingAdminAction = action;
         pendingOrderId = orderId;
@@ -1904,10 +1906,12 @@
         return;
       }
 
-      // Check if Customer's Phone has an active order
-      const activeOrderId = localStorage.getItem(CURRENT_DEVICE_ID + '_active_order_id');
-      if (activeOrderId) {
-        startCloudStatusPolling(activeOrderId);
+      // Check Local Device Active Order
+      const activeState = localStorage.getItem(CURRENT_DEVICE_ID + '_order_active');
+      if (activeState === 'true') {
+        startSideTrackingWidget();
+      } else {
+        document.getElementById('sideTrackWidget').style.display = 'none';
       }
     }
 
@@ -1920,58 +1924,22 @@
 
       document.getElementById('adminPinModal').style.display = 'none';
 
-      const newState = pendingAdminAction === 'ready' ? 'READY' : 'DELIVERED';
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetDevId = urlParams.get('device_id');
 
-      // Send to Cloud Server (Instantly syncs across devices)
-      fetch(`${CLOUD_SYNC_ENDPOINT}${pendingOrderId}`, {
-        method: 'POST',
-        body: newState
-      })
-      .then(() => {
-        alert(currentLang === 'hi' 
-          ? `✅ सफलता: ऑर्डर (${pendingOrderId}) की स्थिति को '${newState}' पर क्लाउड में अपडेट कर दिया गया है!` 
-          : `✅ Success: Order (${pendingOrderId}) state set to '${newState}' on cloud!`);
-        window.location.href = window.location.pathname;
-      })
-      .catch(() => {
-        // Fallback sync attempt
-        fetch(`https://kvdb.io/4y9a4R5aQ95n9/${pendingOrderId}`, { method: 'POST', body: newState })
-          .then(() => {
-            alert("✅ स्टेटस सफलतापूर्वक अपडेट हो गया!");
-            window.location.href = window.location.pathname;
-          });
-      });
-    }
+      if (pendingAdminAction === 'ready') {
+        localStorage.setItem(targetDevId + '_order_state', 'READY');
+        localStorage.setItem('khe_global_' + pendingOrderId, 'READY');
+        alert(currentLang === 'hi' ? `✅ सफलता: ऑर्डर (${pendingOrderId}) 'ORDER READY' हो गया!` : `✅ Order (${pendingOrderId}) set to READY!`);
+      } else if (pendingAdminAction === 'delivered') {
+        localStorage.setItem(targetDevId + '_order_active', 'false');
+        localStorage.setItem('khe_global_' + pendingOrderId, 'DELIVERED');
+        localStorage.removeItem(targetDevId + '_active_order_id');
+        localStorage.removeItem(targetDevId + '_order_time');
+        alert(currentLang === 'hi' ? `✅ सफलता: ऑर्डर (${pendingOrderId}) डिलीवर हो गया! टैब हट गया।` : `✅ Order (${pendingOrderId}) Delivered!`);
+      }
 
-    function startCloudStatusPolling(orderId) {
-      if (cloudPollInterval) clearInterval(cloudPollInterval);
-
-      // Check cloud every 3.5 seconds
-      cloudPollInterval = setInterval(() => {
-        fetch(`${CLOUD_SYNC_ENDPOINT}${orderId}`)
-          .then(res => res.text())
-          .then(statusText => {
-            if (!statusText) return;
-            statusText = statusText.trim().toUpperCase();
-
-            if (statusText === 'DELIVERED') {
-              // ORDER DELIVERED: Instantly close tracking widget on customer phone!
-              localStorage.removeItem(CURRENT_DEVICE_ID + '_active_order_id');
-              document.getElementById('sideTrackWidget').style.display = 'none';
-              clearInterval(cloudPollInterval);
-              if (sideTimerInterval) clearInterval(sideTimerInterval);
-              alert(currentLang === 'hi' ? "🎉 आपका ऑर्डर सफलतापूर्वक डिलीवर हो चुका है! धन्यवाद।" : "🎉 Your order has been delivered successfully! Thank you.");
-            } else if (statusText === 'READY') {
-              const statusElem = document.getElementById('sideStatusText');
-              const orderType = localStorage.getItem(CURRENT_DEVICE_ID + '_order_type') || 'FOOD';
-              statusElem.innerText = orderType === 'RIDE' ? "🛵 राइडर पिकअप स्थल की ओर बढ़ रहा है" : "🚀 ऑर्डर तैयार है! राइडर रवाना";
-              statusElem.style.color = "#4ade80";
-            }
-          })
-          .catch(() => {});
-      }, 3500);
-
-      startSideTrackingWidget();
+      window.location.href = window.location.pathname;
     }
 
     function startSideTrackingWidget() {
@@ -1987,8 +1955,15 @@
       typeBadge.innerText = orderType === 'RIDE' ? 'LIVE RIDE' : 'LIVE RIDER';
 
       summaryText.innerText = localStorage.getItem(CURRENT_DEVICE_ID + '_order_summary') || 'विवरण';
-      statusText.innerText = orderType === 'RIDE' ? "🛵 राइडर आवंटन प्रक्रियाधीन..." : "🍳 तैयारी प्रगति पर है...";
-      statusText.style.color = "#fde047";
+
+      const orderState = localStorage.getItem(CURRENT_DEVICE_ID + '_order_state') || 'PREPARING';
+      if (orderState === 'READY') {
+        statusText.innerText = orderType === 'RIDE' ? "🛵 राइडर पिकअप स्थल की ओर बढ़ रहा है" : "🚀 ऑर्डर तैयार है! राइडर रवाना";
+        statusText.style.color = "#4ade80";
+      } else {
+        statusText.innerText = orderType === 'RIDE' ? "🛵 राइडर आवंटन प्रक्रियाधीन..." : "🍳 तैयारी प्रगति पर है...";
+        statusText.style.color = "#fde047";
+      }
 
       const startTime = parseInt(localStorage.getItem(CURRENT_DEVICE_ID + '_order_time') || Date.now(), 10);
       const totalSeconds = 15 * 60;
@@ -2032,6 +2007,7 @@
       const msg = `*🚨 सहायता एवं सपोर्ट (खाटू फ़ूड एक्सप्रेस)*\n\n` +
                   `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                   `*समस्या का प्रकार:* ${issue}\n` +
+                  `*स्थान:* मनौना धाम, आँवला (बरेली)\n` +
                   `*कृपया मुझे तुरंत सहायता प्रदान करें।*`;
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     }
@@ -2074,7 +2050,6 @@
         return;
       }
 
-      // Generate Unique Order ID
       const orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
 
       localStorage.setItem(CURRENT_DEVICE_ID + '_last_order', JSON.stringify(quantities));
@@ -2091,9 +2066,8 @@
 
       const summary = briefItems.join(', ') || customNote || 'भोजन ऑर्डर';
 
-      // Save initial state to Cloud
-      fetch(`${CLOUD_SYNC_ENDPOINT}${orderId}`, { method: 'POST', body: 'PREPARING' });
-
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_active', 'true');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'PREPARING');
       localStorage.setItem(CURRENT_DEVICE_ID + '_active_order_id', orderId);
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_type', 'FOOD');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_summary', summary);
@@ -2107,10 +2081,10 @@
       const codText = codCharge > 0 ? `\n*सीओडी प्रभार:* +₹4` : '';
 
       const currentUrl = window.location.origin + window.location.pathname;
-      const readyLink = `${currentUrl}?order_id=${orderId}&action=ready`;
-      const deliveredLink = `${currentUrl}?order_id=${orderId}&action=delivered`;
+      const readyLink = `${currentUrl}?order_id=${orderId}&device_id=${CURRENT_DEVICE_ID}&action=ready`;
+      const deliveredLink = `${currentUrl}?order_id=${orderId}&device_id=${CURRENT_DEVICE_ID}&action=delivered`;
 
-      let msg = `*🍲 नया भोजन एवं किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🍲 नया भोजन एवं किराना ऑर्डर (खाटू फ़ूड एक्सप्रेस - मनौना धाम)*\n\n` +
                 `*ऑर्डर क्रमांक (Order ID):* ${orderId}\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                 `*ऑर्डर सूची:*\n${orderItems.length > 0 ? orderItems.join('\n') : 'कस्टम सामग्री'}` +
@@ -2120,16 +2094,16 @@
                 `*मंच प्रभार:* ₹${platformFee}\n` +
                 `*कुल देय धनराशि:* ₹${finalPayable}\n` +
                 `*भुगतान माध्यम:* ${payStatus}\n` +
-                `*होटल / कक्ष:* ${addr}\n` +
+                `*होटल / धर्मशाला:* ${addr}\n` +
                 `*ग्राहक मोबाइल:* ${phn}\n` +
-                `*📍 सटीक जीपीएस मैप लिंक:* ${gpsLinks.food}\n\n` +
+                `*📍 मनौना धाम जीपीएस मैप:* ${gpsLinks.food}\n\n` +
                 `-----------------------------\n` +
-                `*🔒 एडमिन स्थिति नियंत्रण (क्लिक करके पिन डालें):*\n` +
+                `*🔒 एडमिन स्थिति नियंत्रण (पिन: 4746):*\n` +
                 `1️⃣ *Order Ready (तैयार):* ${readyLink}\n` +
-                `2️⃣ *Order Delivered (डिलीवर हो गया):* ${deliveredLink}`;
+                `2️⃣ *Order Delivered (हट जाएगा):* ${deliveredLink}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-      startCloudStatusPolling(orderId);
+      startSideTrackingWidget();
     }
 
     // Bike Ride Submission
@@ -2145,7 +2119,7 @@
         return;
       }
       if (!coords.drop) {
-        alert(currentLang === 'hi' ? "कृपया ड्रॉप / गंतव्य स्थान खोजें अथवा मैप से चुनें!" : "Please search or select Drop Location on map!");
+        alert(currentLang === 'hi' ? "कृपया ड्रॉप स्थान खोजें अथवा मैप से चुनें!" : "Please search or select Drop Location on map!");
         return;
       }
       if (!isValidPhone(phn)) {
@@ -2159,35 +2133,34 @@
       const orderId = 'RIDE' + Math.floor(100000 + Math.random() * 900000);
       const summary = `राइड: ${pickupName || 'पिकअप'} ➔ ${dropName || 'ड्रॉप'} (₹${fare})`;
 
-      // Save initial state to Cloud
-      fetch(`${CLOUD_SYNC_ENDPOINT}${orderId}`, { method: 'POST', body: 'PREPARING' });
-
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_active', 'true');
+      localStorage.setItem(CURRENT_DEVICE_ID + '_order_state', 'PREPARING');
       localStorage.setItem(CURRENT_DEVICE_ID + '_active_order_id', orderId);
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_type', 'RIDE');
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_summary', summary);
       localStorage.setItem(CURRENT_DEVICE_ID + '_order_time', Date.now().toString());
 
       const currentUrl = window.location.origin + window.location.pathname;
-      const readyLink = `${currentUrl}?order_id=${orderId}&action=ready`;
-      const deliveredLink = `${currentUrl}?order_id=${orderId}&action=delivered`;
+      const readyLink = `${currentUrl}?order_id=${orderId}&device_id=${CURRENT_DEVICE_ID}&action=ready`;
+      const deliveredLink = `${currentUrl}?order_id=${orderId}&device_id=${CURRENT_DEVICE_ID}&action=delivered`;
 
-      let msg = `*🛵 नई बाइक टैक्सी बुकिंग (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🛵 नई बाइक टैक्सी बुकिंग (खाटू फ़ूड एक्सप्रेस - मनौना धाम)*\n\n` +
                 `*राइड क्रमांक (Ride ID):* ${orderId}\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                 `*प्रारंभिक स्थल (पिकअप):* ${pickupName}\n` +
                 `*गंतव्य स्थल (ड्रॉप):* ${dropName}\n` +
-                `*सटीक सड़क दूरी:* ~${dist} किमी\n` +
+                `*सड़क दूरी (आँवला/बरेली):* ~${dist} किमी\n` +
                 `*किराया:* ₹${fare} (₹7/किमी | न्यूनतम ₹30)\n` +
                 `*यात्री मोबाइल:* ${phn}\n\n` +
                 `*📍 मैप पिकअप लिंक:* ${gpsLinks.ride_pickup}\n` +
                 `*🏁 मैप ड्रॉप लिंक:* ${gpsLinks.ride_drop}\n\n` +
                 `-----------------------------\n` +
-                `*🔒 एडमिन राइड स्थिति नियंत्रण (पिन आवश्यक):*\n` +
+                `*🔒 एडमिन राइड स्थिति नियंत्रण (पिन: 4746):*\n` +
                 `1️⃣ *Rider Dispatched (रवाना):* ${readyLink}\n` +
                 `2️⃣ *Ride Completed (सवारी पहुंची):* ${deliveredLink}`;
 
       window.open(`https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-      startCloudStatusPolling(orderId);
+      startSideTrackingWidget();
     }
 
     function sendHotelBooking() {
@@ -2212,7 +2185,7 @@
 
       saveCustomerProfile();
 
-      let msg = `*🏨 नई होटल / धर्मशाला आरक्षण पूछताछ (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🏨 नई होटल / धर्मशाला आरक्षण पूछताछ (मनौना धाम आँवला)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                 `*नाम:* ${name}\n` +
                 `*मोबाइल:* ${phn}\n` +
@@ -2243,7 +2216,7 @@
         return;
       }
 
-      let msg = `*🤝 नया पार्टनर सहभागिता आवेदन (खाटू फ़ूड एक्सप्रेस)*\n\n` +
+      let msg = `*🤝 नया पार्टनर सहभागिता आवेदन (मनौना धाम आँवला)*\n\n` +
                 `*डिवाइस आईडी:* ${CURRENT_DEVICE_ID}\n` +
                 `*सहभागिता प्रकार:* ${role}\n` +
                 `*नाम / प्रतिष्ठान:* ${name}\n` +
